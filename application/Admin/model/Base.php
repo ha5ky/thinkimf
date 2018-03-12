@@ -8,7 +8,7 @@
 
 namespace app\Admin\model;
 
-class UserType extends Base
+class Base extends \think\Model
 {
 
 }

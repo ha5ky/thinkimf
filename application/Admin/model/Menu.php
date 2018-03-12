@@ -1,12 +1,18 @@
 <?php
-
 /**
  * Created by PhpStorm.
  * User: Administrator
- * Date: 2018/3/11
- * Time: 0:08
+ * Date: 2018/3/12
+ * Time: 17:17
  */
-class Menu extends \think\Model
+
+namespace app\Admin\model;
+
+class Menu extends Base
 {
+    public static function getInfo()
+    {
+
+    }
 
 }
