@@ -1,0 +1,11 @@
+{
+    "name": "chenjianhua/thinkimf",
+    "description": "think innovation content management framework",
+    "authors": [
+        {
+            "name": "chenjianhua",
+            "email": "unnnnn@foxmail.com"
+        }
+    ],
+    "require": {}
+}
