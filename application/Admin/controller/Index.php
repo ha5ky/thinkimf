@@ -25,6 +25,6 @@ class Index extends AuthAdminBase
 
     public function welcome()
     {
-        return $this->fetch('index/welcome');
+        return $this->fetch();
     }
 }
