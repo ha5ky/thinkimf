@@ -18,13 +18,26 @@
 
 namespace app\Admin\controller;
 
+use app\Admin\model\Devcilent;
 use think\Controller;
 use think\Request;
+use app\Admin\model\Device as DeviceModel;
+use app\Admin\model\Devcilent as DevclientModel;
+
 class Device extends AuthAdminBase
 {
-    public function map(Request $request)
+    public function map()
     {
+        //获取上线的设备
+        $devclientList = Devcilent::getList();
+        $this->assign('devclientList', $devclientList);
         return $this->fetch('device/map');
+    }
+
+    public function getList()
+    {
+        DevclientModel::getList();
+
     }
 
 }
