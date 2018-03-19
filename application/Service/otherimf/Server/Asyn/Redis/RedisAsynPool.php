@@ -2,7 +2,7 @@
 /**
  * redis 异步客户端连接池
  * Created by PhpStorm.
- * User: zhangjincheng
+ * UserModel: zhangjincheng
  * Date: 16-7-22
  * Time: 上午10:19
  */

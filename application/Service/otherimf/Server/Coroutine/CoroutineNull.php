@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: zhangjincheng
+ * UserModel: zhangjincheng
  * Date: 2016/9/9
  * Time: 17:33
  */

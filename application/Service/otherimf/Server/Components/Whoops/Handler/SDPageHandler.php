@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: zhangjincheng
+ * UserModel: zhangjincheng
  * Date: 18-3-9
  * Time: 下午4:58
  */
@@ -150,7 +150,7 @@ class SDPageHandler extends Handler
      */
     public function handle()
     {
-        $templateFile = $this->getResource("views/layout.html.php");
+        $templateFile = $this->getResource("views/layouts.html.php");
         $cssFile = $this->getResource("css/whoops.base.css");
         $zeptoFile = $this->getResource("js/zepto.min.js");
         $prettifyFile = $this->getResource("js/prettify.min.js");
@@ -165,7 +165,7 @@ class SDPageHandler extends Handler
         $frames = $this->getExceptionFrames();
         $code = $this->getExceptionCode();
         $request = $this->getException()->request ?? null;
-        // List of variables that will be passed to the layout template.
+        // List of variables that will be passed to the layouts template.
         $vars = [
             "page_title" => $this->getPageTitle(),
 

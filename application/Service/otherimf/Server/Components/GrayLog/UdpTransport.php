@@ -7,7 +7,7 @@ use Gelf\Transport\AbstractTransport;
 
 /**
  * Created by PhpStorm.
- * User: zhangjincheng
+ * UserModel: zhangjincheng
  * Date: 17-3-24
  * Time: 上午9:25
  */

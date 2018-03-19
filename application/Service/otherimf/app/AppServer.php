@@ -7,7 +7,7 @@ use Server\SwooleDistributedServer;
 
 /**
  * Created by PhpStorm.
- * User: zhangjincheng
+ * UserModel: zhangjincheng
  * Date: 16-9-19
  * Time: 下午2:36
  */

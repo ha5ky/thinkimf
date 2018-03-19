@@ -1,5 +1,7 @@
 <?php
 namespace app\Admin\controller;
+use app\Admin\model\UserModel;
+use function imf_admin_login;
 use think\Controller;
 
 /**
@@ -18,18 +20,21 @@ use think\Controller;
  * email:unnnnn@foxmail.com
  * function:AdminBase.php
  */
+use app\Admin\model\MenuModel;
 use think\Request;
 class AuthAdminBase extends Controller
 {
-    public $Menus;
+    public static $Menus;
     public function __construct(Request $request)
     {
+        imf_admin_login();
         parent::__construct();
         if ($request->isMobile()) {
             $this->view->config('view_path','themes/default/mobile/' . $request->module() . "/");
         } else {
             $this->view->config('view_path','themes/default/web/' . $request->module() . "/");
         }
-        $this->Menus = '';
+        $userid = $_SESSION['userid']??0;
+        self::$Menus = MenuModel::getUserMenus($userid);
     }
 }

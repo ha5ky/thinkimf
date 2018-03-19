@@ -24,7 +24,7 @@ use think\Request;
 use app\Admin\model\Device as DeviceModel;
 use app\Admin\model\Devcilent as DevclientModel;
 
-class Device extends AuthAdminBase
+class Device extends AdminBase
 {
     public function map()
     {
@@ -38,6 +38,11 @@ class Device extends AuthAdminBase
     {
         DevclientModel::getList();
 
+    }
+
+    public function index()
+    {
+        return 'device index';
     }
 
 }

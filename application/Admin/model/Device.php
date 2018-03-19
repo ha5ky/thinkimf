@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Administrator
+ * UserModel: Administrator
  * Date: 2018/3/12
  * Time: 17:17
  */
@@ -9,6 +9,7 @@
 namespace app\Admin\model;
 
 use think\Db;
+use app\Admin\model\Base;
 
 class Device extends Base
 {

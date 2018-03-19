@@ -1,4 +1,4 @@
-@extends('server::layout')
+@extends('layouts')
 
 @section('title', 'Page Expired')
 

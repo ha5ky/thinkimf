@@ -20,7 +20,7 @@ use Whoops\Exception\ErrorException;
 
 /**
  * Created by PhpStorm.
- * User: zhangjincheng
+ * UserModel: zhangjincheng
  * Date: 16-6-28
  * Time: 上午11:37
  */

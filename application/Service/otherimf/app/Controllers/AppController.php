@@ -7,7 +7,7 @@ use Server\CoreBase\Controller;
 
 /**
  * Created by PhpStorm.
- * User: zhangjincheng
+ * UserModel: zhangjincheng
  * Date: 16-7-15
  * Time: 下午3:51
  */

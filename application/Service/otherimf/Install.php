@@ -3,7 +3,7 @@
 /**
  * 脚手架工具
  * Created by PhpStorm.
- * User: zhangjincheng
+ * UserModel: zhangjincheng
  * Date: 17-6-28
  * Time: 上午10:15
  */

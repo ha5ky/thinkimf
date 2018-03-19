@@ -4,14 +4,15 @@ namespace app\Admin\controller;
 
 use think\Controller;
 use app\Admin\controller\AuthAdminBase;
-use app\Admin\model\Menu;
+use app\Admin\model\MenuModel;
 
-class Index extends AuthAdminBase
+class Index extends AdminBase
 {
     public function index()
     {
-
-        Menu::getInfo();
+//        echo 123;
+//        exit;
+        //MenuModel::getInfo();
         //$this->assign('lists', $program);
         return $this->fetch('index/index', [
             'code' => 200

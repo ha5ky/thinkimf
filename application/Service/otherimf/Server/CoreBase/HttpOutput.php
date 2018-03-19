@@ -4,7 +4,7 @@ namespace Server\CoreBase;
 
 /**
  * Created by PhpStorm.
- * User: zhangjincheng
+ * UserModel: zhangjincheng
  * Date: 16-7-29
  * Time: 上午11:22
  */

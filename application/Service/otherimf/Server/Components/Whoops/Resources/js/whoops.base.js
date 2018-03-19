@@ -156,7 +156,7 @@ Zepto(function ($) {
             // CTRL+Arrow-UP/k and Arrow-Down/j support:
             // 1) select the next/prev element
             // 2) make sure the newly selected element is within the view-scope
-            // 3) focus the (right) container, so arrow-up/down (without ctrl) scroll the details
+            // 3) focus the (rights) container, so arrow-up/down (without ctrl) scroll the details
             if (e.which === 38 /* arrow up */ || e.which === 75 /* k */) {
                 $activeLine.prev(frameClass).click();
                 scrollIntoView($activeLine, $leftPanel);

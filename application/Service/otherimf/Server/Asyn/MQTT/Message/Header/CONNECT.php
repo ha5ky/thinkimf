@@ -144,7 +144,7 @@ class CONNECT extends Base
             $var |= $this->message->will->get();
         }
 
-        # User name flag
+        # UserModel name flag
         if ($this->message->username != NULL) {
             $var |= 0x80;
         }

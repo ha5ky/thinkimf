@@ -6,7 +6,7 @@
 /**
  *  Custom grid for the footer because
  *  all of our other product sites (SMTPeter, AMQPipe, etc etc)
- *  use the same layout.
+ *  use the same layouts.
  */
 .cop-column {
     float: left;
@@ -109,7 +109,7 @@
     text-decoration: underline;
 }
 
-/* Menu in the footer
+/* MenuModel in the footer
  * usually it shows the rest of our products
  * It is just a list of links
  */

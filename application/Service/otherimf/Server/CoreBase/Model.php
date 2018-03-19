@@ -4,7 +4,7 @@ namespace Server\CoreBase;
  * Model 涉及到数据有关的处理
  * 对象池模式，实例会被反复使用，成员变量缓存数据记得在销毁时清理
  * Created by PhpStorm.
- * User: zhangjincheng
+ * UserModel: zhangjincheng
  * Date: 16-7-15
  * Time: 下午12:00
  */

@@ -30,7 +30,7 @@ use Server\Test\TestModule;
 
 /**
  * Created by PhpStorm.
- * User: zhangjincheng
+ * UserModel: zhangjincheng
  * Date: 16-7-14
  * Time: 上午9:18
  */
