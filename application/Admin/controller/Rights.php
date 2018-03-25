@@ -2,6 +2,7 @@
 
 namespace app\Admin\controller;
 
+use function dump;
 use think\Controller;
 use app\Admin\controller\AdminBase;
 use app\Admin\model\MenuModel;
@@ -23,15 +24,17 @@ class Rights extends AdminBase
 
     public function MenuList()
     {
-        $data = $this->request();
+        $data = $this->request->request();
         $Menu = new MenuModel();
         $page = $data['page']??1;
-        $offset = ($page-1)*($data['offsetNum']??20);
-        $menus = $Menu->whereOr()
-            ->whereOr()
-            ->count();
+        $pageSize = $data['pageSize']??20;
+        $offset = ($page-1)*($pageSize);
+        $count = $Menu->count();
+        $menus = $Menu->limit($offset,$pageSize)
+                      ->select();
         return $this->fetch('rights/menu-list',[
-
+            'count'=>$count,
+            'menus'=>$menus
         ]);
     }
 

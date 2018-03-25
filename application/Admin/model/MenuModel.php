@@ -7,9 +7,11 @@
  */
 
 namespace app\Admin\model;
-
+use app\Admin\model\Base;
+use think\Db;
 class MenuModel extends Base
 {
+    public $table = 'imf_menu';
     public static function getInfo()
     {
 
@@ -23,9 +25,6 @@ class MenuModel extends Base
 
     public function MenuList($parent_id):array
     {
-        $this->where()
-             ->whereOr()
-             ->toArray();
         return [];
     }
 }

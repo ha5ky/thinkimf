@@ -28,5 +28,5 @@ return [
     // 缓存前缀
     'prefix' => 'IMF_',
     // 缓存有效期 0表示永久缓存
-    'expire' => 0,
+    'expire' => 1,
 ];
