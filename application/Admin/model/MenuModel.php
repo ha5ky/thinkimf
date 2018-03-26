@@ -16,7 +16,11 @@ class MenuModel extends Base
     {
 
     }
-
+    public static function getList()
+    {
+        $post = self::paginate(config("paginate"), false, ['query' => array()]);
+        return $post;
+    }
     public static function getUserMenus($userid):array
     {
         //self::query();

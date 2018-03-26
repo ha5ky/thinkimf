@@ -25,23 +25,23 @@ class Rights extends AdminBase
     public function MenuList()
     {
         $data = $this->request->request();
-        $Menu = new MenuModel();
-        $page = $data['page']??1;
-        $pageSize = $data['pageSize']??20;
-        $offset = ($page-1)*($pageSize);
+        /*$Menu = new MenuModel();
+        $page = $data['page'];//??1;
+        $pageSize = $data['pageSize'];//??20;
+        $offset = ($page - 1) * ($pageSize);
         $count = $Menu->count();
-        $menus = $Menu->limit($offset,$pageSize)
-                      ->select();
-        return $this->fetch('rights/menu-list',[
-            'count'=>$count,
-            'menus'=>$menus
-        ]);
+        $menus = $Menu->limit($offset, $pageSize)
+            ->select();*/
+        $list = MenuModel::getList();
+        $this->assign("menus",$list);
+        return $this->fetch('rights/menu-list');
     }
 
     public function DeleteMenu()
     {
-        
+
     }
+
     public function AddRole()
     {
         return $this->fetch('rights/add_role');
@@ -56,10 +56,12 @@ class Rights extends AdminBase
     {
         return $this->fetch('rights/edit_role');
     }
+
     public function DeleteRole()
     {
 
     }
+
     public function AddRights()
     {
         return $this->fetch('rights/add_role');
@@ -74,12 +76,13 @@ class Rights extends AdminBase
     {
         return $this->fetch('rights/edit_role');
     }
+
     public function DeleteRights()
     {
         return json([
-            'code'=>'',
-            'msg'=>'',
-            'data'=>[
+            'code' => '',
+            'msg' => '',
+            'data' => [
 
             ]
         ]);

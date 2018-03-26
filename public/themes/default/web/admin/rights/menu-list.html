@@ -25,7 +25,7 @@
 <div class="x-body">
   <xblock>
     <button class="layui-btn" onclick="imf_admin_show('添加菜单',',1200,800)"><i class="layui-icon"></i>添加</button>
-    <span class="x-right" style="line-height:40px">共有数据：<?=($count??0)?> 条</span>
+    <span class="x-right" style="line-height:40px">共有数据：{$menus->total()} 条</span>
   </xblock>
   <table class="layui-table">
     <thead>
@@ -65,10 +65,11 @@
     {/volist}
     </tbody>
   </table>
+  {$menus->render()}
   <div class="page">
     <div>
       <a class="prev" href="">&lt;&lt;</a>
-      <span class="current">2</span>
+      <span class="current">1</span>
       <a class="next" href="">&gt;&gt;</a>
     </div>
   </div>

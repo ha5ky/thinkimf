@@ -40,5 +40,9 @@ return [
     'view_replace_str' => [
         '__PUBLIC__' => '/public/',
         '__STATIC__' => '/public/static/',
-    ]
+
+    ],
+    'TMPL_PARSE_STRING' => array(
+        '--PUBLIC--' => '__PUBLIC__', // 采用新规则输出/Public字符串
+    )
 ];
