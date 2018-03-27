@@ -24,27 +24,33 @@
 </div>
 <div class="x-body">
   <xblock>
-    <button class="layui-btn" onclick="imf_admin_show('添加菜单',',1200,800)"><i class="layui-icon"></i>添加</button>
-    <span class="x-right" style="line-height:40px">共有数据：{$menus->total()} 条</span>
+    <button class="layui-btn addMenu"><i class="layui-icon"></i>添加</button>
+    <span class="x-right" style="line-height:40px">共有数据：{$pageNation['total']} 条</span>
   </xblock>
   <table class="layui-table">
     <thead>
     <tr>
       <th>ID</th>
-      <th>图标</th>
+      <!--<th>图标</th>-->
       <th>名称</th>
       <th>菜单类型</th>
       <th>状态</th>
-      <th>备注</th>
+      <!--<th>备注</th>-->
       <th>操作</th></tr>
     </thead>
     <tbody>
     {volist name="menus" id="vo" }
     <tr>
       <td>{$vo.id}</td>
-      <td>{$vo.icon}</td>
+      <!--<td>{$vo.icon}</td>-->
       <td>{$vo.title}</td>
-      <td>{$vo.type}</td>
+      <td>{if condition="$vo.type eq 1"}
+        <span class="layui-btn layui-btn-normal layui-btn-mini">
+          <a href="?parentid={$vo.id}">一级菜单</a>
+        </span>
+        {else /}
+        <span class="layui-btn layui-btn-normal layui-btn-mini layui-btn-disabled">二级菜单</span>
+        {/if}</td>
       <td class="td-status">
         {if condition="$vo.status eq 1"}
         <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span>
@@ -52,9 +58,9 @@
         <span class="layui-btn layui-btn-normal layui-btn-mini layui-btn-disabled">禁用</span>
         {/if}
       </td>
-      <td>{$vo.remark}</td>
+      <!--<td>{$vo.remark}</td>-->
       <td class="td-manage">
-        <a title="编辑"  onclick="imf_admin_show('编辑','/admin/rights/editmenu',600,400)" href="javascript:;">
+        <a title="编辑" onclick="editMenu('{$vo.id}')" href="javascript:;">
           <i class="layui-icon">&#xe642;</i>
         </a>
         <a title="删除" onclick="member_del(this,'/admin/deletemenu')" href="javascript:;">
@@ -65,41 +71,60 @@
     {/volist}
     </tbody>
   </table>
-  {$menus->render()}
   <div class="page">
     <div>
-      <a class="prev" href="">&lt;&lt;</a>
-      <span class="current">1</span>
-      <a class="next" href="">&gt;&gt;</a>
+      <a class="prev" >&lt;&lt;</a>
+      <span class="current"><?=$pageNation['currentPage']?>/<?=$pageNation['allPage']?></span>
+      <a class="next" >&gt;&gt;</a>
     </div>
   </div>
 </div>
 <script>
-    /*用户-停用*/
-    function member_stop(obj,id){
-        layer.confirm('确认要停用吗？',function(index){
-
-            if($(obj).attr('title')=='启用'){
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title','停用')
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!',{icon: 5,time:1000});
-
-            }else{
-                $(obj).attr('title','启用')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!',{icon: 5,time:1000});
-            }
-
-        });
-    }
-
-    /*用户-删除*/
+  $('.prev').click(function () {
+      var currentPage = parseInt($('.current').text());
+      var allPage = parseInt({$pageNation['allPage']});
+      if(currentPage>1){
+          currentPage = currentPage -1;
+          location.href = '?page='+currentPage;
+      }else{
+          layui.layer.msg('亲爱哒，已经是第一页了！');
+      }
+  });
+  $('.next').click(function () {
+      var currentPage = parseInt($('.current').text());
+      var allPage = parseInt({$pageNation['allPage']});
+      if(currentPage<allPage){
+          currentPage = currentPage + 1;
+          location.href = '?page='+currentPage;
+      }else{
+          layui.layer.msg('亲爱哒，我是有底线的！');
+      }
+  });
+  $('.addMenu').click(function () {
+      layer.open({
+          title:'添加菜单',
+          fix: false, //不固定
+          maxmin: true,
+          shadeClose: true,
+          shade:0.4,
+          area: [650+'px', 450 +'px'],
+          type: 2,
+          content:['/admin/rights/addmenu','no']
+      });
+  });
+  function editMenu($mid) {
+      layer.open({
+          title:'编辑菜单',
+          fix: false, //不固定
+          maxmin: true,
+          shadeClose: true,
+          shade:0.4,
+          area: [650+'px', 450 +'px'],
+          type: 2,
+          content:['/admin/rights/editmenu?mid='+$mid,'no']
+      });
+  }
+    /*删除*/
     function member_del(obj,id){
         layer.confirm('确认要删除吗？',function(index){
             //发异步删除数据

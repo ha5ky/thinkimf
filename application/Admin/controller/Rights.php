@@ -2,38 +2,48 @@
 
 namespace app\Admin\controller;
 
+use function ceil;
 use function dump;
+use function intdiv;
 use think\Controller;
 use app\Admin\controller\AdminBase;
 use app\Admin\model\MenuModel;
+use function var_dump;
 
 class Rights extends AdminBase
 {
     public function AddMenu()
     {
-        $lastId = MenuModel::insert([
-
-        ]);
-        return $this->fetch('rights/add-menu');
+        return $this->fetch('rights/menu-add');
     }
 
     public function EditMenu()
     {
-        return $this->fetch('rights/edit-menu');
+        return $this->fetch('rights/menu-edit');
     }
 
     public function MenuList()
     {
         $data = $this->request->request();
-        /*$Menu = new MenuModel();
-        $page = $data['page'];//??1;
-        $pageSize = $data['pageSize'];//??20;
+        $currentPage = $this->request->request('page',1);
+        $parentId = $this->request->request('parentid',0);
+        $Menu = new MenuModel();
+        $page = $currentPage??1;
+        $pageSize = $data['pageSize']??5;
         $offset = ($page - 1) * ($pageSize);
-        $count = $Menu->count();
-        $menus = $Menu->limit($offset, $pageSize)
-            ->select();*/
-        $list = MenuModel::getList();
-        $this->assign("menus",$list);
+        $count = $Menu->where(['parent_id'=>$parentId])->count();
+        $allPage = ceil($count/$pageSize);
+        $menus = $Menu
+            ->where(['parent_id'=>$parentId])
+            ->limit($offset,$pageSize)
+            ->select();
+        //$list = MenuModel::getList();
+        $this->assign("menus",$menus);
+        $this->assign("pageNation",[
+            'total'=>$count,
+            'currentPage'=>$currentPage,
+            'allPage'=>$allPage
+        ]);
         return $this->fetch('rights/menu-list');
     }
 
