@@ -5,6 +5,7 @@ namespace app\Admin\controller;
 use function ceil;
 use function dump;
 use function intdiv;
+use function json;
 use think\Controller;
 use app\Admin\controller\AdminBase;
 use app\Admin\model\MenuModel;
@@ -14,7 +15,34 @@ class Rights extends AdminBase
 {
     public function AddMenu()
     {
-        return $this->fetch('rights/menu-add');
+        if($this->request->isPost()){
+            $data = $this->request->request();
+            $menu = new MenuModel([
+                'url'  =>  $data['url']??'',
+                'title' => $data['title']??'',
+                'status' => $data['status']??1,
+                'parent_id' => $data['parent_id']??0,
+            ]);
+            $f = $menu->save();
+            if($f){
+               return json([
+                 'code'=>200,
+               ]);
+            }else{
+                return json([
+                    'code'=>400234,
+                    'msg'=>'菜单添加失败'
+                ]);
+            }
+        }else{
+            $Menu = new MenuModel();
+            $menus =$Menu
+                ->where(['parent_id'=>0])
+                ->select();
+            return $this->fetch('rights/menu-add',[
+                'menus'=>$menus
+            ]);
+        }
     }
 
     public function EditMenu()
@@ -26,10 +54,10 @@ class Rights extends AdminBase
     {
         $data = $this->request->request();
         $currentPage = $this->request->request('page',1);
-        $parentId = $this->request->request('parentid',0);
+        $parentId = $this->request->request('parent_id',0);
         $Menu = new MenuModel();
         $page = $currentPage??1;
-        $pageSize = $data['pageSize']??5;
+        $pageSize = $data['pageSize']??10;
         $offset = ($page - 1) * ($pageSize);
         $count = $Menu->where(['parent_id'=>$parentId])->count();
         $allPage = ceil($count/$pageSize);
@@ -49,7 +77,23 @@ class Rights extends AdminBase
 
     public function DeleteMenu()
     {
-
+        if($this->request->isPost()){
+            $mid = $this->request->request('mid');
+            $menu = new MenuModel();
+            $f = $menu->find()
+                ->where(['id'=>$mid])
+                ->delete();
+            if($f){
+                return json([
+                    'code'=>200,
+                ]);
+            }else{
+                return json([
+                    'code'=>400235,
+                    'msg'=>'菜单删除失败'
+                ]);
+            }
+        }
     }
 
     public function AddRole()

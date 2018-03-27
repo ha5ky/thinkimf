@@ -33,6 +33,7 @@
       <th>ID</th>
       <!--<th>图标</th>-->
       <th>名称</th>
+      <th>Url</th>
       <th>菜单类型</th>
       <th>状态</th>
       <!--<th>备注</th>-->
@@ -44,9 +45,10 @@
       <td>{$vo.id}</td>
       <!--<td>{$vo.icon}</td>-->
       <td>{$vo.title}</td>
-      <td>{if condition="$vo.type eq 1"}
+      <td>{$vo.title}</td>
+      <td>{if condition="$vo.parent_id eq 0"}
         <span class="layui-btn layui-btn-normal layui-btn-mini">
-          <a href="?parentid={$vo.id}">一级菜单</a>
+          <a href="?parent_id={$vo.id}">一级菜单</a>
         </span>
         {else /}
         <span class="layui-btn layui-btn-normal layui-btn-mini layui-btn-disabled">二级菜单</span>
@@ -63,7 +65,7 @@
         <a title="编辑" onclick="editMenu('{$vo.id}')" href="javascript:;">
           <i class="layui-icon">&#xe642;</i>
         </a>
-        <a title="删除" onclick="member_del(this,'/admin/deletemenu')" href="javascript:;">
+        <a title="删除" onclick="menu_del(this,'{$vo.id}')" href="javascript:;">
           <i class="layui-icon">&#xe640;</i>
         </a>
       </td>
@@ -125,11 +127,24 @@
       });
   }
     /*删除*/
-    function member_del(obj,id){
+    function menu_del(obj,id){
         layer.confirm('确认要删除吗？',function(index){
             //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!',{icon:1,time:1000});
+            $.ajax({
+                url:'/admin/rights/deletemenu?mid='+id,
+                type:'post',
+                dataType:'json',
+                success:function (d) {
+                    if(d.code == 200){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
+                        location.href = '/admin/rights/menulist';
+                    }else{
+                        layui.layer.msg(d.msg);
+                    }
+                }
+            });
+
         });
     }
 
