@@ -11,22 +11,24 @@ $(function () {
         tabAdd: function(title,url,id){
           //新增一个Tab项
           element.tabAdd('xbs_tab', {
-            title: title 
+            title: title
             ,content: '<iframe tab-id="'+id+'" frameborder="0" src="'+url+'" scrolling="yes" class="x-iframe"></iframe>'
             ,id: id
           })
         }
         ,tabDelete: function(othis){
           //删除指定Tab项
-          element.tabDelete('xbs_tab', '44'); //删除：“商品管理”
-          
-          
+          element.tabDelete('xbs_tab', '44');
+
+
           othis.addClass('layui-btn-disabled');
         }
         ,tabChange: function(id){
           //切换到指定Tab项
-          element.tabChange('xbs_tab', id); //切换到：用户管理
-        }
+          element.tabChange('xbs_tab', id);
+          //修复不能刷新的bug
+          $("iframe[tab-id='"+id+"']").attr("src",$("iframe[tab-id='"+id+"']").attr("src"))//切换后刷新框架
+      }
       };
 
 
@@ -88,7 +90,6 @@ $(function () {
     //左侧菜单效果
     // $('#content').bind("click",function(event){
     $('.left-nav #nav li').click(function (event) {
-
         if($(this).children('.sub-menu').length){
             if($(this).hasClass('open')){
                 $(this).removeClass('open');

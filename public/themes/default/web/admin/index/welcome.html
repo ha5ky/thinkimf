@@ -20,60 +20,6 @@
             <fieldset class="layui-elem-field">
               <legend>系统信息</legend>
               <div class="layui-field-box">
-                <table class="layui-table" lay-even>
-                    <thead>
-                        <tr>
-                            <th>统计</th>
-                            <th>资讯库</th>
-                            <th>图片库</th>
-                            <th>产品库</th>
-                            <th>用户</th>
-                            <th>管理员</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>总数</td>
-                            <td>92</td>
-                            <td>9</td>
-                            <td>0</td>
-                            <td>8</td>
-                            <td>20</td>
-                        </tr>
-                        <tr>
-                            <td>今日</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td>昨日</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td>本周</td>
-                            <td>2</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td>本月</td>
-                            <td>2</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                        </tr>
-                    </tbody>
-                </table>
                 <table class="layui-table">
                 <thead>
                     <tr>
@@ -81,90 +27,64 @@
                     </tr>
                 </thead>
                 <tbody>
+                <tr>
+                    <td>项目作者</td>
+                    <td><a target="_blank" href="https://dyoung.unnnnn.com">陈建华</a></td>
+                </tr>
+                <tr>
+                    <td>PHP 版本 </td>
+                    <td><?=phpversion()?></td>
+                </tr>
+                <tr>
+                    <td>PHP 虚拟机版本 </td>
+                    <td><?=Zend_Version()?></td>
+                </tr>
+                <tr>
+                    <td>PHP 安装路径</td>
+                    <td><?=DEFAULT_INCLUDE_PATH?></td>
+                </tr>
+                <tr>
+                    <td>操作系统以及版本号 </td>
+                    <td><?= php_uname()?></td>
+                </tr>
                     <tr>
-                        <th width="30%">服务器计算机名</th>
-                        <td><span id="lbServerName"><?=$_SERVER['SERVER_NAME']?></span></td>
+                        <th width="30%">正在执行的脚本</th>
+                        <td><span id="lbServerName"><?=$_SERVER['PHP_SELF']?></span></td>
                     </tr>
                     <tr>
-                        <td>服务器IP地址</td>
+                        <td>服务器名称</td>
                         <td><?=$_SERVER['SERVER_NAME']?></td>
                     </tr>
                     <tr>
-                        <td>服务器域名</td>
-                        <td><?=$_SERVER['SERVER_NAME']?></td>
+                        <td>服务器软件</td>
+                        <td><?=$_SERVER['SERVER_SOFTWARE']?></td>
                     </tr>
                     <tr>
-                        <td>服务器端口 </td>
-                        <td><?=$_SERVER['SERVER_NAME']?></td>
+                        <td>服务器HTTP协议 </td>
+                        <td><?=$_SERVER['SERVER_PROTOCOL']?></td>
                     </tr>
                     <tr>
-                        <td>本文件所在文件夹 </td>
-                        <td><?=$_SERVER['SERVER_NAME']?></td>
+                        <td>当前运行文件根文件夹 </td>
+                        <td><?=$_SERVER['DOCUMENT_ROOT']?></td>
                     </tr>
                     <tr>
-                        <td>服务器操作系统 </td>
-                        <td><?=$_SERVER['SERVER_NAME']?></td>
+                        <td>访问来源地址 </td>
+                        <td><?=$_SERVER['HTTP_REFERER']?></td>
                     </tr>
                     <tr>
-                        <td>系统所在文件夹 </td>
-                        <td><?=$_SERVER['SERVER_NAME']?></td>
+                        <td>HTTP用户代理 </td>
+                        <td><?=$_SERVER['HTTP_USER_AGENT']?></td>
                     </tr>
                     <tr>
-                        <td>服务器脚本超时时间 </td>
-                        <td><?=$_SERVER['SERVER_NAME']?></td>
+                        <td>用户的IP地址 </td>
+                        <td><?=$_SERVER['REMOTE_ADDR']?></td>
                     </tr>
                     <tr>
-                        <td>服务器的语言种类 </td>
-                        <td>Chinese (People's Republic of China)</td>
+                        <td>前进程用户名 </td>
+                        <td><?=Get_Current_User()?></td>
                     </tr>
-                    <tr>
-                        <td>PHP 版本 </td>
-                        <td><?=$_SERVER['SERVER_NAME']?></td>
-                    </tr>
-                    <tr>
-                        <td>服务器当前时间 </td>
-                        <td><?=$_SERVER['SERVER_NAME']?></td>
-                    </tr>
-                    <tr>
-                        <td>服务器上次启动到现在已运行 </td>
-                        <td>7210分钟</td>
-                    </tr>
-                    <tr>
-                        <td>逻辑驱动器 </td>
-                        <td>C:\D:\</td>
-                    </tr>
-                    <tr>
-                        <td>CPU 总数 </td>
-                        <td>4</td>
-                    </tr>
-                    <tr>
-                        <td>CPU 类型 </td>
-                        <td>x86 Family 6 Model 42 Stepping 1, GenuineIntel</td>
-                    </tr>
-                    <tr>
-                        <td>虚拟内存 </td>
-                        <td>52480M</td>
-                    </tr>
-                    <tr>
-                        <td>当前程序占用内存 </td>
-                        <td>3.29M</td>
-                    </tr>
-                    <tr>
-                        <td>Asp.net所占内存 </td>
-                        <td>51.46M</td>
-                    </tr>
-                    <tr>
-                        <td>当前Session数量 </td>
-                        <td>8</td>
-                    </tr>
-                    <tr>
-                        <td>当前SessionID </td>
-                        <td>gznhpwmp34004345jz2q3l45</td>
-                    </tr>
-                    <tr>
-                        <td>当前系统用户名 </td>
-                        <td>NETWORK SERVICE</td>
-                    </tr>
+
+
                 </tbody>
             </table>
               </div>

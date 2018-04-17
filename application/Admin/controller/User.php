@@ -3,10 +3,6 @@
 namespace app\Admin\controller;
 
 use app\Admin\controller\AdminBase;
-use const FILTER_FLAG_EMAIL_UNICODE;
-use function filter_var;
-use function imf_rand_str;
-use function json;
 use SplString;
 use function strtoupper;
 use think\Session;
@@ -88,13 +84,114 @@ class User extends AdminBase
         }
     }
 
-    public function Logout():Null
+    public function Logout()
     {
-        Session::clear();
+        //Session::clear();
         unset($_REQUEST);
         unset($_COOKIE);
         if (!$_SESSION['userid']) {
-            header('Location:/admin/auth/login');
+            header('Location:/admin/user/login');
         }
     }
+
+    public function AddUser()
+    {
+        if($this->request->isPost()){
+            $data = $this->request->request();
+            $menu = new MenuModel([
+                'url'  =>  $data['url']??'',
+                'title' => $data['title']??'',
+                'status' => $data['status']??1,
+                'parent_id' => $data['parent_id']??0,
+            ]);
+            $f = $menu->save();
+            if($f){
+                return json([
+                    'code'=>200,
+                    'msg'=>'菜单添加成功'
+                ]);
+            }else{
+                return json([
+                    'code'=>400234,
+                    'msg'=>'菜单添加失败'
+                ]);
+            }
+        }else{
+            $Menu = new MenuModel();
+            $menus =$Menu
+                ->where(['parent_id'=>0])
+                ->select();
+            return $this->fetch('user/user-add',[
+                'menus'=>$menus
+            ]);
+        }
+    }
+
+
+    public function EditUser()
+    {
+        $data = $this->request->request();
+        if($this->request->isPost()){
+            $menu = new MenuModel();
+            if(isset($data['status'])){
+                $status = 6;
+            }else{
+                $status = 0;
+            }
+            $f = $menu->save([
+                'url'  =>  $data['url'],
+                'title' => $data['title'],
+                'status' => $data['status'],
+                'parent_id' => $data['parent_id']??0,
+            ],['id'=>(int)$data['mid']]);
+            if($f){
+                return json([
+                    'code'=>200,
+                    'msg'=>'修改成功'
+                ]);
+            }else{
+                return json([
+                    'code'=>400234,
+                    'msg'=>'菜单更新失败'
+                ]);
+            }
+        }else{
+            $Menu = new MenuModel();
+            $mid  = $data['mid']??1;
+            $oldMenu =$Menu
+                ->where(['id'=>$mid])
+                ->select()->toArray();
+            $allParentMenu = MenuModel::getAllMenu();
+            return $this->fetch('user/user-edit',[
+                'oldMenu'=>$oldMenu[0],
+                'allParentMenu'=>$allParentMenu,
+                'mid'=>$mid
+            ]);
+        }
+    }
+
+    public function userlist()
+    {
+        $data = $this->request->request();
+        $currentPage = $this->request->request('page',1);
+        $parentId = $this->request->request('user_id',0);
+        $User = new UserModel();
+        $page = $currentPage??1;
+        $pageSize = $data['pageSize']??10;
+        $offset = ($page - 1) * ($pageSize);
+        $count = $User->count();
+        $allPage = ceil($count/$pageSize);
+        $users = $User
+            ->limit($offset,$pageSize)
+            ->select();
+        $this->assign("users",$users);
+        $this->assign("pageNation",[
+            'total'=>$count,
+            'currentPage'=>$currentPage,
+            'allPage'=>$allPage
+        ]);
+        return $this->fetch('user/user-list');
+    }
+
+
 }

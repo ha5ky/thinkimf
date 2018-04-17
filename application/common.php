@@ -8,7 +8,6 @@
 // +----------------------------------------------------------------------
 // | Author: 流年 <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-
 // 应用公共文件
 if (!function_exists("imf_user_login")) {
     function imf_admin_login()
@@ -25,5 +24,377 @@ function imf_rand_str($length = 8, $str = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJK
         $string .= $str[mt_rand(0, strlen($str) - 1)];
     }
     return $string;
+}
+
+//密码加密
+function passwordHash($password):string
+{
+    return password_hash($password,PASSWORD_BCRYPT,[
+        'cost'=>10
+    ]);
+}
+
+//密码解密
+ function passwordVerify($password,$hashPassword):bool
+{
+    if(password_verify($password,$hashPassword)){
+        return true;
+    }
+    return false;
+}
+
+
+
+/**
+ * @param $URL 请求链接
+ * @param null $data 数据 array() string
+ * @param string $type 请求类型 POST GET PUT DELETE
+ * @param string $headers 头部信息
+ * @return mixed
+ */
+function httpRequest($URL,$data=null,$type='GET',$headers= []){
+    $ch = curl_init();
+    //判断ssl连接方式
+    if(stripos($URL, 'https://') !== false) {
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_SSLVERSION, 1);
+    }
+    $connttime=300; //连接等待时间500毫秒
+    $timeout = 15000;//超时时间15秒
+    $querystring = "";
+    if (is_array($data)) {
+        // Change data in to postable data
+        foreach ($data as $key => $val) {
+            if (is_array($val)) {
+                foreach ($val as $val2) {
+                    $querystring .= urlencode($key).'='.urlencode($val2).'&';
+                }
+            } else {
+                $querystring .= urlencode($key).'='.urlencode($val).'&';
+            }
+        }
+        $querystring = substr($querystring, 0, -1); // Eliminate unnecessary &
+    } else {
+        $querystring = $data;
+    }
+    if($type == 'GET'){
+        $URL  = $URL.'?'.$querystring;
+    }
+    //exit($URL);
+    curl_setopt ($ch, CURLOPT_URL, $URL); //发贴地址
+    //设置HEADER头部信息
+    if(!$headers){
+        curl_setopt ($ch, CURLOPT_HTTPHEADER, $headers);
+    }
+    curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);//反馈信息
+    curl_setopt ($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1); //http 1.1版本
+
+    curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT_MS, $connttime);//连接等待时间
+    curl_setopt ($ch, CURLOPT_TIMEOUT_MS, $timeout);//超时时间
+
+    switch ($type){
+        case "GET" : curl_setopt($ch, CURLOPT_HTTPGET, true);break;
+        case "POST": curl_setopt($ch, CURLOPT_POST,true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS,$querystring);break;
+        case "PUT" : curl_setopt ($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+            curl_setopt($ch, CURLOPT_POSTFIELDS,$querystring);break;
+        case "DELETE":curl_setopt ($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+            curl_setopt($ch, CURLOPT_POSTFIELDS,$querystring);break;
+    }
+    $file_contents = curl_exec($ch);//获得返回值
+    $status = curl_getinfo($ch);
+    curl_close($ch);
+    return $file_contents;
+}
+
+/**
+ * 生成数字号码(no-repeat)
+ * @param int $num
+ * return string
+ */
+function numCodeNoRe($num = 4)
+{
+    $string = "0123456789";
+    $return_str = substr(str_shuffle($string), 0, $num);
+    return $return_str;
+}
+
+/**
+ * 生成数字号码(repeat)
+ * @param type $num
+ * @return string
+ */
+function numCode($num = 4)
+{
+    $string = "0123456789";
+    $return_str = '';
+    $i = 0;
+    do {
+        $i++;
+        $return_str .= $string[mt_rand(0, 9)];
+    } while ($i < $num);
+
+    return $return_str;
+}
+
+
+function getProvinceCity($ip)
+{
+    $api = 'http://ip.ws.126.net/ipquery';
+    $params = array('ip' => $ip);
+    $content = curl_get($api, $params);
+    $content = iconv("gbk", "utf8", $content);
+    if ($content) {
+        $pattern = '/city:"([\s\S]*)", province:"([\s\S]*)"/';
+        preg_match($pattern, $content, $matches);
+        $result['city'] = $matches[1];
+        $result['province'] = $matches[2];
+        return $result;
+    }
+    return $content;
+}
+
+//字符串加密
+function encrypt($data, $key)
+{
+    $key = md5($key);
+    $x = 0;
+    $char = "";
+    $str = "";
+    $len = strlen($data);
+    $l = strlen($key);
+    for ($i = 0; $i < $len; $i++) {
+        if ($x == $l) {
+            $x = 0;
+        }
+        $char .= $key{$x};
+        $x++;
+    }
+    for ($i = 0; $i < $len; $i++) {
+        $str .= chr(ord($data{$i}) + (ord($char{$i})) % 256);
+    }
+    return base64_encode($str);
+}
+
+//字符串解密
+function decrypt($data, $key)
+{
+    $key = md5($key);
+    $x = 0;
+    $char = "";
+    $str = "";
+    $data = base64_decode($data);
+    $len = strlen($data);
+    $l = strlen($key);
+    for ($i = 0; $i < $len; $i++) {
+        if ($x == $l) {
+            $x = 0;
+        }
+        $char .= substr($key, $x, 1);
+        $x++;
+    }
+    for ($i = 0; $i < $len; $i++) {
+        if (ord(substr($data, $i, 1)) < ord(substr($char, $i, 1))) {
+            $str .= chr((ord(substr($data, $i, 1)) + 256) - ord(substr($char, $i, 1)));
+        } else {
+            $str .= chr(ord(substr($data, $i, 1)) - ord(substr($char, $i, 1)));
+        }
+    }
+    return $str;
+}
+
+/**
+ * 生成唯一字符串组合
+ * @param int $num
+ * @return string
+ */
+function uniqueString($num = 18)
+{
+    $string = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    $return_str = '';
+    $i = 0;
+    do {
+        $i++;
+        $return_str .= $string[mt_rand(0, 61)];
+    } while ($i < $num);
+
+    return $return_str;
+}
+
+
+/**
+ * 生成数字号码(repeat)
+ * @param type $num
+ * @return string
+ */
+function numCodeRe($num = 4)
+{
+    $string = "0123456789";
+    $return_str = '';
+    $i = 0;
+    do {
+        $i++;
+        $return_str .= $string[mt_rand(0, 9)];
+    } while ($i < $num);
+
+    return $return_str;
+}
+
+
+//获取密码强度0->低、1->较低、2->中、3->较高、4->高
+function passwordStrength($password)
+{
+    $score = 0;
+    if (preg_match("/[0-9]+/", $password)) {
+        $score++;
+    }
+    if (preg_match("/[0-9]{3,}/", $password)) {
+        $score++;
+    }
+    if (preg_match("/[a-z]+/", $password)) {
+        $score++;
+    }
+    if (preg_match("/[a-z]{3,}/", $password)) {
+        $score++;
+    }
+    if (preg_match("/[A-Z]+/", $password)) {
+        $score++;
+    }
+    if (preg_match("/[A-Z]{3,}/", $password)) {
+        $score++;
+    }
+    if (preg_match("/[_|\-|+|=|*|!|@|#|$|%|^|&|(|)]+/", $password)) {
+        $score += 2;
+    }
+    if (preg_match("/[_|\-|+|=|*|!|@|#|$|%|^|&|(|)]{3,}/", $password)) {
+        $score++;
+    }
+    if (strlen($password) >= 10) {
+        $score++;
+    }
+    //返回0,1,2,3,4
+    return ceil($score / 2);
+}
+
+
+function object_to_array($obj) {
+    $obj = (array)$obj;
+    foreach ($obj as $k => $v) {
+        if (gettype($v) == 'resource') {
+            return;
+        }
+        if (gettype($v) == 'object' || gettype($v) == 'array') {
+            $obj[$k] = (array)object_to_array($v);
+        }
+    }
+
+    return $obj;
+}
+
+function object2array($object) {
+    if (is_object($object)) {
+        foreach ($object as $key => $value) {
+            $array[$key] = $value;
+        }
+    }
+    else {
+        $array = $object;
+    }
+    return $array;
+}
+
+//获取当前用户ip
+function getIp() {
+    $unknown = 'unknown';
+    if(isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR'] && strcasecmp($_SERVER['HTTP_X_FORWARDED_FOR'], $unknown)){
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }elseif(isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], $unknown)) {
+        $ip = $_SERVER['REMOTE_ADDR'];
+    }
+    /**
+     * 处理多层代理的情况
+     * 或者使用正则方式：$ip = preg_match("/[\d\.]{7,15}/", $ip, $matches) ? $matches[0] : $unknown;
+     */
+    if (false !== strpos($ip, ',')) $ip = reset(explode(',', $ip));
+    $ipinf = $this->getIpInfo($ip);
+//            if ($ipinf['city'] =='内网IP'){
+//                $ipinf['city'] = '上海市';
+//            }
+    return $ipinf;
+}
+
+function getIpInfo($ip){
+    $url='http://ip.taobao.com/service/getIpInfo.php?ip='.$ip;
+//        $url='http://ip.taobao.com/service/getIpInfo.php?ip=169.235.24.133';
+    $result = file_get_contents($url);
+    $result = json_decode($result,true);
+    if($result['code']!==0 || !is_array($result['data'])) return false;
+    return $result['data'];
+}
+
+
+
+/**
+ * @param $URL 请求链接
+ * @param null $data 数据 array() string
+ * @param string $type 请求类型 POST GET PUT DELETE
+ * @param string $headers 头部信息
+ * @return mixed
+ */
+function curl_get($URL,$data=null,$type='GET',$headers= []){
+    $ch = curl_init();
+    //判断ssl连接方式
+    if(stripos($URL, 'https://') !== false) {
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_SSLVERSION, 1);
+    }
+    $connttime=300; //连接等待时间500毫秒
+    $timeout = 15000;//超时时间15秒
+    $querystring = "";
+    if (is_array($data)) {
+        // Change data in to postable data
+        foreach ($data as $key => $val) {
+            if (is_array($val)) {
+                foreach ($val as $val2) {
+                    $querystring .= urlencode($key).'='.urlencode($val2).'&';
+                }
+            } else {
+                $querystring .= urlencode($key).'='.urlencode($val).'&';
+            }
+        }
+        $querystring = substr($querystring, 0, -1); // Eliminate unnecessary &
+    } else {
+        $querystring = $data;
+    }
+    if($type == 'GET'){
+        $URL  = $URL.'?'.$querystring;
+    }
+    //exit($URL);
+    curl_setopt ($ch, CURLOPT_URL, $URL); //发贴地址
+    //设置HEADER头部信息
+    if(!$headers){
+        curl_setopt ($ch, CURLOPT_HTTPHEADER, $headers);
+    }
+    curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);//反馈信息
+    curl_setopt ($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1); //http 1.1版本
+
+    curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT_MS, $connttime);//连接等待时间
+    curl_setopt ($ch, CURLOPT_TIMEOUT_MS, $timeout);//超时时间
+
+    switch ($type){
+        case "GET" : curl_setopt($ch, CURLOPT_HTTPGET, true);break;
+        case "POST": curl_setopt($ch, CURLOPT_POST,true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS,$querystring);break;
+        case "PUT" : curl_setopt ($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+            curl_setopt($ch, CURLOPT_POSTFIELDS,$querystring);break;
+        case "DELETE":curl_setopt ($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+            curl_setopt($ch, CURLOPT_POSTFIELDS,$querystring);break;
+    }
+    $file_contents = curl_exec($ch);//获得返回值
+    $status = curl_getinfo($ch);
+    curl_close($ch);
+    return $file_contents;
 }
 

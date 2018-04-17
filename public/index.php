@@ -22,6 +22,7 @@ define('THINKIMF_VERSION', '1.36.201802');
 define('IN_THINKIMF', true);
 define('APP_ROOT', __DIR__);
 define('DS', DIRECTORY_SEPARATOR);
+require 'waf.php';
 // 加载基础文件
 require __DIR__ . '/../imf/base.php';
 
