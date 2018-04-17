@@ -47,7 +47,37 @@ class Rights extends AdminBase
 
     public function EditMenu()
     {
-        return $this->fetch('rights/menu-edit');
+        $data = $this->request->request();
+        if($this->request->isPost()){
+            $menu = new MenuModel();
+            $f = $menu->save([
+                'url'  =>  $data['url']??'',
+                'title' => $data['title']??'',
+                'status' => $data['status']??1,
+                'parent_id' => $data['parent_id']??0,
+            ],['id'=>(int)$data['mid']]);
+            if($f){
+                return json([
+                    'code'=>200,
+                ]);
+            }else{
+                return json([
+                    'code'=>400234,
+                    'msg'=>'菜单更新失败'
+                ]);
+            }
+        }else{
+            $Menu = new MenuModel();
+            $mid  = $data['mid']??1;
+            $oldMenu =$Menu
+                ->where(['id'=>$mid])
+                ->select()->toArray();
+            $allParentMenu = MenuModel::getAllMenu();
+            return $this->fetch('rights/menu-edit',[
+                'oldMenu'=>$oldMenu[0],
+                'allParentMenu'=>$allParentMenu
+            ]);
+        }
     }
 
     public function MenuList()
@@ -65,7 +95,6 @@ class Rights extends AdminBase
             ->where(['parent_id'=>$parentId])
             ->limit($offset,$pageSize)
             ->select();
-        //$list = MenuModel::getList();
         $this->assign("menus",$menus);
         $this->assign("pageNation",[
             'total'=>$count,

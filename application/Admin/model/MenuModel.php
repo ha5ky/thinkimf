@@ -16,10 +16,10 @@ class MenuModel extends Base
     {
 
     }
-    public static function getList()
+    public static function getAllMenu()
     {
-        $post = self::paginate(config("paginate"), false, ['query' => array()]);
-        return $post;
+        $menus = self::where('parent_id',0)->select()->toArray();
+        return $menus;
     }
     public static function getUserMenus($userid):array
     {
