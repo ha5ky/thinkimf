@@ -2,16 +2,17 @@
 namespace app\Portal\controller;
 
 use think\Controller;
+use app\Portal\controller\Base;
 
-class Index extends Controller
+class Index extends Base
 {
     public function index()
     {
-       /* if ($this->request->isMobile()) {
-            config('template.view_path', 'template/default/mobile/' . $request->module() . "/");
-        } else {
-            config('template.view_path', 'template/default/web/' . $request->module() . "/");
-        }*/
-        echo 'index';
+        return $this->fetch('index/index');
+    }
+
+    public function aboutus()
+    {
+        return $this->fetch('index/about-us');
     }
 }

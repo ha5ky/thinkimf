@@ -21,6 +21,13 @@ class MenuModel extends Base
         $menus = self::where('parent_id',0)->select()->toArray();
         return $menus;
     }
+
+    public static function AllList()
+    {
+        $menus = self::where('')->select()->toArray();
+        return $menus;
+    }
+
     public static function getUserMenus($userid):array
     {
         //self::query();

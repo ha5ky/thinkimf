@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>菜单编辑</title>
+    <title>会员组编辑</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -20,37 +20,19 @@
 <body>
 <form class="layui-form" action="">
     <div class="layui-form-item">
-        <input type="hidden" name="mid" value="{$mid}" />
-        <label class="layui-form-label">父级菜单</label>
+        <input type="hidden" name="id"  value="{$id}"/>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">会员组名称</label>
         <div class="layui-input-block">
-            <select name="parent_id" lay-verify="required">
-                <option value="0">一级菜单</option>
-                {volist name="allParentMenu" id="vo"}
-                <option
-                        {if $oldMenu['parent_id'] == $vo.id } selected {/if}
-                        value="{$vo.id}">{$vo.title}</option>
-                {/volist}
-            </select>
+            <input type="text" name="title" value="{$oldRole['title']}" required  lay-verify="required" placeholder="请输入菜单名称" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">菜单名称</label>
-        <div class="layui-input-block">
-            <input type="text" name="title" value="{$oldMenu['title']}" required  lay-verify="required" placeholder="请输入菜单名称" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">Url</label>
-        <div class="layui-input-inline">
-            <input type="text" name="url" required value="{$oldMenu['url']}" lay-verify="required" placeholder="请输入菜单url" autocomplete="off" class="layui-input">
-        </div>
-        <div class="layui-form-mid layui-word-aux">url：/module/controller/action</div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">菜单状态</label>
+        <label class="layui-form-label">状态</label>
         <div class="layui-input-block">
 
-            <input type="checkbox" lay-filter="status" name="status" {if  $oldMenu['status'] == 1}checked{/if} lay-skin="switch">
+            <input type="checkbox" lay-filter="status" name="status" {if  $oldRole['status'] == 1}checked{/if} lay-skin="switch">
 
         </div>
     </div>
@@ -65,25 +47,23 @@
 <script>
     //Demo
     layui.use('form', function(){
-        var menustatus = 0;
         var form = layui.form;
         //监听提交
         form.on('submit(addmenu)', function(data){
-            //layer.msg(JSON.stringify(data.field));
             if(data.field.status){
                 data.field.status  = 1;
             }else{
                 data.field.status  = 0;
             }
             $.ajax({
-                url:'/admin/rights/editmenu',
+                url:'/admin/rights/editrole',
                 type:'post',
                 data:data.field,
                 dataType:'json',
                 success:function (d) {
                     if(d.code == 200){
                         layui.layer.msg(d.msg);
-                        window.parent.location.href = '/admin/rights/menulist';
+                        window.parent.location.href = '/admin/rights/rolelist';
                     }else{
                         layui.layer.msg(d.msg);
                         return false;

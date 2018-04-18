@@ -18,10 +18,17 @@
 
 // [ 应用入口文件 ]
 namespace think;
+
 define('THINKIMF_VERSION', '1.36.201802');
 define('IN_THINKIMF', true);
 define('APP_ROOT', __DIR__);
 define('DS', DIRECTORY_SEPARATOR);
+header("Content-Type:charset=utf-8"); // 允许任意域名发起的跨域请求
+header("Access-Control-Allow-Origin: *"); // 允许任意域名发起的跨域请求
+header("Access-Control-Allow-Headers:Origin, X-Requested-With, Content-Type, Accept"); // 允许域名请求头
+if($_SERVER['REQUEST_METHOD'] == 'OPTIONS'){
+    exit;
+}
 require 'waf.php';
 // 加载基础文件
 require __DIR__ . '/../imf/base.php';
