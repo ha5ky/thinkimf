@@ -115,6 +115,7 @@ return [
         // 默认跳转页面对应的模板文件
         'dispatch_success_tmpl'  => __DIR__ . '/tpl/dispatch_jump.tpl',
         'dispatch_error_tmpl'    => __DIR__ . '/tpl/dispatch_jump.tpl',
+        'dispatch_msg_tmpl'    => __DIR__ . '/tpl/default_msg.tpl',
 
         // +----------------------------------------------------------------------
         // | 异常及错误设置

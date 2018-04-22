@@ -1,0 +1,10 @@
+{
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "Swoole\\Controller\\": "app/controller/",
+      "Swoole\\Libs\\": "libs/"
+    },
+    "files": ["core/helper.php"]
+  }
+}

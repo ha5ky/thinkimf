@@ -40,10 +40,10 @@ use think\Session;
     </ul>
     <ul class="layui-nav right" lay-filter="">
         <li class="layui-nav-item">
-            <a href="javascript:;"><?=session('username');?>突然飞规划局快乐</a>
+            <a href="javascript:;"><?=session('username');?></a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
                 <dd><a onclick="imf_admin_show('云平台','/admin/cloud/index')">云平台</a></dd>
-                <dd><a href="/admin/user/logout">退出</a></dd>
+                <dd><a href="/auth/index/logout">退出</a></dd>
             </dl>
         </li>
         <li class="layui-nav-item to-index"><a href="/">前台首页</a></li>

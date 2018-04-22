@@ -12,4 +12,9 @@ use app\Admin\model\Base;
 class UserType extends Base
 {
     protected $table = 'imf_user_type';
+
+    public static function getRoleById($typeId)
+    {
+        return self::find(['id'=>$typeId])['title'];
+    }
 }

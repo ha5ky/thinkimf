@@ -35,9 +35,11 @@
       <th>用户昵称</th>
       <th>性别</th>
       <th>手机号码</th>
-      <th>用户类型</th>
+      <th>权限组</th>
       <th>是否认证</th>
+      <th>用户状态</th>
       <th>身份证号码</th>
+      <th>操作</th>
     </tr>
     </thead>
     <tbody>
@@ -45,13 +47,20 @@
     <tr>
       <td>{$vo.id}</td>
       <td>{$vo.name}</td>
-      <td>{$vo.nick_name}</td>
-      <td>{if condition="$vo.parent_id eq 0"}
-        <span class="layui-btn layui-btn-normal layui-btn-mini">
-          <a href="?parent_id={$vo.id}">一级菜单</a>
-        </span>
+      <td>{$vo.nickname}</td>
+      <td>{if condition="$vo.sex eq 1"}
+        <span class="layui-btn layui-btn-normal layui-btn-mini">男</span>
         {else /}
-        <span class="layui-btn layui-btn-normal layui-btn-mini layui-btn-disabled">二级菜单</span>
+        <span class="layui-btn layui-btn-normal layui-btn-mini ">女</span>
+        {/if}</td>
+      <td>{$vo.phone}</td>
+      <td> <span class="layui-btn layui-btn-normal layui-btn-mini">
+         {$vo.role}
+        </span></td>
+      <td>{if condition="$vo.verify eq 1"}
+        <span class="layui-btn layui-btn-normal layui-btn-mini">已认证</span>
+        {else /}
+        <span class="layui-btn layui-btn-normal layui-btn-mini layui-btn-disabled">未认证</span>
         {/if}</td>
       <td class="td-status">
         {if condition="$vo.status eq 1"}
@@ -60,12 +69,12 @@
         <span class="layui-btn layui-btn-normal layui-btn-mini layui-btn-disabled">禁用</span>
         {/if}
       </td>
-      <!--<td>{$vo.remark}</td>-->
-      <td class="td-manage">
-        <a title="编辑" onclick="editMenu('{$vo.id}')" href="javascript:;">
+      <td> {$vo.id_card}</td>
+      <td>
+        <a title="编辑" onclick="__edit('{$vo.id}')" href="javascript:;">
           <i class="layui-icon">&#xe642;</i>
         </a>
-        <a title="删除" onclick="menu_del(this,'{$vo.id}')" href="javascript:;">
+        <a title="删除" onclick="__del(this,'{$vo.id}')" href="javascript:;">
           <i class="layui-icon">&#xe640;</i>
         </a>
       </td>
@@ -104,41 +113,41 @@
   });
   $('.addMenu').click(function () {
       layer.open({
-          title:'添加菜单',
+          title:'添加用户',
           fix: false, //不固定
           maxmin: true,
           shadeClose: true,
           shade:0.4,
           area: [650+'px', 450 +'px'],
           type: 2,
-          content:['/admin/rights/addmenu','no']
+          content:['/admin/user/adduser']
       });
   });
-  function editMenu($mid) {
+  function __edit(uid) {
       layer.open({
-          title:'编辑菜单',
+          title:'编辑用户',
           fix: false, //不固定
           maxmin: true,
           shadeClose: true,
           shade:0.4,
           area: [650+'px', 450 +'px'],
           type: 2,
-          content:['/admin/rights/editmenu?mid='+$mid,'no']
+          content:['/admin/user/edituser?uid='+uid,]
       });
   }
     /*删除*/
-    function menu_del(obj,id){
+    function __del(obj,id){
         layer.confirm('确认要删除吗？',function(index){
             //发异步删除数据
             $.ajax({
-                url:'/admin/rights/deletemenu?mid='+id,
+                url:'/admin/user/deleteuser?uid='+id,
                 type:'post',
                 dataType:'json',
                 success:function (d) {
                     if(d.code == 200){
                         $(obj).parents("tr").remove();
                         layer.msg('已删除!',{icon:1,time:1000});
-                        location.href = '/admin/rights/menulist';
+                        location.href = '/admin/user/userlist';
                     }else{
                         layui.layer.msg(d.msg);
                     }

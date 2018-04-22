@@ -55,7 +55,7 @@
         <a title="编辑" onclick="__edit('/admin/rights/editrole?id={$vo.id}')" href="javascript:;">
           <i class="layui-icon">&#xe642;</i>
         </a>
-        <a title="删除" onclick="__del(this,'/admin/rights/deleterole/?id={$vo.id}')" href="javascript:;">
+        <a title="删除" onclick="__del(this,'{$vo.id}')" href="javascript:;">
           <i class="layui-icon">&#xe640;</i>
         </a>
       </td>
@@ -134,8 +134,9 @@
         layer.confirm('确认要删除吗？',function(index){
             //发异步删除数据
             $.ajax({
-                url:'/admin/rights/deleterole?id='+id,
+                url:'/admin/rights/deleterole/?id='+id,
                 type:'post',
+                data:{id:id},
                 dataType:'json',
                 success:function (d) {
                     if(d.code == 200){

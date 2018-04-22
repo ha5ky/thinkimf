@@ -410,9 +410,9 @@
     <?php } ?>
 
     <div class="copyright">
-        <a title="官方网站" href="http://www.thinkphp.cn">ThinkPHP</a> 
-        <span>V<?php echo \think\facade\App::version(); ?></span> 
-        <span>{ 十年磨一剑-为API开发设计的高性能框架 }</span>
+        <a title="官方网站" href="http://www.thinkimf.com">Innovation Framework</a>
+        <span>V<?php echo date('Y-m-d H:i:s') ?></span>
+        <span>{ PHP 开发高性能框架 }</span>
     </div>
     <?php if(\think\facade\App::isDebug()) { ?>
     <script>

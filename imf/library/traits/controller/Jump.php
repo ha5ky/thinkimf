@@ -155,4 +155,28 @@ trait Jump
         ? $config->get('default_ajax_return')
         : $config->get('default_return_type');
     }
+
+
+    /**
+     * 消息提示方法
+     * @access protected
+     * @param  mixed     $msg 提示信息
+     * @return void
+     */
+    protected function msg($msg = '')
+    {
+        $result = [
+            'msg'  => $msg,
+        ];
+
+        $type = $this->getResponseType();
+
+        if ('html' == strtolower($type)) {
+            $type = 'jump';
+        }
+
+        $response = Response::create($result, $type)->options(['jump_template' => Container::get('config')->get('dispatch_msg_tmpl')]);
+
+        throw new HttpResponseException($response);
+    }
 }

@@ -3,17 +3,9 @@
 namespace app\Admin\controller;
 
 use app\Admin\model\UserType;
-use function ceil;
-use function dump;
-use function explode;
-use function implode;
-use function in_array;
-use function intdiv;
-use function json;
 use think\Controller;
 use app\Admin\controller\AdminBase;
 use app\Admin\model\MenuModel;
-use function var_dump;
 
 class Rights extends AdminBase
 {

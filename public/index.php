@@ -18,7 +18,7 @@
 
 // [ 应用入口文件 ]
 namespace think;
-
+//网页主色调 #1E9FFF
 define('THINKIMF_VERSION', '1.36.201802');
 define('IN_THINKIMF', true);
 define('APP_ROOT', __DIR__);
