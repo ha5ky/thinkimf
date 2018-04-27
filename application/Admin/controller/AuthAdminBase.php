@@ -2,6 +2,7 @@
 namespace app\Admin\controller;
 use app\Admin\model\UserModel;
 use function imf_admin_login;
+use function imf_get_user_menu;
 use think\Controller;
 
 /**
@@ -21,6 +22,7 @@ use think\Controller;
  * function:AdminBase.php
  */
 use app\Admin\model\MenuModel;
+
 use think\Request;
 class AuthAdminBase extends Controller
 {
@@ -28,13 +30,16 @@ class AuthAdminBase extends Controller
     public function __construct(Request $request)
     {
         imf_admin_login();
+
         parent::__construct();
         if ($request->isMobile()) {
             $this->view->config('view_path','themes/default/mobile/' . $request->module() . "/");
         } else {
             $this->view->config('view_path','themes/default/web/' . $request->module() . "/");
         }
-        $userid = $_SESSION['userid']??0;
-        self::$Menus = MenuModel::getUserMenus($userid);
+
+        imf_admin_login();
+
+        self::$Menus = imf_get_user_menu(session('user_type'));
     }
 }

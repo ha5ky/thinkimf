@@ -25,6 +25,7 @@ define('APP_ROOT', __DIR__);
 define('DS', DIRECTORY_SEPARATOR);
 header("Content-Type:charset=utf-8"); // 允许任意域名发起的跨域请求
 header("Access-Control-Allow-Origin: *"); // 允许任意域名发起的跨域请求
+//设置options访问
 header("Access-Control-Allow-Headers:Origin, X-Requested-With, Content-Type, Accept"); // 允许域名请求头
 if($_SERVER['REQUEST_METHOD'] == 'OPTIONS'){
     exit;

@@ -38,4 +38,9 @@ class Device extends Base
         }
     }
 
+    public function getUserDevicebyUuid($uuid):array
+    {
+        return [];
+    }
+
 }

@@ -1,20 +1,25 @@
 # ThinkIMF是什么
-## 一款基于PHP7+ 和 MariaDb/Mysql 的物联网设备管理框架
+## 一款基于PHP7+ SWOOLE + MariaDb/Mysql 的物联网设备管理框架
 为物联网3.0进行驱动的软件,跨平台，开放源代码
 
 ##ThinkIMF有哪些功能？
+* 登录注册
 * 用户管理
-* 文章管理
-* 智慧城市 TODO
+* 扫码登录[特色功能]
+* 权限管理
+* 物联网设备管理 
+* 物联网设备通信 
+* 物联网设备地理位置 
+* 文章管理 TODO
 * 数据地图 TODO
-* 商品管理 TODO
-* 物联网设备管理 TODO
-* 物联网设备通信 TODO
-* 物联网设备地理位置 TODO
+* 服务首页 TODO
+* 合伙人招募 TODO
 * 推送服务 TODO
 * 即使新闻 TODO
-* 方便的`导入导出`功能 TODO
-
+* Auto Install模块 TODO
+* 网页版客户端 [特色功能] TODO
+* 安卓客户端   [特色功能] TODO
+* IOS客户端    [特色功能] TODO 
 
 
 ##有问题反馈或者加入我们
@@ -58,6 +63,6 @@
 ```php
 <?php
     
-  echo 'PHP是世界上最便捷的web开发语言';
+  print 'PHP是世界上最便捷的web开发语言';
   
 ```

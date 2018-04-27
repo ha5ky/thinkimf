@@ -1,17 +1,18 @@
 <?php
-
-namespace app\Admin\controller;
-
-use app\Admin\controller\AdminBase;
-use app\Admin\model\Post;
-
 /**
  * Created by PhpStorm.
  * User: chenjianhua
  * Date: 2018/3/19
  * Time: 下午10:50
  */
-class Article extends AdminBase
+namespace app\Admin\controller;
+
+use app\Admin\controller\AdminBase;
+use app\Admin\controller\AuthAdminBase;
+use app\Admin\model\Post;
+
+
+class Article extends AuthAdminBase
 {
     public function index()
     {

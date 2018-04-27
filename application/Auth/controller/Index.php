@@ -1,25 +1,23 @@
 <?php
-
-namespace app\Auth\controller;
-
-use app\BaseCtl;
-use const FILTER_VALIDATE_EMAIL;
-use function is_object;
-use think\Controller;
-use SplString;
-use think\Session;
-use think\Request;
-use app\Admin\model\UserModel;
-use think\Validate;
-use function var_dump;
-
 /**
  * Created by PhpStorm.
  * UserModel: chenjianhua
  * Date: 2018/3/18
  * Time: 下午11:47
  */
-class Index extends BaseCtl
+namespace app\Auth\controller;
+
+use app\common\Base;
+use think\Controller;
+use SplString;
+use think\Session;
+use think\Request;
+use app\Admin\model\UserModel;
+use think\Validate;
+use function uniqueString;
+
+
+class Index extends Base
 {
     public function login()
     {
@@ -61,6 +59,7 @@ class Index extends BaseCtl
             //var_dump($user['phone']);exit;
             if(md5($user['password_salt'].$data['password']) == $user['password']){
                 session('userid',$user['id']);
+                session('user_type',$user['user_type']);
                 session('username',($user['name']??$user['id']??$user['email']??$user['phone']??$user['nickname']));
                 cookie('userid',$user['id']);
                 cookie('username',$user['name']);
@@ -73,6 +72,12 @@ class Index extends BaseCtl
                 'redirect'=>$redirectUrl
             ]);
         }
+    }
+
+    //扫码登录
+    public function scanCodeLogin()
+    {
+        return $this->fetch('index/scancode_login');
     }
 
     public function reg(Request $request)

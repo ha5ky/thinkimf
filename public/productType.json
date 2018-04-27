@@ -1,0 +1,3414 @@
+[
+  {
+    "range": 101,
+    "id": 1,
+    "parent": null,
+    "name": "智能家居",
+    "children": [
+      {
+        "range": 201,
+        "id": 54,
+        "parent": 1,
+        "name": "生活小家电",
+        "children": [
+          {
+            "range": 1001,
+            "id": 55,
+            "parent": 54,
+            "name": "咖啡机",
+            "level": 2
+          },
+          {
+            "range": 1002,
+            "id": 56,
+            "parent": 54,
+            "name": "电饭煲",
+            "level": 2
+          },
+          {
+            "range": 1003,
+            "id": 57,
+            "parent": 54,
+            "name": "电磁炉",
+            "level": 2
+          },
+          {
+            "range": 1004,
+            "id": 58,
+            "parent": 54,
+            "name": "炖锅",
+            "level": 2
+          },
+          {
+            "range": 1005,
+            "id": 59,
+            "parent": 54,
+            "name": "面包机",
+            "level": 2
+          },
+          {
+            "range": 1006,
+            "id": 60,
+            "parent": 54,
+            "name": "冲奶机",
+            "level": 2
+          },
+          {
+            "range": 1007,
+            "id": 61,
+            "parent": 54,
+            "name": "水壶",
+            "level": 2
+          },
+          {
+            "range": 1008,
+            "id": 62,
+            "parent": 54,
+            "name": "豆浆机",
+            "level": 2
+          },
+          {
+            "range": 1009,
+            "id": 63,
+            "parent": 54,
+            "name": "电茶壶",
+            "level": 2
+          },
+          {
+            "range": 1010,
+            "id": 64,
+            "parent": 54,
+            "name": "其他",
+            "level": 2
+          }
+        ],
+        "level": 1
+      },
+      {
+        "range": 202,
+        "id": 32,
+        "parent": 1,
+        "name": "空气电器",
+        "children": [
+          {
+            "range": 701,
+            "id": 33,
+            "parent": 32,
+            "name": "电风扇",
+            "level": 2
+          },
+          {
+            "range": 702,
+            "id": 34,
+            "parent": 32,
+            "name": "除湿机",
+            "level": 2
+          },
+          {
+            "range": 703,
+            "id": 35,
+            "parent": 32,
+            "name": "加湿器",
+            "level": 2
+          },
+          {
+            "range": 704,
+            "id": 36,
+            "parent": 32,
+            "name": "空气净化器",
+            "level": 2
+          },
+          {
+            "range": 705,
+            "id": 37,
+            "parent": 32,
+            "name": "空调",
+            "level": 2
+          },
+          {
+            "range": 706,
+            "id": 38,
+            "parent": 32,
+            "name": "新风机",
+            "level": 2
+          },
+          {
+            "range": 707,
+            "id": 39,
+            "parent": 32,
+            "name": "空气检测仪",
+            "level": 2
+          },
+          {
+            "range": 708,
+            "id": 199,
+            "parent": 32,
+            "name": "空调扇",
+            "level": 2
+          },
+          {
+            "range": 709,
+            "id": 40,
+            "parent": 32,
+            "name": "其他",
+            "level": 2
+          }
+        ],
+        "level": 1
+      },
+      {
+        "range": 203,
+        "id": 22,
+        "parent": 1,
+        "name": "水处理",
+        "children": [
+          {
+            "range": 501,
+            "id": 23,
+            "parent": 22,
+            "name": "饮水机",
+            "level": 2
+          },
+          {
+            "range": 502,
+            "id": 24,
+            "parent": 22,
+            "name": "净水器",
+            "level": 2
+          },
+          {
+            "range": 503,
+            "id": 25,
+            "parent": 22,
+            "name": "其他",
+            "level": 2
+          }
+        ],
+        "level": 1
+      },
+      {
+        "range": 204,
+        "id": 26,
+        "parent": 1,
+        "name": "热家电",
+        "children": [
+          {
+            "range": 601,
+            "id": 27,
+            "parent": 26,
+            "name": "取暖器",
+            "level": 2
+          },
+          {
+            "range": 602,
+            "id": 28,
+            "parent": 26,
+            "name": "地暖",
+            "level": 2
+          },
+          {
+            "range": 603,
+            "id": 29,
+            "parent": 26,
+            "name": "电壁炉",
+            "level": 2
+          },
+          {
+            "range": 604,
+            "id": 30,
+            "parent": 26,
+            "name": "加热棒",
+            "level": 2
+          },
+          {
+            "range": 605,
+            "id": 31,
+            "parent": 26,
+            "name": "其他",
+            "level": 2
+          }
+        ],
+        "level": 1
+      },
+      {
+        "range": 205,
+        "id": 2,
+        "parent": 1,
+        "name": "厨电",
+        "children": [
+          {
+            "range": 301,
+            "id": 3,
+            "parent": 2,
+            "name": "洗碗机",
+            "level": 2
+          },
+          {
+            "range": 302,
+            "id": 4,
+            "parent": 2,
+            "name": "消毒柜",
+            "level": 2
+          },
+          {
+            "range": 303,
+            "id": 5,
+            "parent": 2,
+            "name": "电冰箱",
+            "level": 2
+          },
+          {
+            "range": 304,
+            "id": 6,
+            "parent": 2,
+            "name": "冷柜",
+            "level": 2
+          },
+          {
+            "range": 305,
+            "id": 7,
+            "parent": 2,
+            "name": "酒柜",
+            "level": 2
+          },
+          {
+            "range": 306,
+            "id": 8,
+            "parent": 2,
+            "name": "水槽",
+            "level": 2
+          },
+          {
+            "range": 307,
+            "id": 9,
+            "parent": 2,
+            "name": "锅具",
+            "level": 2
+          },
+          {
+            "range": 308,
+            "id": 10,
+            "parent": 2,
+            "name": "微波炉",
+            "level": 2
+          },
+          {
+            "range": 309,
+            "id": 11,
+            "parent": 2,
+            "name": "电烤箱",
+            "level": 2
+          },
+          {
+            "range": 310,
+            "id": 12,
+            "parent": 2,
+            "name": "电蒸箱",
+            "level": 2
+          },
+          {
+            "range": 311,
+            "id": 13,
+            "parent": 2,
+            "name": "其他",
+            "level": 2
+          },
+          {
+            "range": 312,
+            "id": 171,
+            "parent": 2,
+            "name": "燃气灶",
+            "level": 2
+          },
+          {
+            "range": 313,
+            "id": 172,
+            "parent": 2,
+            "name": "油烟机",
+            "level": 2
+          }
+        ],
+        "level": 1
+      },
+      {
+        "range": 206,
+        "id": 14,
+        "parent": 1,
+        "name": "卫浴",
+        "children": [
+          {
+            "range": 401,
+            "id": 15,
+            "parent": 14,
+            "name": "智能马桶",
+            "level": 2
+          },
+          {
+            "range": 402,
+            "id": 16,
+            "parent": 14,
+            "name": "电热水器",
+            "level": 2
+          },
+          {
+            "range": 403,
+            "id": 17,
+            "parent": 14,
+            "name": "热泵热水器",
+            "level": 2
+          },
+          {
+            "range": 404,
+            "id": 18,
+            "parent": 14,
+            "name": "太阳能热水器",
+            "level": 2
+          },
+          {
+            "range": 405,
+            "id": 19,
+            "parent": 14,
+            "name": "浴霸",
+            "level": 2
+          },
+          {
+            "range": 406,
+            "id": 20,
+            "parent": 14,
+            "name": "集成吊顶",
+            "level": 2
+          },
+          {
+            "range": 407,
+            "id": 21,
+            "parent": 14,
+            "name": "其他",
+            "level": 2
+          }
+        ],
+        "level": 1
+      },
+      {
+        "range": 207,
+        "id": 46,
+        "parent": 1,
+        "name": "卫生清洁",
+        "children": [
+          {
+            "range": 901,
+            "id": 47,
+            "parent": 46,
+            "name": "扫地机器人",
+            "level": 2
+          },
+          {
+            "range": 902,
+            "id": 48,
+            "parent": 46,
+            "name": "吸尘机",
+            "level": 2
+          },
+          {
+            "range": 903,
+            "id": 49,
+            "parent": 46,
+            "name": "电蚊香",
+            "level": 2
+          },
+          {
+            "range": 904,
+            "id": 50,
+            "parent": 46,
+            "name": "洗衣机",
+            "level": 2
+          },
+          {
+            "range": 905,
+            "id": 51,
+            "parent": 46,
+            "name": "干衣机",
+            "level": 2
+          },
+          {
+            "range": 906,
+            "id": 52,
+            "parent": 46,
+            "name": "晾衣架",
+            "level": 2
+          },
+          {
+            "range": 907,
+            "id": 53,
+            "parent": 46,
+            "name": "其他",
+            "level": 2
+          }
+        ],
+        "level": 1
+      },
+      {
+        "range": 208,
+        "id": 41,
+        "parent": 1,
+        "name": "个人护理",
+        "children": [
+          {
+            "range": 801,
+            "id": 42,
+            "parent": 41,
+            "name": "美容仪",
+            "level": 2
+          },
+          {
+            "range": 802,
+            "id": 43,
+            "parent": 41,
+            "name": "电动牙刷",
+            "level": 2
+          },
+          {
+            "range": 803,
+            "id": 44,
+            "parent": 41,
+            "name": "水杯",
+            "level": 2
+          },
+          {
+            "range": 804,
+            "id": 45,
+            "parent": 41,
+            "name": "其他",
+            "level": 2
+          }
+        ],
+        "level": 1
+      },
+      {
+        "range": 209,
+        "id": 81,
+        "parent": 1,
+        "name": "视听产品",
+        "children": [
+          {
+            "range": 1301,
+            "id": 82,
+            "parent": 81,
+            "name": "音箱",
+            "level": 2
+          },
+          {
+            "range": 1302,
+            "id": 83,
+            "parent": 81,
+            "name": "家庭影院",
+            "level": 2
+          },
+          {
+            "range": 1303,
+            "id": 84,
+            "parent": 81,
+            "name": "电视机",
+            "level": 2
+          },
+          {
+            "range": 1304,
+            "id": 85,
+            "parent": 81,
+            "name": "其他",
+            "level": 2
+          }
+        ],
+        "level": 1
+      },
+      {
+        "range": 210,
+        "id": 178,
+        "parent": 1,
+        "name": "办公设备",
+        "children": [
+          {
+            "range": 3001,
+            "id": 179,
+            "parent": 178,
+            "name": "投影仪",
+            "level": 2
+          },
+          {
+            "range": 3002,
+            "id": 180,
+            "parent": 178,
+            "name": "打印机,3D打印机",
+            "level": 2
+          },
+          {
+            "range": 3003,
+            "id": 181,
+            "parent": 178,
+            "name": "其他",
+            "level": 2
+          }
+        ],
+        "level": 1
+      },
+      {
+        "range": 211,
+        "id": 65,
+        "parent": 1,
+        "name": "中控",
+        "children": [
+          {
+            "range": 1101,
+            "id": 66,
+            "parent": 65,
+            "name": "中央控制系统",
+            "level": 2
+          },
+          {
+            "range": 1102,
+            "id": 67,
+            "parent": 65,
+            "name": "网关",
+            "level": 2
+          },
+          {
+            "range": 1103,
+            "id": 68,
+            "parent": 65,
+            "name": "路由器",
+            "level": 2
+          },
+          {
+            "range": 1104,
+            "id": 69,
+            "parent": 65,
+            "name": "其他",
+            "level": 2
+          }
+        ],
+        "level": 1
+      },
+      {
+        "range": 212,
+        "id": 70,
+        "parent": 1,
+        "name": "配件",
+        "children": [
+          {
+            "range": 1201,
+            "id": 71,
+            "parent": 70,
+            "name": "照明",
+            "level": 2
+          },
+          {
+            "range": 1202,
+            "id": 72,
+            "parent": 70,
+            "name": "开关",
+            "level": 2
+          },
+          {
+            "range": 1203,
+            "id": 73,
+            "parent": 70,
+            "name": "插座",
+            "level": 2
+          },
+          {
+            "range": 1204,
+            "id": 74,
+            "parent": 70,
+            "name": "遮阳",
+            "level": 2
+          },
+          {
+            "range": 1206,
+            "id": 76,
+            "parent": 70,
+            "name": "温控器",
+            "level": 2
+          },
+          {
+            "range": 1207,
+            "id": 77,
+            "parent": 70,
+            "name": "家用水表",
+            "level": 2
+          },
+          {
+            "range": 1208,
+            "id": 78,
+            "parent": 70,
+            "name": "家用电表",
+            "level": 2
+          },
+          {
+            "range": 1209,
+            "id": 79,
+            "parent": 70,
+            "name": "窗帘",
+            "level": 2
+          },
+          {
+            "range": 1210,
+            "id": 80,
+            "parent": 70,
+            "name": "其他",
+            "level": 2
+          }
+        ],
+        "level": 1
+      },
+      {
+        "range": 213,
+        "id": 173,
+        "parent": 1,
+        "name": "园艺",
+        "children": [
+          {
+            "range": 2901,
+            "id": 174,
+            "parent": 173,
+            "name": "割草机",
+            "level": 2
+          },
+          {
+            "range": 2902,
+            "id": 175,
+            "parent": 173,
+            "name": "自动灌溉系统",
+            "level": 2
+          },
+          {
+            "range": 2903,
+            "id": 176,
+            "parent": 173,
+            "name": "智能种植设备",
+            "level": 2
+          },
+          {
+            "range": 2904,
+            "id": 177,
+            "parent": 173,
+            "name": "其他",
+            "level": 2
+          }
+        ],
+        "level": 1
+      },
+      {
+        "range": 214,
+        "id": 86,
+        "parent": 1,
+        "name": "其他",
+        "level": 1
+      }
+    ],
+    "level": 0
+  },
+  {
+    "range": 102,
+    "id": 107,
+    "parent": null,
+    "name": "安防,监控",
+    "children": [
+      {
+        "range": 1901,
+        "id": 108,
+        "parent": 107,
+        "name": "家庭安防系统",
+        "level": 1
+      },
+      {
+        "range": 1902,
+        "id": 109,
+        "parent": 107,
+        "name": "烟雾报警器",
+        "level": 1
+      },
+      {
+        "range": 1903,
+        "id": 110,
+        "parent": 107,
+        "name": "摄像头",
+        "level": 1
+      },
+      {
+        "range": 1904,
+        "id": 114,
+        "parent": 107,
+        "name": "可视对讲",
+        "level": 1
+      },
+      {
+        "range": 1905,
+        "id": 112,
+        "parent": 107,
+        "name": "门锁",
+        "level": 1
+      },
+      {
+        "range": 1906,
+        "id": 113,
+        "parent": 107,
+        "name": "门磁,窗磁",
+        "level": 1
+      },
+      {
+        "range": 1907,
+        "id": 111,
+        "parent": 107,
+        "name": "温湿度传感器",
+        "level": 1
+      },
+      {
+        "range": 1908,
+        "id": 189,
+        "parent": 107,
+        "name": "红外传感器",
+        "level": 1
+      },
+      {
+        "range": 1909,
+        "id": 188,
+        "parent": 107,
+        "name": "水浸传感器",
+        "level": 1
+      },
+      {
+        "range": 1910,
+        "id": 200,
+        "parent": 107,
+        "name": "甲醛传感器",
+        "level": 1
+      },
+      {
+        "range": 1911,
+        "id": 201,
+        "parent": 107,
+        "name": "一氧化碳传感器",
+        "level": 1
+      },
+      {
+        "range": 1912,
+        "id": 115,
+        "parent": 107,
+        "name": "其他",
+        "level": 1
+      }
+    ],
+    "level": 0
+  },
+  {
+    "range": 103,
+    "id": 100,
+    "parent": null,
+    "name": "可穿戴产品及智能硬件",
+    "children": [
+      {
+        "range": 1801,
+        "id": 101,
+        "parent": 100,
+        "name": "手环",
+        "level": 1
+      },
+      {
+        "range": 1802,
+        "id": 102,
+        "parent": 100,
+        "name": "手表",
+        "level": 1
+      },
+      {
+        "range": 1803,
+        "id": 103,
+        "parent": 100,
+        "name": "运动鞋",
+        "level": 1
+      },
+      {
+        "range": 1804,
+        "id": 104,
+        "parent": 100,
+        "name": "运动服",
+        "level": 1
+      },
+      {
+        "range": 1805,
+        "id": 105,
+        "parent": 100,
+        "name": "防丢器",
+        "level": 1
+      },
+      {
+        "range": 1806,
+        "id": 187,
+        "parent": 100,
+        "name": "蓝牙耳机",
+        "level": 1
+      },
+      {
+        "range": 1807,
+        "id": 106,
+        "parent": 100,
+        "name": "其他",
+        "level": 1
+      }
+    ],
+    "level": 0
+  },
+  {
+    "range": 104,
+    "id": 116,
+    "parent": null,
+    "name": "医疗保健",
+    "children": [
+      {
+        "range": 2001,
+        "id": 117,
+        "parent": 116,
+        "name": "按摩椅",
+        "level": 1
+      },
+      {
+        "range": 2002,
+        "id": 118,
+        "parent": 116,
+        "name": "血压计",
+        "level": 1
+      },
+      {
+        "range": 2003,
+        "id": 119,
+        "parent": 116,
+        "name": "血糖仪",
+        "level": 1
+      },
+      {
+        "range": 2004,
+        "id": 120,
+        "parent": 116,
+        "name": "睡眠垫",
+        "level": 1
+      },
+      {
+        "range": 2005,
+        "id": 121,
+        "parent": 116,
+        "name": "睡眠床",
+        "level": 1
+      },
+      {
+        "range": 2006,
+        "id": 122,
+        "parent": 116,
+        "name": "足疗器",
+        "level": 1
+      },
+      {
+        "range": 2007,
+        "id": 123,
+        "parent": 116,
+        "name": "体脂测量仪",
+        "level": 1
+      },
+      {
+        "range": 2008,
+        "id": 124,
+        "parent": 116,
+        "name": "电子称",
+        "level": 1
+      },
+      {
+        "range": 2009,
+        "id": 190,
+        "parent": 116,
+        "name": "治疗仪",
+        "level": 1
+      },
+      {
+        "range": 2010,
+        "id": 125,
+        "parent": 116,
+        "name": "其他",
+        "level": 1
+      }
+    ],
+    "level": 0
+  },
+  {
+    "range": 105,
+    "id": 95,
+    "parent": null,
+    "name": "教育",
+    "children": [
+      {
+        "range": 1701,
+        "id": 96,
+        "parent": 95,
+        "name": "点读机",
+        "level": 1
+      },
+      {
+        "range": 1702,
+        "id": 97,
+        "parent": 95,
+        "name": "故事机",
+        "level": 1
+      },
+      {
+        "range": 1703,
+        "id": 98,
+        "parent": 95,
+        "name": "智能机器人",
+        "level": 1
+      },
+      {
+        "range": 1704,
+        "id": 186,
+        "parent": 95,
+        "name": "教学设备",
+        "level": 1
+      },
+      {
+        "range": 1705,
+        "id": 99,
+        "parent": 95,
+        "name": "其他",
+        "level": 1
+      }
+    ],
+    "level": 0
+  },
+  {
+    "range": 106,
+    "id": 126,
+    "parent": null,
+    "name": "运动",
+    "children": [
+      {
+        "range": 2101,
+        "id": 127,
+        "parent": 126,
+        "name": "健身车",
+        "level": 1
+      },
+      {
+        "range": 2102,
+        "id": 128,
+        "parent": 126,
+        "name": "跑步机",
+        "level": 1
+      },
+      {
+        "range": 2103,
+        "id": 129,
+        "parent": 126,
+        "name": "高尔夫球轴传感器",
+        "level": 1
+      },
+      {
+        "range": 2104,
+        "id": 191,
+        "parent": 126,
+        "name": "辅助运动设备",
+        "level": 1
+      },
+      {
+        "range": 2105,
+        "id": 130,
+        "parent": 126,
+        "name": "其他",
+        "level": 1
+      }
+    ],
+    "level": 0
+  },
+  {
+    "range": 107,
+    "id": 143,
+    "parent": null,
+    "name": "娱乐",
+    "children": [
+      {
+        "range": 2501,
+        "id": 144,
+        "parent": 143,
+        "name": "麻将机",
+        "level": 1
+      },
+      {
+        "range": 2502,
+        "id": 145,
+        "parent": 143,
+        "name": "遥控飞机",
+        "level": 1
+      },
+      {
+        "range": 2503,
+        "id": 146,
+        "parent": 143,
+        "name": "娃娃机",
+        "level": 1
+      },
+      {
+        "range": 2504,
+        "id": 147,
+        "parent": 143,
+        "name": "遥控车",
+        "level": 1
+      },
+      {
+        "range": 2505,
+        "id": 148,
+        "parent": 143,
+        "name": "投篮机",
+        "level": 1
+      },
+      {
+        "range": 2506,
+        "id": 196,
+        "parent": 143,
+        "name": "婴童玩具",
+        "level": 1
+      },
+      {
+        "range": 2507,
+        "id": 149,
+        "parent": 143,
+        "name": "其他",
+        "level": 1
+      }
+    ],
+    "level": 0
+  },
+  {
+    "range": 108,
+    "id": 131,
+    "parent": null,
+    "name": "交通",
+    "children": [
+      {
+        "range": 2201,
+        "id": 132,
+        "parent": 131,
+        "name": "车联网",
+        "children": [
+          {
+            "range": 2301,
+            "id": 133,
+            "parent": 132,
+            "name": "胎压监测",
+            "level": 2
+          },
+          {
+            "range": 2302,
+            "id": 134,
+            "parent": 132,
+            "name": "引擎锁",
+            "level": 2
+          },
+          {
+            "range": 2303,
+            "id": 135,
+            "parent": 132,
+            "name": "其他",
+            "level": 2
+          }
+        ],
+        "level": 1
+      },
+      {
+        "range": 2202,
+        "id": 136,
+        "parent": 131,
+        "name": "单车",
+        "children": [
+          {
+            "range": 3201,
+            "id": 192,
+            "parent": 136,
+            "name": "智能单车",
+            "level": 2
+          },
+          {
+            "range": 3202,
+            "id": 193,
+            "parent": 136,
+            "name": "电动单车",
+            "level": 2
+          },
+          {
+            "range": 3203,
+            "id": 194,
+            "parent": 136,
+            "name": "其他",
+            "level": 2
+          }
+        ],
+        "level": 1
+      },
+      {
+        "range": 2203,
+        "id": 195,
+        "parent": 131,
+        "name": "电动汽车",
+        "level": 1
+      },
+      {
+        "range": 2204,
+        "id": 137,
+        "parent": 131,
+        "name": "其他",
+        "level": 1
+      }
+    ],
+    "level": 0
+  },
+  {
+    "range": 109,
+    "id": 150,
+    "parent": null,
+    "name": "新能源",
+    "children": [
+      {
+        "range": 2601,
+        "id": 151,
+        "parent": 150,
+        "name": "充电桩",
+        "level": 1
+      },
+      {
+        "range": 2602,
+        "id": 152,
+        "parent": 150,
+        "name": "其他",
+        "level": 1
+      }
+    ],
+    "level": 0
+  },
+  {
+    "range": 110,
+    "id": 91,
+    "parent": null,
+    "name": "物流运输",
+    "children": [
+      {
+        "range": 1601,
+        "id": 92,
+        "parent": 91,
+        "name": "车辆管理",
+        "level": 1
+      },
+      {
+        "range": 1602,
+        "id": 93,
+        "parent": 91,
+        "name": "物流仓库",
+        "level": 1
+      },
+      {
+        "range": 1603,
+        "id": 185,
+        "parent": 91,
+        "name": "快递柜管理",
+        "level": 1
+      },
+      {
+        "range": 1604,
+        "id": 184,
+        "parent": 91,
+        "name": "物流柜管理",
+        "level": 1
+      },
+      {
+        "range": 1605,
+        "id": 94,
+        "parent": 91,
+        "name": "其他",
+        "level": 1
+      }
+    ],
+    "level": 0
+  },
+  {
+    "range": 111,
+    "id": 87,
+    "parent": null,
+    "name": "房地产",
+    "children": [
+      {
+        "range": 1401,
+        "id": 88,
+        "parent": 87,
+        "name": "其他",
+        "level": 1
+      }
+    ],
+    "level": 0
+  },
+  {
+    "range": 112,
+    "id": 153,
+    "parent": null,
+    "name": "工业",
+    "children": [
+      {
+        "range": 2701,
+        "id": 154,
+        "parent": 153,
+        "name": "智能水泵",
+        "level": 1
+      },
+      {
+        "range": 2702,
+        "id": 155,
+        "parent": 153,
+        "name": "压缩机",
+        "level": 1
+      },
+      {
+        "range": 2703,
+        "id": 156,
+        "parent": 153,
+        "name": "发电机",
+        "level": 1
+      },
+      {
+        "range": 2704,
+        "id": 157,
+        "parent": 153,
+        "name": "锅炉",
+        "level": 1
+      },
+      {
+        "range": 2705,
+        "id": 158,
+        "parent": 153,
+        "name": "变频器",
+        "level": 1
+      },
+      {
+        "range": 2706,
+        "id": 159,
+        "parent": 153,
+        "name": "工控设备",
+        "level": 1
+      },
+      {
+        "range": 2707,
+        "id": 160,
+        "parent": 153,
+        "name": "污水处理",
+        "level": 1
+      },
+      {
+        "range": 2708,
+        "id": 161,
+        "parent": 153,
+        "name": "机械重工",
+        "level": 1
+      },
+      {
+        "range": 2709,
+        "id": 162,
+        "parent": 153,
+        "name": "注塑机",
+        "level": 1
+      },
+      {
+        "range": 2710,
+        "id": 163,
+        "parent": 153,
+        "name": "工业检测仪",
+        "children": [
+          {
+            "range": 2801,
+            "id": 164,
+            "parent": 163,
+            "name": "温度检测仪",
+            "level": 2
+          },
+          {
+            "range": 2802,
+            "id": 165,
+            "parent": 163,
+            "name": "温湿度检测仪",
+            "level": 2
+          },
+          {
+            "range": 2803,
+            "id": 166,
+            "parent": 163,
+            "name": "万用表",
+            "level": 2
+          },
+          {
+            "range": 2804,
+            "id": 167,
+            "parent": 163,
+            "name": "粉尘检测仪",
+            "level": 2
+          },
+          {
+            "range": 2805,
+            "id": 168,
+            "parent": 163,
+            "name": "其他",
+            "level": 2
+          }
+        ],
+        "level": 1
+      },
+      {
+        "range": 2711,
+        "id": 197,
+        "parent": 153,
+        "name": "机器人,机械臂",
+        "level": 1
+      },
+      {
+        "range": 2712,
+        "id": 169,
+        "parent": 153,
+        "name": "其他",
+        "level": 1
+      }
+    ],
+    "level": 0
+  },
+  {
+    "range": 113,
+    "id": 138,
+    "parent": null,
+    "name": "农林业生态",
+    "children": [
+      {
+        "range": 2401,
+        "id": 139,
+        "parent": 138,
+        "name": "灌溉系统",
+        "level": 1
+      },
+      {
+        "range": 2402,
+        "id": 140,
+        "parent": 138,
+        "name": "农业检测",
+        "level": 1
+      },
+      {
+        "range": 2403,
+        "id": 141,
+        "parent": 138,
+        "name": "养殖监控",
+        "level": 1
+      },
+      {
+        "range": 2404,
+        "id": 142,
+        "parent": 138,
+        "name": "其他",
+        "level": 1
+      }
+    ],
+    "level": 0
+  },
+  {
+    "range": 114,
+    "id": 182,
+    "parent": null,
+    "name": "电网",
+    "children": [
+      {
+        "range": 3101,
+        "id": 183,
+        "parent": 182,
+        "name": "其他",
+        "level": 1
+      }
+    ],
+    "level": 0
+  },
+  {
+    "range": 115,
+    "id": 89,
+    "parent": null,
+    "name": "无线网",
+    "children": [
+      {
+        "range": 1501,
+        "id": 90,
+        "parent": 89,
+        "name": "其他",
+        "level": 1
+      }
+    ],
+    "level": 0
+  },
+  {
+    "range": 201,
+    "id": 54,
+    "parent": 1,
+    "name": "生活小家电",
+    "children": [
+      {
+        "range": 1001,
+        "id": 55,
+        "parent": 54,
+        "name": "咖啡机",
+        "level": 2
+      },
+      {
+        "range": 1002,
+        "id": 56,
+        "parent": 54,
+        "name": "电饭煲",
+        "level": 2
+      },
+      {
+        "range": 1003,
+        "id": 57,
+        "parent": 54,
+        "name": "电磁炉",
+        "level": 2
+      },
+      {
+        "range": 1004,
+        "id": 58,
+        "parent": 54,
+        "name": "炖锅",
+        "level": 2
+      },
+      {
+        "range": 1005,
+        "id": 59,
+        "parent": 54,
+        "name": "面包机",
+        "level": 2
+      },
+      {
+        "range": 1006,
+        "id": 60,
+        "parent": 54,
+        "name": "冲奶机",
+        "level": 2
+      },
+      {
+        "range": 1007,
+        "id": 61,
+        "parent": 54,
+        "name": "水壶",
+        "level": 2
+      },
+      {
+        "range": 1008,
+        "id": 62,
+        "parent": 54,
+        "name": "豆浆机",
+        "level": 2
+      },
+      {
+        "range": 1009,
+        "id": 63,
+        "parent": 54,
+        "name": "电茶壶",
+        "level": 2
+      },
+      {
+        "range": 1010,
+        "id": 64,
+        "parent": 54,
+        "name": "其他",
+        "level": 2
+      }
+    ],
+    "level": 1
+  },
+  {
+    "range": 202,
+    "id": 32,
+    "parent": 1,
+    "name": "空气电器",
+    "children": [
+      {
+        "range": 701,
+        "id": 33,
+        "parent": 32,
+        "name": "电风扇",
+        "level": 2
+      },
+      {
+        "range": 702,
+        "id": 34,
+        "parent": 32,
+        "name": "除湿机",
+        "level": 2
+      },
+      {
+        "range": 703,
+        "id": 35,
+        "parent": 32,
+        "name": "加湿器",
+        "level": 2
+      },
+      {
+        "range": 704,
+        "id": 36,
+        "parent": 32,
+        "name": "空气净化器",
+        "level": 2
+      },
+      {
+        "range": 705,
+        "id": 37,
+        "parent": 32,
+        "name": "空调",
+        "level": 2
+      },
+      {
+        "range": 706,
+        "id": 38,
+        "parent": 32,
+        "name": "新风机",
+        "level": 2
+      },
+      {
+        "range": 707,
+        "id": 39,
+        "parent": 32,
+        "name": "空气检测仪",
+        "level": 2
+      },
+      {
+        "range": 708,
+        "id": 199,
+        "parent": 32,
+        "name": "空调扇",
+        "level": 2
+      },
+      {
+        "range": 709,
+        "id": 40,
+        "parent": 32,
+        "name": "其他",
+        "level": 2
+      }
+    ],
+    "level": 1
+  },
+  {
+    "range": 203,
+    "id": 22,
+    "parent": 1,
+    "name": "水处理",
+    "children": [
+      {
+        "range": 501,
+        "id": 23,
+        "parent": 22,
+        "name": "饮水机",
+        "level": 2
+      },
+      {
+        "range": 502,
+        "id": 24,
+        "parent": 22,
+        "name": "净水器",
+        "level": 2
+      },
+      {
+        "range": 503,
+        "id": 25,
+        "parent": 22,
+        "name": "其他",
+        "level": 2
+      }
+    ],
+    "level": 1
+  },
+  {
+    "range": 204,
+    "id": 26,
+    "parent": 1,
+    "name": "热家电",
+    "children": [
+      {
+        "range": 601,
+        "id": 27,
+        "parent": 26,
+        "name": "取暖器",
+        "level": 2
+      },
+      {
+        "range": 602,
+        "id": 28,
+        "parent": 26,
+        "name": "地暖",
+        "level": 2
+      },
+      {
+        "range": 603,
+        "id": 29,
+        "parent": 26,
+        "name": "电壁炉",
+        "level": 2
+      },
+      {
+        "range": 604,
+        "id": 30,
+        "parent": 26,
+        "name": "加热棒",
+        "level": 2
+      },
+      {
+        "range": 605,
+        "id": 31,
+        "parent": 26,
+        "name": "其他",
+        "level": 2
+      }
+    ],
+    "level": 1
+  },
+  {
+    "range": 205,
+    "id": 2,
+    "parent": 1,
+    "name": "厨电",
+    "children": [
+      {
+        "range": 301,
+        "id": 3,
+        "parent": 2,
+        "name": "洗碗机",
+        "level": 2
+      },
+      {
+        "range": 302,
+        "id": 4,
+        "parent": 2,
+        "name": "消毒柜",
+        "level": 2
+      },
+      {
+        "range": 303,
+        "id": 5,
+        "parent": 2,
+        "name": "电冰箱",
+        "level": 2
+      },
+      {
+        "range": 304,
+        "id": 6,
+        "parent": 2,
+        "name": "冷柜",
+        "level": 2
+      },
+      {
+        "range": 305,
+        "id": 7,
+        "parent": 2,
+        "name": "酒柜",
+        "level": 2
+      },
+      {
+        "range": 306,
+        "id": 8,
+        "parent": 2,
+        "name": "水槽",
+        "level": 2
+      },
+      {
+        "range": 307,
+        "id": 9,
+        "parent": 2,
+        "name": "锅具",
+        "level": 2
+      },
+      {
+        "range": 308,
+        "id": 10,
+        "parent": 2,
+        "name": "微波炉",
+        "level": 2
+      },
+      {
+        "range": 309,
+        "id": 11,
+        "parent": 2,
+        "name": "电烤箱",
+        "level": 2
+      },
+      {
+        "range": 310,
+        "id": 12,
+        "parent": 2,
+        "name": "电蒸箱",
+        "level": 2
+      },
+      {
+        "range": 311,
+        "id": 13,
+        "parent": 2,
+        "name": "其他",
+        "level": 2
+      },
+      {
+        "range": 312,
+        "id": 171,
+        "parent": 2,
+        "name": "燃气灶",
+        "level": 2
+      },
+      {
+        "range": 313,
+        "id": 172,
+        "parent": 2,
+        "name": "油烟机",
+        "level": 2
+      }
+    ],
+    "level": 1
+  },
+  {
+    "range": 206,
+    "id": 14,
+    "parent": 1,
+    "name": "卫浴",
+    "children": [
+      {
+        "range": 401,
+        "id": 15,
+        "parent": 14,
+        "name": "智能马桶",
+        "level": 2
+      },
+      {
+        "range": 402,
+        "id": 16,
+        "parent": 14,
+        "name": "电热水器",
+        "level": 2
+      },
+      {
+        "range": 403,
+        "id": 17,
+        "parent": 14,
+        "name": "热泵热水器",
+        "level": 2
+      },
+      {
+        "range": 404,
+        "id": 18,
+        "parent": 14,
+        "name": "太阳能热水器",
+        "level": 2
+      },
+      {
+        "range": 405,
+        "id": 19,
+        "parent": 14,
+        "name": "浴霸",
+        "level": 2
+      },
+      {
+        "range": 406,
+        "id": 20,
+        "parent": 14,
+        "name": "集成吊顶",
+        "level": 2
+      },
+      {
+        "range": 407,
+        "id": 21,
+        "parent": 14,
+        "name": "其他",
+        "level": 2
+      }
+    ],
+    "level": 1
+  },
+  {
+    "range": 207,
+    "id": 46,
+    "parent": 1,
+    "name": "卫生清洁",
+    "children": [
+      {
+        "range": 901,
+        "id": 47,
+        "parent": 46,
+        "name": "扫地机器人",
+        "level": 2
+      },
+      {
+        "range": 902,
+        "id": 48,
+        "parent": 46,
+        "name": "吸尘机",
+        "level": 2
+      },
+      {
+        "range": 903,
+        "id": 49,
+        "parent": 46,
+        "name": "电蚊香",
+        "level": 2
+      },
+      {
+        "range": 904,
+        "id": 50,
+        "parent": 46,
+        "name": "洗衣机",
+        "level": 2
+      },
+      {
+        "range": 905,
+        "id": 51,
+        "parent": 46,
+        "name": "干衣机",
+        "level": 2
+      },
+      {
+        "range": 906,
+        "id": 52,
+        "parent": 46,
+        "name": "晾衣架",
+        "level": 2
+      },
+      {
+        "range": 907,
+        "id": 53,
+        "parent": 46,
+        "name": "其他",
+        "level": 2
+      }
+    ],
+    "level": 1
+  },
+  {
+    "range": 208,
+    "id": 41,
+    "parent": 1,
+    "name": "个人护理",
+    "children": [
+      {
+        "range": 801,
+        "id": 42,
+        "parent": 41,
+        "name": "美容仪",
+        "level": 2
+      },
+      {
+        "range": 802,
+        "id": 43,
+        "parent": 41,
+        "name": "电动牙刷",
+        "level": 2
+      },
+      {
+        "range": 803,
+        "id": 44,
+        "parent": 41,
+        "name": "水杯",
+        "level": 2
+      },
+      {
+        "range": 804,
+        "id": 45,
+        "parent": 41,
+        "name": "其他",
+        "level": 2
+      }
+    ],
+    "level": 1
+  },
+  {
+    "range": 209,
+    "id": 81,
+    "parent": 1,
+    "name": "视听产品",
+    "children": [
+      {
+        "range": 1301,
+        "id": 82,
+        "parent": 81,
+        "name": "音箱",
+        "level": 2
+      },
+      {
+        "range": 1302,
+        "id": 83,
+        "parent": 81,
+        "name": "家庭影院",
+        "level": 2
+      },
+      {
+        "range": 1303,
+        "id": 84,
+        "parent": 81,
+        "name": "电视机",
+        "level": 2
+      },
+      {
+        "range": 1304,
+        "id": 85,
+        "parent": 81,
+        "name": "其他",
+        "level": 2
+      }
+    ],
+    "level": 1
+  },
+  {
+    "range": 210,
+    "id": 178,
+    "parent": 1,
+    "name": "办公设备",
+    "children": [
+      {
+        "range": 3001,
+        "id": 179,
+        "parent": 178,
+        "name": "投影仪",
+        "level": 2
+      },
+      {
+        "range": 3002,
+        "id": 180,
+        "parent": 178,
+        "name": "打印机,3D打印机",
+        "level": 2
+      },
+      {
+        "range": 3003,
+        "id": 181,
+        "parent": 178,
+        "name": "其他",
+        "level": 2
+      }
+    ],
+    "level": 1
+  },
+  {
+    "range": 211,
+    "id": 65,
+    "parent": 1,
+    "name": "中控",
+    "children": [
+      {
+        "range": 1101,
+        "id": 66,
+        "parent": 65,
+        "name": "中央控制系统",
+        "level": 2
+      },
+      {
+        "range": 1102,
+        "id": 67,
+        "parent": 65,
+        "name": "网关",
+        "level": 2
+      },
+      {
+        "range": 1103,
+        "id": 68,
+        "parent": 65,
+        "name": "路由器",
+        "level": 2
+      },
+      {
+        "range": 1104,
+        "id": 69,
+        "parent": 65,
+        "name": "其他",
+        "level": 2
+      }
+    ],
+    "level": 1
+  },
+  {
+    "range": 212,
+    "id": 70,
+    "parent": 1,
+    "name": "配件",
+    "children": [
+      {
+        "range": 1201,
+        "id": 71,
+        "parent": 70,
+        "name": "照明",
+        "level": 2
+      },
+      {
+        "range": 1202,
+        "id": 72,
+        "parent": 70,
+        "name": "开关",
+        "level": 2
+      },
+      {
+        "range": 1203,
+        "id": 73,
+        "parent": 70,
+        "name": "插座",
+        "level": 2
+      },
+      {
+        "range": 1204,
+        "id": 74,
+        "parent": 70,
+        "name": "遮阳",
+        "level": 2
+      },
+      {
+        "range": 1206,
+        "id": 76,
+        "parent": 70,
+        "name": "温控器",
+        "level": 2
+      },
+      {
+        "range": 1207,
+        "id": 77,
+        "parent": 70,
+        "name": "家用水表",
+        "level": 2
+      },
+      {
+        "range": 1208,
+        "id": 78,
+        "parent": 70,
+        "name": "家用电表",
+        "level": 2
+      },
+      {
+        "range": 1209,
+        "id": 79,
+        "parent": 70,
+        "name": "窗帘",
+        "level": 2
+      },
+      {
+        "range": 1210,
+        "id": 80,
+        "parent": 70,
+        "name": "其他",
+        "level": 2
+      }
+    ],
+    "level": 1
+  },
+  {
+    "range": 213,
+    "id": 173,
+    "parent": 1,
+    "name": "园艺",
+    "children": [
+      {
+        "range": 2901,
+        "id": 174,
+        "parent": 173,
+        "name": "割草机",
+        "level": 2
+      },
+      {
+        "range": 2902,
+        "id": 175,
+        "parent": 173,
+        "name": "自动灌溉系统",
+        "level": 2
+      },
+      {
+        "range": 2903,
+        "id": 176,
+        "parent": 173,
+        "name": "智能种植设备",
+        "level": 2
+      },
+      {
+        "range": 2904,
+        "id": 177,
+        "parent": 173,
+        "name": "其他",
+        "level": 2
+      }
+    ],
+    "level": 1
+  },
+  {
+    "range": 214,
+    "id": 86,
+    "parent": 1,
+    "name": "其他",
+    "level": 1
+  },
+  {
+    "range": 301,
+    "id": 3,
+    "parent": 2,
+    "name": "洗碗机",
+    "level": 2
+  },
+  {
+    "range": 302,
+    "id": 4,
+    "parent": 2,
+    "name": "消毒柜",
+    "level": 2
+  },
+  {
+    "range": 303,
+    "id": 5,
+    "parent": 2,
+    "name": "电冰箱",
+    "level": 2
+  },
+  {
+    "range": 304,
+    "id": 6,
+    "parent": 2,
+    "name": "冷柜",
+    "level": 2
+  },
+  {
+    "range": 305,
+    "id": 7,
+    "parent": 2,
+    "name": "酒柜",
+    "level": 2
+  },
+  {
+    "range": 306,
+    "id": 8,
+    "parent": 2,
+    "name": "水槽",
+    "level": 2
+  },
+  {
+    "range": 307,
+    "id": 9,
+    "parent": 2,
+    "name": "锅具",
+    "level": 2
+  },
+  {
+    "range": 308,
+    "id": 10,
+    "parent": 2,
+    "name": "微波炉",
+    "level": 2
+  },
+  {
+    "range": 309,
+    "id": 11,
+    "parent": 2,
+    "name": "电烤箱",
+    "level": 2
+  },
+  {
+    "range": 310,
+    "id": 12,
+    "parent": 2,
+    "name": "电蒸箱",
+    "level": 2
+  },
+  {
+    "range": 311,
+    "id": 13,
+    "parent": 2,
+    "name": "其他",
+    "level": 2
+  },
+  {
+    "range": 312,
+    "id": 171,
+    "parent": 2,
+    "name": "燃气灶",
+    "level": 2
+  },
+  {
+    "range": 313,
+    "id": 172,
+    "parent": 2,
+    "name": "油烟机",
+    "level": 2
+  },
+  {
+    "range": 401,
+    "id": 15,
+    "parent": 14,
+    "name": "智能马桶",
+    "level": 2
+  },
+  {
+    "range": 402,
+    "id": 16,
+    "parent": 14,
+    "name": "电热水器",
+    "level": 2
+  },
+  {
+    "range": 403,
+    "id": 17,
+    "parent": 14,
+    "name": "热泵热水器",
+    "level": 2
+  },
+  {
+    "range": 404,
+    "id": 18,
+    "parent": 14,
+    "name": "太阳能热水器",
+    "level": 2
+  },
+  {
+    "range": 405,
+    "id": 19,
+    "parent": 14,
+    "name": "浴霸",
+    "level": 2
+  },
+  {
+    "range": 406,
+    "id": 20,
+    "parent": 14,
+    "name": "集成吊顶",
+    "level": 2
+  },
+  {
+    "range": 407,
+    "id": 21,
+    "parent": 14,
+    "name": "其他",
+    "level": 2
+  },
+  {
+    "range": 501,
+    "id": 23,
+    "parent": 22,
+    "name": "饮水机",
+    "level": 2
+  },
+  {
+    "range": 502,
+    "id": 24,
+    "parent": 22,
+    "name": "净水器",
+    "level": 2
+  },
+  {
+    "range": 503,
+    "id": 25,
+    "parent": 22,
+    "name": "其他",
+    "level": 2
+  },
+  {
+    "range": 601,
+    "id": 27,
+    "parent": 26,
+    "name": "取暖器",
+    "level": 2
+  },
+  {
+    "range": 602,
+    "id": 28,
+    "parent": 26,
+    "name": "地暖",
+    "level": 2
+  },
+  {
+    "range": 603,
+    "id": 29,
+    "parent": 26,
+    "name": "电壁炉",
+    "level": 2
+  },
+  {
+    "range": 604,
+    "id": 30,
+    "parent": 26,
+    "name": "加热棒",
+    "level": 2
+  },
+  {
+    "range": 605,
+    "id": 31,
+    "parent": 26,
+    "name": "其他",
+    "level": 2
+  },
+  {
+    "range": 701,
+    "id": 33,
+    "parent": 32,
+    "name": "电风扇",
+    "level": 2
+  },
+  {
+    "range": 702,
+    "id": 34,
+    "parent": 32,
+    "name": "除湿机",
+    "level": 2
+  },
+  {
+    "range": 703,
+    "id": 35,
+    "parent": 32,
+    "name": "加湿器",
+    "level": 2
+  },
+  {
+    "range": 704,
+    "id": 36,
+    "parent": 32,
+    "name": "空气净化器",
+    "level": 2
+  },
+  {
+    "range": 705,
+    "id": 37,
+    "parent": 32,
+    "name": "空调",
+    "level": 2
+  },
+  {
+    "range": 706,
+    "id": 38,
+    "parent": 32,
+    "name": "新风机",
+    "level": 2
+  },
+  {
+    "range": 707,
+    "id": 39,
+    "parent": 32,
+    "name": "空气检测仪",
+    "level": 2
+  },
+  {
+    "range": 708,
+    "id": 199,
+    "parent": 32,
+    "name": "空调扇",
+    "level": 2
+  },
+  {
+    "range": 709,
+    "id": 40,
+    "parent": 32,
+    "name": "其他",
+    "level": 2
+  },
+  {
+    "range": 801,
+    "id": 42,
+    "parent": 41,
+    "name": "美容仪",
+    "level": 2
+  },
+  {
+    "range": 802,
+    "id": 43,
+    "parent": 41,
+    "name": "电动牙刷",
+    "level": 2
+  },
+  {
+    "range": 803,
+    "id": 44,
+    "parent": 41,
+    "name": "水杯",
+    "level": 2
+  },
+  {
+    "range": 804,
+    "id": 45,
+    "parent": 41,
+    "name": "其他",
+    "level": 2
+  },
+  {
+    "range": 901,
+    "id": 47,
+    "parent": 46,
+    "name": "扫地机器人",
+    "level": 2
+  },
+  {
+    "range": 902,
+    "id": 48,
+    "parent": 46,
+    "name": "吸尘机",
+    "level": 2
+  },
+  {
+    "range": 903,
+    "id": 49,
+    "parent": 46,
+    "name": "电蚊香",
+    "level": 2
+  },
+  {
+    "range": 904,
+    "id": 50,
+    "parent": 46,
+    "name": "洗衣机",
+    "level": 2
+  },
+  {
+    "range": 905,
+    "id": 51,
+    "parent": 46,
+    "name": "干衣机",
+    "level": 2
+  },
+  {
+    "range": 906,
+    "id": 52,
+    "parent": 46,
+    "name": "晾衣架",
+    "level": 2
+  },
+  {
+    "range": 907,
+    "id": 53,
+    "parent": 46,
+    "name": "其他",
+    "level": 2
+  },
+  {
+    "range": 1001,
+    "id": 55,
+    "parent": 54,
+    "name": "咖啡机",
+    "level": 2
+  },
+  {
+    "range": 1002,
+    "id": 56,
+    "parent": 54,
+    "name": "电饭煲",
+    "level": 2
+  },
+  {
+    "range": 1003,
+    "id": 57,
+    "parent": 54,
+    "name": "电磁炉",
+    "level": 2
+  },
+  {
+    "range": 1004,
+    "id": 58,
+    "parent": 54,
+    "name": "炖锅",
+    "level": 2
+  },
+  {
+    "range": 1005,
+    "id": 59,
+    "parent": 54,
+    "name": "面包机",
+    "level": 2
+  },
+  {
+    "range": 1006,
+    "id": 60,
+    "parent": 54,
+    "name": "冲奶机",
+    "level": 2
+  },
+  {
+    "range": 1007,
+    "id": 61,
+    "parent": 54,
+    "name": "水壶",
+    "level": 2
+  },
+  {
+    "range": 1008,
+    "id": 62,
+    "parent": 54,
+    "name": "豆浆机",
+    "level": 2
+  },
+  {
+    "range": 1009,
+    "id": 63,
+    "parent": 54,
+    "name": "电茶壶",
+    "level": 2
+  },
+  {
+    "range": 1010,
+    "id": 64,
+    "parent": 54,
+    "name": "其他",
+    "level": 2
+  },
+  {
+    "range": 1101,
+    "id": 66,
+    "parent": 65,
+    "name": "中央控制系统",
+    "level": 2
+  },
+  {
+    "range": 1102,
+    "id": 67,
+    "parent": 65,
+    "name": "网关",
+    "level": 2
+  },
+  {
+    "range": 1103,
+    "id": 68,
+    "parent": 65,
+    "name": "路由器",
+    "level": 2
+  },
+  {
+    "range": 1104,
+    "id": 69,
+    "parent": 65,
+    "name": "其他",
+    "level": 2
+  },
+  {
+    "range": 1201,
+    "id": 71,
+    "parent": 70,
+    "name": "照明",
+    "level": 2
+  },
+  {
+    "range": 1202,
+    "id": 72,
+    "parent": 70,
+    "name": "开关",
+    "level": 2
+  },
+  {
+    "range": 1203,
+    "id": 73,
+    "parent": 70,
+    "name": "插座",
+    "level": 2
+  },
+  {
+    "range": 1204,
+    "id": 74,
+    "parent": 70,
+    "name": "遮阳",
+    "level": 2
+  },
+  {
+    "range": 1206,
+    "id": 76,
+    "parent": 70,
+    "name": "温控器",
+    "level": 2
+  },
+  {
+    "range": 1207,
+    "id": 77,
+    "parent": 70,
+    "name": "家用水表",
+    "level": 2
+  },
+  {
+    "range": 1208,
+    "id": 78,
+    "parent": 70,
+    "name": "家用电表",
+    "level": 2
+  },
+  {
+    "range": 1209,
+    "id": 79,
+    "parent": 70,
+    "name": "窗帘",
+    "level": 2
+  },
+  {
+    "range": 1210,
+    "id": 80,
+    "parent": 70,
+    "name": "其他",
+    "level": 2
+  },
+  {
+    "range": 1301,
+    "id": 82,
+    "parent": 81,
+    "name": "音箱",
+    "level": 2
+  },
+  {
+    "range": 1302,
+    "id": 83,
+    "parent": 81,
+    "name": "家庭影院",
+    "level": 2
+  },
+  {
+    "range": 1303,
+    "id": 84,
+    "parent": 81,
+    "name": "电视机",
+    "level": 2
+  },
+  {
+    "range": 1304,
+    "id": 85,
+    "parent": 81,
+    "name": "其他",
+    "level": 2
+  },
+  {
+    "range": 1401,
+    "id": 88,
+    "parent": 87,
+    "name": "其他",
+    "level": 1
+  },
+  {
+    "range": 1501,
+    "id": 90,
+    "parent": 89,
+    "name": "其他",
+    "level": 1
+  },
+  {
+    "range": 1601,
+    "id": 92,
+    "parent": 91,
+    "name": "车辆管理",
+    "level": 1
+  },
+  {
+    "range": 1602,
+    "id": 93,
+    "parent": 91,
+    "name": "物流仓库",
+    "level": 1
+  },
+  {
+    "range": 1603,
+    "id": 185,
+    "parent": 91,
+    "name": "快递柜管理",
+    "level": 1
+  },
+  {
+    "range": 1604,
+    "id": 184,
+    "parent": 91,
+    "name": "物流柜管理",
+    "level": 1
+  },
+  {
+    "range": 1605,
+    "id": 94,
+    "parent": 91,
+    "name": "其他",
+    "level": 1
+  },
+  {
+    "range": 1701,
+    "id": 96,
+    "parent": 95,
+    "name": "点读机",
+    "level": 1
+  },
+  {
+    "range": 1702,
+    "id": 97,
+    "parent": 95,
+    "name": "故事机",
+    "level": 1
+  },
+  {
+    "range": 1703,
+    "id": 98,
+    "parent": 95,
+    "name": "智能机器人",
+    "level": 1
+  },
+  {
+    "range": 1704,
+    "id": 186,
+    "parent": 95,
+    "name": "教学设备",
+    "level": 1
+  },
+  {
+    "range": 1705,
+    "id": 99,
+    "parent": 95,
+    "name": "其他",
+    "level": 1
+  },
+  {
+    "range": 1801,
+    "id": 101,
+    "parent": 100,
+    "name": "手环",
+    "level": 1
+  },
+  {
+    "range": 1802,
+    "id": 102,
+    "parent": 100,
+    "name": "手表",
+    "level": 1
+  },
+  {
+    "range": 1803,
+    "id": 103,
+    "parent": 100,
+    "name": "运动鞋",
+    "level": 1
+  },
+  {
+    "range": 1804,
+    "id": 104,
+    "parent": 100,
+    "name": "运动服",
+    "level": 1
+  },
+  {
+    "range": 1805,
+    "id": 105,
+    "parent": 100,
+    "name": "防丢器",
+    "level": 1
+  },
+  {
+    "range": 1806,
+    "id": 187,
+    "parent": 100,
+    "name": "蓝牙耳机",
+    "level": 1
+  },
+  {
+    "range": 1807,
+    "id": 106,
+    "parent": 100,
+    "name": "其他",
+    "level": 1
+  },
+  {
+    "range": 1901,
+    "id": 108,
+    "parent": 107,
+    "name": "家庭安防系统",
+    "level": 1
+  },
+  {
+    "range": 1902,
+    "id": 109,
+    "parent": 107,
+    "name": "烟雾报警器",
+    "level": 1
+  },
+  {
+    "range": 1903,
+    "id": 110,
+    "parent": 107,
+    "name": "摄像头",
+    "level": 1
+  },
+  {
+    "range": 1904,
+    "id": 114,
+    "parent": 107,
+    "name": "可视对讲",
+    "level": 1
+  },
+  {
+    "range": 1905,
+    "id": 112,
+    "parent": 107,
+    "name": "门锁",
+    "level": 1
+  },
+  {
+    "range": 1906,
+    "id": 113,
+    "parent": 107,
+    "name": "门磁,窗磁",
+    "level": 1
+  },
+  {
+    "range": 1907,
+    "id": 111,
+    "parent": 107,
+    "name": "温湿度传感器",
+    "level": 1
+  },
+  {
+    "range": 1908,
+    "id": 189,
+    "parent": 107,
+    "name": "红外传感器",
+    "level": 1
+  },
+  {
+    "range": 1909,
+    "id": 188,
+    "parent": 107,
+    "name": "水浸传感器",
+    "level": 1
+  },
+  {
+    "range": 1910,
+    "id": 200,
+    "parent": 107,
+    "name": "甲醛传感器",
+    "level": 1
+  },
+  {
+    "range": 1911,
+    "id": 201,
+    "parent": 107,
+    "name": "一氧化碳传感器",
+    "level": 1
+  },
+  {
+    "range": 1912,
+    "id": 115,
+    "parent": 107,
+    "name": "其他",
+    "level": 1
+  },
+  {
+    "range": 2001,
+    "id": 117,
+    "parent": 116,
+    "name": "按摩椅",
+    "level": 1
+  },
+  {
+    "range": 2002,
+    "id": 118,
+    "parent": 116,
+    "name": "血压计",
+    "level": 1
+  },
+  {
+    "range": 2003,
+    "id": 119,
+    "parent": 116,
+    "name": "血糖仪",
+    "level": 1
+  },
+  {
+    "range": 2004,
+    "id": 120,
+    "parent": 116,
+    "name": "睡眠垫",
+    "level": 1
+  },
+  {
+    "range": 2005,
+    "id": 121,
+    "parent": 116,
+    "name": "睡眠床",
+    "level": 1
+  },
+  {
+    "range": 2006,
+    "id": 122,
+    "parent": 116,
+    "name": "足疗器",
+    "level": 1
+  },
+  {
+    "range": 2007,
+    "id": 123,
+    "parent": 116,
+    "name": "体脂测量仪",
+    "level": 1
+  },
+  {
+    "range": 2008,
+    "id": 124,
+    "parent": 116,
+    "name": "电子称",
+    "level": 1
+  },
+  {
+    "range": 2009,
+    "id": 190,
+    "parent": 116,
+    "name": "治疗仪",
+    "level": 1
+  },
+  {
+    "range": 2010,
+    "id": 125,
+    "parent": 116,
+    "name": "其他",
+    "level": 1
+  },
+  {
+    "range": 2101,
+    "id": 127,
+    "parent": 126,
+    "name": "健身车",
+    "level": 1
+  },
+  {
+    "range": 2102,
+    "id": 128,
+    "parent": 126,
+    "name": "跑步机",
+    "level": 1
+  },
+  {
+    "range": 2103,
+    "id": 129,
+    "parent": 126,
+    "name": "高尔夫球轴传感器",
+    "level": 1
+  },
+  {
+    "range": 2104,
+    "id": 191,
+    "parent": 126,
+    "name": "辅助运动设备",
+    "level": 1
+  },
+  {
+    "range": 2105,
+    "id": 130,
+    "parent": 126,
+    "name": "其他",
+    "level": 1
+  },
+  {
+    "range": 2201,
+    "id": 132,
+    "parent": 131,
+    "name": "车联网",
+    "children": [
+      {
+        "range": 2301,
+        "id": 133,
+        "parent": 132,
+        "name": "胎压监测",
+        "level": 2
+      },
+      {
+        "range": 2302,
+        "id": 134,
+        "parent": 132,
+        "name": "引擎锁",
+        "level": 2
+      },
+      {
+        "range": 2303,
+        "id": 135,
+        "parent": 132,
+        "name": "其他",
+        "level": 2
+      }
+    ],
+    "level": 1
+  },
+  {
+    "range": 2202,
+    "id": 136,
+    "parent": 131,
+    "name": "单车",
+    "children": [
+      {
+        "range": 3201,
+        "id": 192,
+        "parent": 136,
+        "name": "智能单车",
+        "level": 2
+      },
+      {
+        "range": 3202,
+        "id": 193,
+        "parent": 136,
+        "name": "电动单车",
+        "level": 2
+      },
+      {
+        "range": 3203,
+        "id": 194,
+        "parent": 136,
+        "name": "其他",
+        "level": 2
+      }
+    ],
+    "level": 1
+  },
+  {
+    "range": 2203,
+    "id": 195,
+    "parent": 131,
+    "name": "电动汽车",
+    "level": 1
+  },
+  {
+    "range": 2204,
+    "id": 137,
+    "parent": 131,
+    "name": "其他",
+    "level": 1
+  },
+  {
+    "range": 2301,
+    "id": 133,
+    "parent": 132,
+    "name": "胎压监测",
+    "level": 2
+  },
+  {
+    "range": 2302,
+    "id": 134,
+    "parent": 132,
+    "name": "引擎锁",
+    "level": 2
+  },
+  {
+    "range": 2303,
+    "id": 135,
+    "parent": 132,
+    "name": "其他",
+    "level": 2
+  },
+  {
+    "range": 2401,
+    "id": 139,
+    "parent": 138,
+    "name": "灌溉系统",
+    "level": 1
+  },
+  {
+    "range": 2402,
+    "id": 140,
+    "parent": 138,
+    "name": "农业检测",
+    "level": 1
+  },
+  {
+    "range": 2403,
+    "id": 141,
+    "parent": 138,
+    "name": "养殖监控",
+    "level": 1
+  },
+  {
+    "range": 2404,
+    "id": 142,
+    "parent": 138,
+    "name": "其他",
+    "level": 1
+  },
+  {
+    "range": 2501,
+    "id": 144,
+    "parent": 143,
+    "name": "麻将机",
+    "level": 1
+  },
+  {
+    "range": 2502,
+    "id": 145,
+    "parent": 143,
+    "name": "遥控飞机",
+    "level": 1
+  },
+  {
+    "range": 2503,
+    "id": 146,
+    "parent": 143,
+    "name": "娃娃机",
+    "level": 1
+  },
+  {
+    "range": 2504,
+    "id": 147,
+    "parent": 143,
+    "name": "遥控车",
+    "level": 1
+  },
+  {
+    "range": 2505,
+    "id": 148,
+    "parent": 143,
+    "name": "投篮机",
+    "level": 1
+  },
+  {
+    "range": 2506,
+    "id": 196,
+    "parent": 143,
+    "name": "婴童玩具",
+    "level": 1
+  },
+  {
+    "range": 2507,
+    "id": 149,
+    "parent": 143,
+    "name": "其他",
+    "level": 1
+  },
+  {
+    "range": 2601,
+    "id": 151,
+    "parent": 150,
+    "name": "充电桩",
+    "level": 1
+  },
+  {
+    "range": 2602,
+    "id": 152,
+    "parent": 150,
+    "name": "其他",
+    "level": 1
+  },
+  {
+    "range": 2701,
+    "id": 154,
+    "parent": 153,
+    "name": "智能水泵",
+    "level": 1
+  },
+  {
+    "range": 2702,
+    "id": 155,
+    "parent": 153,
+    "name": "压缩机",
+    "level": 1
+  },
+  {
+    "range": 2703,
+    "id": 156,
+    "parent": 153,
+    "name": "发电机",
+    "level": 1
+  },
+  {
+    "range": 2704,
+    "id": 157,
+    "parent": 153,
+    "name": "锅炉",
+    "level": 1
+  },
+  {
+    "range": 2705,
+    "id": 158,
+    "parent": 153,
+    "name": "变频器",
+    "level": 1
+  },
+  {
+    "range": 2706,
+    "id": 159,
+    "parent": 153,
+    "name": "工控设备",
+    "level": 1
+  },
+  {
+    "range": 2707,
+    "id": 160,
+    "parent": 153,
+    "name": "污水处理",
+    "level": 1
+  },
+  {
+    "range": 2708,
+    "id": 161,
+    "parent": 153,
+    "name": "机械重工",
+    "level": 1
+  },
+  {
+    "range": 2709,
+    "id": 162,
+    "parent": 153,
+    "name": "注塑机",
+    "level": 1
+  },
+  {
+    "range": 2710,
+    "id": 163,
+    "parent": 153,
+    "name": "工业检测仪",
+    "children": [
+      {
+        "range": 2801,
+        "id": 164,
+        "parent": 163,
+        "name": "温度检测仪",
+        "level": 2
+      },
+      {
+        "range": 2802,
+        "id": 165,
+        "parent": 163,
+        "name": "温湿度检测仪",
+        "level": 2
+      },
+      {
+        "range": 2803,
+        "id": 166,
+        "parent": 163,
+        "name": "万用表",
+        "level": 2
+      },
+      {
+        "range": 2804,
+        "id": 167,
+        "parent": 163,
+        "name": "粉尘检测仪",
+        "level": 2
+      },
+      {
+        "range": 2805,
+        "id": 168,
+        "parent": 163,
+        "name": "其他",
+        "level": 2
+      }
+    ],
+    "level": 1
+  },
+  {
+    "range": 2711,
+    "id": 197,
+    "parent": 153,
+    "name": "机器人,机械臂",
+    "level": 1
+  },
+  {
+    "range": 2712,
+    "id": 169,
+    "parent": 153,
+    "name": "其他",
+    "level": 1
+  },
+  {
+    "range": 2801,
+    "id": 164,
+    "parent": 163,
+    "name": "温度检测仪",
+    "level": 2
+  },
+  {
+    "range": 2802,
+    "id": 165,
+    "parent": 163,
+    "name": "温湿度检测仪",
+    "level": 2
+  },
+  {
+    "range": 2803,
+    "id": 166,
+    "parent": 163,
+    "name": "万用表",
+    "level": 2
+  },
+  {
+    "range": 2804,
+    "id": 167,
+    "parent": 163,
+    "name": "粉尘检测仪",
+    "level": 2
+  },
+  {
+    "range": 2805,
+    "id": 168,
+    "parent": 163,
+    "name": "其他",
+    "level": 2
+  },
+  {
+    "range": 2901,
+    "id": 174,
+    "parent": 173,
+    "name": "割草机",
+    "level": 2
+  },
+  {
+    "range": 2902,
+    "id": 175,
+    "parent": 173,
+    "name": "自动灌溉系统",
+    "level": 2
+  },
+  {
+    "range": 2903,
+    "id": 176,
+    "parent": 173,
+    "name": "智能种植设备",
+    "level": 2
+  },
+  {
+    "range": 2904,
+    "id": 177,
+    "parent": 173,
+    "name": "其他",
+    "level": 2
+  },
+  {
+    "range": 3001,
+    "id": 179,
+    "parent": 178,
+    "name": "投影仪",
+    "level": 2
+  },
+  {
+    "range": 3002,
+    "id": 180,
+    "parent": 178,
+    "name": "打印机,3D打印机",
+    "level": 2
+  },
+  {
+    "range": 3003,
+    "id": 181,
+    "parent": 178,
+    "name": "其他",
+    "level": 2
+  },
+  {
+    "range": 3101,
+    "id": 183,
+    "parent": 182,
+    "name": "其他",
+    "level": 1
+  },
+  {
+    "range": 3201,
+    "id": 192,
+    "parent": 136,
+    "name": "智能单车",
+    "level": 2
+  },
+  {
+    "range": 3202,
+    "id": 193,
+    "parent": 136,
+    "name": "电动单车",
+    "level": 2
+  },
+  {
+    "range": 3203,
+    "id": 194,
+    "parent": 136,
+    "name": "其他",
+    "level": 2
+  }
+]

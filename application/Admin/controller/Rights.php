@@ -183,7 +183,7 @@ class Rights extends AdminBase
         }
     }
 
-    public function RoleList()
+    public function rolelist()
     {
         $data = $this->request->request();
         $currentPage = $this->request->request('page',1);

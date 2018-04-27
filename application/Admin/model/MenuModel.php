@@ -30,7 +30,6 @@ class MenuModel extends Base
 
     public static function getUserMenus($userid):array
     {
-        //self::query();
         return [];
     }
 

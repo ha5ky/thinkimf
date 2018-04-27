@@ -2,18 +2,19 @@
 
 namespace app\Admin\controller;
 
+use function getDomain;
 use think\Controller;
 use app\Admin\controller\AuthAdminBase;
 use app\Admin\model\MenuModel;
 
-class Index extends AdminBase
+class Index extends AuthAdminBase
 {
     public function index()
     {
-//        echo 123;
-//        exit;
-        //MenuModel::getInfo();
-        //$this->assign('lists', $program);
+
+        $this->assign('menus',self::$Menus);
+        $this->assign('domain',getDomain());
+
         return $this->fetch('index/index', [
             'code' => 200
         ]);

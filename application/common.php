@@ -9,14 +9,59 @@
 // | Author: 流年 <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 // 应用公共文件
+use think\Request;
+
 if (!function_exists("imf_user_login")) {
     function imf_admin_login()
     {
-        if (empty($_SESSION['userid'])) {
-            header('Location:/admin/user/login');
+        if (!session('userid')) {
+            $request = new Request();
+            header('Location:/auth/index/login?redirect='.$request->domain().'/admin');
         }
     }
 };
+
+function getDomain(){
+    $request = new Request();
+    return $request->domain();
+}
+
+function imf_get_user_menu($rid){
+    //获取老的用户权限
+    $UserType = new app\admin\model\UserType();
+    $oldRightsStr = $UserType->where([
+        'id'=>$rid
+    ])->field('menu_dict')->select()->toArray();
+    if(isset($oldRightsStr[0]['menu_dict'])){
+        $oldRightsArr = explode('|',$oldRightsStr[0]['menu_dict']);
+    }else{
+        $oldRightsArr = [];
+    }
+    $allMenu = app\admin\model\MenuModel::AllList();
+    $newMenu = [];
+    foreach ($allMenu as $k=>$v){
+        $v['checked'] = '';
+        if(in_array($v['id'],$oldRightsArr)){
+            $v['checked'] = 'checked';
+        }
+        $v['submenu'] = '';
+        $allMenu[$k] = $v;
+
+    }
+    foreach ($allMenu as $k=>$v){
+        if($v['parent_id'] == 0){
+            $v['submenu'] = [];
+            foreach ($allMenu as $k2=>$v2){
+                if($v2['parent_id'] == $v['id']){
+                    array_push($v['submenu'],$v2);
+                }
+            }
+            $newMenu[$k] = $v;
+        }
+    }
+    return $newMenu;
+}
+
 function imf_rand_str($length = 8, $str = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'):String
 {
     $string = '';
@@ -400,7 +445,7 @@ function curl_get($URL,$data=null,$type='GET',$headers= []){
 
 //创建TOKEN
 function createToken() {
-    $code = chr(mt_rand(0xB0, 0xF7)) . chr(mt_rand(0xA1, 0xFE)) .       chr(mt_rand(0xB0, 0xF7)) . chr(mt_rand(0xA1, 0xFE)) . chr(mt_rand(0xB0, 0xF7)) . chr(mt_rand(0xA1, 0xFE));
+    $code = chr(mt_rand(0xB0, 0xF7)) . chr(mt_rand(0xA1, 0xFE)).chr(mt_rand(0xB0, 0xF7)) . chr(mt_rand(0xA1, 0xFE)) . chr(mt_rand(0xB0, 0xF7)) . chr(mt_rand(0xA1, 0xFE));
     session('TOKEN', authcode($code));
 }
 //判断TOKEN
@@ -417,4 +462,15 @@ function authcode($str) {
     $key = "YOURKEY";
     $str = substr(md5($str), 8, 10);
     return md5($key . $str);
+}
+
+function RedisInstance(){
+    //think\Config::load(APP_PATH.'/../config/redis.php');
+    $client = new Predis\Client([
+        'host'   => config('redis.host'),
+        'port'   => config('redis.port'),
+    ]);
+    $client->auth(config('redis.password'));
+    return $client;
+
 }

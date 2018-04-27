@@ -31,6 +31,17 @@
     <li class="layui-nav-item"><a href="">开发者社区</a></li>
     <li class="layui-nav-item"><a href="">新闻活动</a></li>
     <li class="layui-nav-item"><a href="/portal/index/aboutus">关于我们</a></li>
+    {if session('username')}
+        <li class="layui-nav-item" style="float:right;">
+            <a href="javascript:;" style="color:red;"><?=session('username')?></a>
+            <dl class="layui-nav-child">
+                {if session('user_type') == 1}
+                <dd><a href="/admin">管理后台</a></dd>
+                {/if}
+                <dd><a href="/auth/index/logout">退出</a></dd>
+            </dl>
+        </li>
+    {/if}
 </ul>
 <!--首页幻灯片-->
 <style>
