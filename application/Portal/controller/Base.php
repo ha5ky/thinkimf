@@ -14,5 +14,6 @@ class Base extends Controller
         } else {
             $this->view->config('view_path','themes/default/web/' . $request->module() . "/");
         }
+        $this->view->engine->layout('common/default');
     }
 }
