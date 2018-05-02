@@ -15,4 +15,9 @@ class Index extends Base
     {
         return $this->fetch('index/about-us');
     }
+
+    public function projecttimeline()
+    {
+        return $this->fetch('index/project-timeline');
+    }
 }
