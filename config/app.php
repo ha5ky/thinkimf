@@ -143,5 +143,7 @@ return [
     'exception_handle' => '',
 
     'paginate' => 3,
+    //百度地图AK
+    'baidu_map_ak'=>'X4AXvXmQBns9pj3YvboH5AxsPVQjKa5O'
 
 ];
