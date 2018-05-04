@@ -1,0 +1,23 @@
+<!--云页面布局
+    添加设备
+    设备消息接受
+    设备消息推送
+    设备下线
+    设备信息上报
+    设备详情-->
+<script type="text/javascript" src="//api.map.baidu.com/api?v=3.0&ak={$ak}"></script>
+<div class="layui-row">
+    <style type="text/css">
+        #cloudMap{
+            width:100%;
+            height: 680px;/*写给不支持calc()的浏览器*/
+        }
+        /*百度地图版权隐藏*/
+        .anchorBL{display:none;}
+    </style>
+    <div style="width: 100%;">
+        <div id="cloudMap" >
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/static/js/cloud.js"></script>

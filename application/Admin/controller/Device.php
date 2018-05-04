@@ -34,10 +34,12 @@ class Device extends AdminBase
         return $this->fetch('device/map');
     }
 
-    public function getList()
+    public function deviceList()
     {
-        DevclientModel::getList();
-
+        //获取上线的设备
+        $devclientList = Devcilent::getList();
+        $this->assign('devclientList', $devclientList);
+        return $this->fetch('device/map');
     }
 
     public function index()

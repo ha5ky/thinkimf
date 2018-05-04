@@ -16,44 +16,46 @@ if (!function_exists("imf_user_login")) {
     {
         if (!session('userid')) {
             $request = new Request();
-            header('Location:/auth/index/login?redirect='.$request->domain().'/admin');
+            header('Location:/auth/index/login?redirect=' . $request->domain() . '/admin');
         }
     }
 };
 
-function getDomain(){
+function getDomain()
+{
     $request = new Request();
     return $request->domain();
 }
 
-function imf_get_user_menu($rid){
+function imf_get_user_menu($rid)
+{
     //获取老的用户权限
     $UserType = new app\admin\model\UserType();
     $oldRightsStr = $UserType->where([
-        'id'=>$rid
+        'id' => $rid
     ])->field('menu_dict')->select()->toArray();
-    if(isset($oldRightsStr[0]['menu_dict'])){
-        $oldRightsArr = explode('|',$oldRightsStr[0]['menu_dict']);
-    }else{
+    if (isset($oldRightsStr[0]['menu_dict'])) {
+        $oldRightsArr = explode('|', $oldRightsStr[0]['menu_dict']);
+    } else {
         $oldRightsArr = [];
     }
     $allMenu = app\admin\model\MenuModel::AllList();
     $newMenu = [];
-    foreach ($allMenu as $k=>$v){
+    foreach ($allMenu as $k => $v) {
         $v['checked'] = '';
-        if(in_array($v['id'],$oldRightsArr)){
+        if (in_array($v['id'], $oldRightsArr)) {
             $v['checked'] = 'checked';
         }
         $v['submenu'] = '';
         $allMenu[$k] = $v;
 
     }
-    foreach ($allMenu as $k=>$v){
-        if($v['parent_id'] == 0){
+    foreach ($allMenu as $k => $v) {
+        if ($v['parent_id'] == 0) {
             $v['submenu'] = [];
-            foreach ($allMenu as $k2=>$v2){
-                if($v2['parent_id'] == $v['id']){
-                    array_push($v['submenu'],$v2);
+            foreach ($allMenu as $k2 => $v2) {
+                if ($v2['parent_id'] == $v['id']) {
+                    array_push($v['submenu'], $v2);
                 }
             }
             $newMenu[$k] = $v;
@@ -62,7 +64,7 @@ function imf_get_user_menu($rid){
     return $newMenu;
 }
 
-function imf_rand_str($length = 8, $str = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'):String
+function imf_rand_str($length = 8, $str = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'): String
 {
     $string = '';
     for ($i = 0; $i < $length; $i++) {
@@ -72,22 +74,21 @@ function imf_rand_str($length = 8, $str = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJK
 }
 
 //密码加密
-function passwordHash($password):string
+function passwordHash($password): string
 {
-    return password_hash($password,PASSWORD_BCRYPT,[
-        'cost'=>10
+    return password_hash($password, PASSWORD_BCRYPT, [
+        'cost' => 10
     ]);
 }
 
 //密码解密
- function passwordVerify($password,$hashPassword):bool
+function passwordVerify($password, $hashPassword): bool
 {
-    if(password_verify($password,$hashPassword)){
+    if (password_verify($password, $hashPassword)) {
         return true;
     }
     return false;
 }
-
 
 
 /**
@@ -97,15 +98,16 @@ function passwordHash($password):string
  * @param string $headers 头部信息
  * @return mixed
  */
-function httpRequest($URL,$data=null,$type='GET',$headers= []){
+function httpRequest($URL, $data = null, $type = 'GET', $headers = [])
+{
     $ch = curl_init();
     //判断ssl连接方式
-    if(stripos($URL, 'https://') !== false) {
+    if (stripos($URL, 'https://') !== false) {
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_SSLVERSION, 1);
     }
-    $connttime=300; //连接等待时间500毫秒
+    $connttime = 300; //连接等待时间500毫秒
     $timeout = 15000;//超时时间15秒
     $querystring = "";
     if (is_array($data)) {
@@ -113,39 +115,47 @@ function httpRequest($URL,$data=null,$type='GET',$headers= []){
         foreach ($data as $key => $val) {
             if (is_array($val)) {
                 foreach ($val as $val2) {
-                    $querystring .= urlencode($key).'='.urlencode($val2).'&';
+                    $querystring .= urlencode($key) . '=' . urlencode($val2) . '&';
                 }
             } else {
-                $querystring .= urlencode($key).'='.urlencode($val).'&';
+                $querystring .= urlencode($key) . '=' . urlencode($val) . '&';
             }
         }
         $querystring = substr($querystring, 0, -1); // Eliminate unnecessary &
     } else {
         $querystring = $data;
     }
-    if($type == 'GET'){
-        $URL  = $URL.'?'.$querystring;
+    if ($type == 'GET') {
+        $URL = $URL . '?' . $querystring;
     }
     //exit($URL);
-    curl_setopt ($ch, CURLOPT_URL, $URL); //发贴地址
+    curl_setopt($ch, CURLOPT_URL, $URL); //发贴地址
     //设置HEADER头部信息
-    if(!$headers){
-        curl_setopt ($ch, CURLOPT_HTTPHEADER, $headers);
+    if (!$headers) {
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
     }
-    curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);//反馈信息
-    curl_setopt ($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1); //http 1.1版本
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);//反馈信息
+    curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1); //http 1.1版本
 
-    curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT_MS, $connttime);//连接等待时间
-    curl_setopt ($ch, CURLOPT_TIMEOUT_MS, $timeout);//超时时间
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS, $connttime);//连接等待时间
+    curl_setopt($ch, CURLOPT_TIMEOUT_MS, $timeout);//超时时间
 
-    switch ($type){
-        case "GET" : curl_setopt($ch, CURLOPT_HTTPGET, true);break;
-        case "POST": curl_setopt($ch, CURLOPT_POST,true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS,$querystring);break;
-        case "PUT" : curl_setopt ($ch, CURLOPT_CUSTOMREQUEST, "PUT");
-            curl_setopt($ch, CURLOPT_POSTFIELDS,$querystring);break;
-        case "DELETE":curl_setopt ($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-            curl_setopt($ch, CURLOPT_POSTFIELDS,$querystring);break;
+    switch ($type) {
+        case "GET" :
+            curl_setopt($ch, CURLOPT_HTTPGET, true);
+            break;
+        case "POST":
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $querystring);
+            break;
+        case "PUT" :
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $querystring);
+            break;
+        case "DELETE":
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $querystring);
+            break;
     }
     $file_contents = curl_exec($ch);//获得返回值
     $status = curl_getinfo($ch);
@@ -286,6 +296,22 @@ function numCodeRe($num = 4)
     return $return_str;
 }
 
+function genUuid(): string
+{
+    if (function_exists('atom_next_id')) {
+        return atom_next_id();
+    }
+    return false;
+}
+
+function parseUid($uid): array
+{
+    if (function_exists('atom_explain')) {
+        return atom_explain($uid);
+    }
+    return false;
+}
+
 
 //获取密码强度0->低、1->较低、2->中、3->较高、4->高
 function passwordStrength($password)
@@ -323,7 +349,8 @@ function passwordStrength($password)
 }
 
 
-function object_to_array($obj) {
+function object_to_array($obj)
+{
     $obj = (array)$obj;
     foreach ($obj as $k => $v) {
         if (gettype($v) == 'resource') {
@@ -337,24 +364,25 @@ function object_to_array($obj) {
     return $obj;
 }
 
-function object2array($object) {
+function object2array($object)
+{
     if (is_object($object)) {
         foreach ($object as $key => $value) {
             $array[$key] = $value;
         }
-    }
-    else {
+    } else {
         $array = $object;
     }
     return $array;
 }
 
 //获取当前用户ip
-function getIp() {
+function getIp()
+{
     $unknown = 'unknown';
-    if(isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR'] && strcasecmp($_SERVER['HTTP_X_FORWARDED_FOR'], $unknown)){
+    if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR'] && strcasecmp($_SERVER['HTTP_X_FORWARDED_FOR'], $unknown)) {
         $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-    }elseif(isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], $unknown)) {
+    } elseif (isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], $unknown)) {
         $ip = $_SERVER['REMOTE_ADDR'];
     }
     /**
@@ -363,21 +391,53 @@ function getIp() {
      */
     if (false !== strpos($ip, ',')) $ip = reset(explode(',', $ip));
     $ipinf = $this->getIpInfo($ip);
-//            if ($ipinf['city'] =='内网IP'){
-//                $ipinf['city'] = '上海市';
-//            }
+    if ($ipinf['city'] == '内网IP') {
+        $ipinf['city'] = '上海市';
+    }
     return $ipinf;
 }
 
-function getIpInfo($ip){
-    $url='http://ip.taobao.com/service/getIpInfo.php?ip='.$ip;
-//        $url='http://ip.taobao.com/service/getIpInfo.php?ip=169.235.24.133';
-    $result = file_get_contents($url);
-    $result = json_decode($result,true);
-    if($result['code']!==0 || !is_array($result['data'])) return false;
-    return $result['data'];
+/**
+ * 获取客户端IP地址
+ * @param integer $type 返回类型 0 返回IP地址 1 返回IPV4地址数字
+ * @return mixed
+ */
+function get_client_ip($type = 0)
+{
+    $type = $type ? 1 : 0;
+    static $ip = null;
+    if (null !== $ip) {
+        return $ip[$type];
+    }
+
+    if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $arr = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+        $pos = array_search('unknown', $arr);
+        if (false !== $pos) {
+            unset($arr[$pos]);
+        }
+
+        $ip = trim($arr[0]);
+    } elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (isset($_SERVER['REMOTE_ADDR'])) {
+        $ip = $_SERVER['REMOTE_ADDR'];
+    }
+    // IP地址合法验证
+    $long = sprintf("%u", ip2long($ip));
+    $ip = $long ? array($ip, $long) : array('0.0.0.0', 0);
+    return $ip[$type];
 }
 
+function getIpInfo($ip)
+{
+    $url = 'http://ip.taobao.com/service/getIpInfo.php?ip=' . $ip;
+//        $url='http://ip.taobao.com/service/getIpInfo.php?ip=169.235.24.133';
+    $result = file_get_contents($url);
+    $result = json_decode($result, true);
+    if ($result['code'] !== 0 || !is_array($result['data'])) return false;
+    return $result['data'];
+}
 
 
 /**
@@ -387,15 +447,16 @@ function getIpInfo($ip){
  * @param string $headers 头部信息
  * @return mixed
  */
-function curl_get($URL,$data=null,$type='GET',$headers= []){
+function curl_get($URL, $data = null, $type = 'GET', $headers = [])
+{
     $ch = curl_init();
     //判断ssl连接方式
-    if(stripos($URL, 'https://') !== false) {
+    if (stripos($URL, 'https://') !== false) {
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_SSLVERSION, 1);
     }
-    $connttime=300; //连接等待时间500毫秒
+    $connttime = 300; //连接等待时间500毫秒
     $timeout = 15000;//超时时间15秒
     $querystring = "";
     if (is_array($data)) {
@@ -403,39 +464,47 @@ function curl_get($URL,$data=null,$type='GET',$headers= []){
         foreach ($data as $key => $val) {
             if (is_array($val)) {
                 foreach ($val as $val2) {
-                    $querystring .= urlencode($key).'='.urlencode($val2).'&';
+                    $querystring .= urlencode($key) . '=' . urlencode($val2) . '&';
                 }
             } else {
-                $querystring .= urlencode($key).'='.urlencode($val).'&';
+                $querystring .= urlencode($key) . '=' . urlencode($val) . '&';
             }
         }
         $querystring = substr($querystring, 0, -1); // Eliminate unnecessary &
     } else {
         $querystring = $data;
     }
-    if($type == 'GET'){
-        $URL  = $URL.'?'.$querystring;
+    if ($type == 'GET') {
+        $URL = $URL . '?' . $querystring;
     }
     //exit($URL);
-    curl_setopt ($ch, CURLOPT_URL, $URL); //发贴地址
+    curl_setopt($ch, CURLOPT_URL, $URL); //发贴地址
     //设置HEADER头部信息
-    if(!$headers){
-        curl_setopt ($ch, CURLOPT_HTTPHEADER, $headers);
+    if (!$headers) {
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
     }
-    curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);//反馈信息
-    curl_setopt ($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1); //http 1.1版本
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);//反馈信息
+    curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1); //http 1.1版本
 
-    curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT_MS, $connttime);//连接等待时间
-    curl_setopt ($ch, CURLOPT_TIMEOUT_MS, $timeout);//超时时间
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS, $connttime);//连接等待时间
+    curl_setopt($ch, CURLOPT_TIMEOUT_MS, $timeout);//超时时间
 
-    switch ($type){
-        case "GET" : curl_setopt($ch, CURLOPT_HTTPGET, true);break;
-        case "POST": curl_setopt($ch, CURLOPT_POST,true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS,$querystring);break;
-        case "PUT" : curl_setopt ($ch, CURLOPT_CUSTOMREQUEST, "PUT");
-            curl_setopt($ch, CURLOPT_POSTFIELDS,$querystring);break;
-        case "DELETE":curl_setopt ($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-            curl_setopt($ch, CURLOPT_POSTFIELDS,$querystring);break;
+    switch ($type) {
+        case "GET" :
+            curl_setopt($ch, CURLOPT_HTTPGET, true);
+            break;
+        case "POST":
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $querystring);
+            break;
+        case "PUT" :
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $querystring);
+            break;
+        case "DELETE":
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $querystring);
+            break;
     }
     $file_contents = curl_exec($ch);//获得返回值
     $status = curl_getinfo($ch);
@@ -444,12 +513,15 @@ function curl_get($URL,$data=null,$type='GET',$headers= []){
 }
 
 //创建TOKEN
-function createToken() {
-    $code = chr(mt_rand(0xB0, 0xF7)) . chr(mt_rand(0xA1, 0xFE)).chr(mt_rand(0xB0, 0xF7)) . chr(mt_rand(0xA1, 0xFE)) . chr(mt_rand(0xB0, 0xF7)) . chr(mt_rand(0xA1, 0xFE));
+function createToken()
+{
+    $code = chr(mt_rand(0xB0, 0xF7)) . chr(mt_rand(0xA1, 0xFE)) . chr(mt_rand(0xB0, 0xF7)) . chr(mt_rand(0xA1, 0xFE)) . chr(mt_rand(0xB0, 0xF7)) . chr(mt_rand(0xA1, 0xFE));
     session('TOKEN', authcode($code));
 }
+
 //判断TOKEN
-function checkToken($token) {
+function checkToken($token)
+{
     if ($token == session('TOKEN')) {
         session('TOKEN', NULL);
         return TRUE;
@@ -457,18 +529,21 @@ function checkToken($token) {
         return FALSE;
     }
 }
+
 /* 加密TOKEN */
-function authcode($str) {
+function authcode($str)
+{
     $key = "YOURKEY";
     $str = substr(md5($str), 8, 10);
     return md5($key . $str);
 }
 
-function RedisInstance(){
+function RedisInstance()
+{
     //think\Config::load(APP_PATH.'/../config/redis.php');
     $client = new Predis\Client([
-        'host'   => config('redis.host'),
-        'port'   => config('redis.port'),
+        'host' => config('redis.host'),
+        'port' => config('redis.port'),
     ]);
     $client->auth(config('redis.password'));
     return $client;

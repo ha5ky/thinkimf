@@ -1,0 +1,211 @@
+<script type="text/javascript" src="/static/js/adddevice.js"></script>
+<div class="layui-container" style="margin-top:25px;">
+    <fieldset class="layui-elem-field layui-field-title">
+        <legend>ThinkIMF - 模拟物联网设备 - Web版本</legend>
+    </fieldset>
+    <div class="layui-row">
+        <div class="layui-col-md10 layui-col-md-offset1">
+            <form class="layui-form" action="">
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit="" lay-filter="client">创建设备</button>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Cloud APP ID</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="appid" lay-verify="appid" autocomplete="off" placeholder="云App Id"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Cloud APP SECRET</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="appsecret" lay-verify="appsecret" autocomplete="appsecret"
+                               placeholder="云App Secret"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">设备设备ID</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="deviceid" lay-verify="deviceid" autocomplete="off" placeholder="设备ID"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">设备类型</label>
+                    <div class="layui-input-inline">
+                        <select name="type[0]" lay-filter="type1">
+                            <option>请选择</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline" class="type2" style="display:inline;">
+                        <select name="type[1]" lay-filter="type2" >
+                            <option>请选择</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline" class="type3" style="display: inline;">
+                        <select name="type[2]" lay-filter="type3" >
+                            <option>请选择</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">数据上报</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="close" checked lay-skin="switch" lay-text="ON|OFF">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Cloud 消息</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" checked="checked" name="is_receive" lay-skin="switch"
+                               lay-filter="clientSwitch"
+                               lay-text="ON|OFF">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">设备描述</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="desc" lay-verify="desc" autocomplete="off" placeholder="设备描述"
+                               class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">技术方案</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="technology" value="cloud" title="☁️云模式(云端作为服务器)" checked="checked">
+                        <input disabled type="radio" name="technology" value="wlan"
+                               title="wlan(服务搭建在局域网中,特指本套源代码架设在局域网中)">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">IP地址</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="ip" lay-verify="ip" autocomplete="off" placeholder="IP地址"
+                               class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">地理位置</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="ip" lay-verify="ip" autocomplete="off" placeholder="地理位置"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="bmap" id="bmap" style="width: 100%;height: 320px">
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    var form;
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        form = layui.form
+            , layer = layui.layer
+        form.render();
+
+        //自定义验证规则
+        form.verify({
+            title: function (value) {
+                if (value.length < 5) {
+                    return '标题至少得5个字符啊';
+                }
+            }
+        });
+
+        //监听指定开关
+        form.on('switch(clientSwitch)', function (data) {
+            layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
+                offset: '6px'
+            });
+            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+        });
+
+        //监听提交
+        form.on('submit(client)', function (data) {
+            layer.alert(JSON.stringify(data.field), {
+                title: '最终的提交信息'
+            })
+            return false;
+        });
+
+
+    });
+
+    function initApp() {
+        $.post('/api/device/getDevice', {}, function (d) {
+            if (d.code == 200) {
+                $("input[name='appid']").attr('value', d.data.appid);
+                $("input[name='appsecret']").attr('value', d.data.appsecret);
+                $("input[name='deviceid']").attr('value', d.data.deviceid);
+                $("input[name='ip']").attr('value', d.data.ip);
+            } else {
+                layui.layer.msg(d.msg);
+            }
+        }, 'json');
+    }
+
+    function getDeviceType() {
+
+        $.post('/api/device/getDeviceType', {}, function (d) {
+            if (d.code == 200) {
+                var optionStr = '<option haschild="0"></option>';
+                $.each(d.data, function (k, v) {
+                    optionStr += '<option haschild="' + v.has_child + '" value="' + v.id + '">' + v.name + '</option>';
+                });
+                $("select[name='type[0]']").html(optionStr);
+                form.on('select(type1)', function(data){
+
+                    var pid = data.value;
+                    var has_childObj = $(data.elem).children("option[value='"+pid+"']");
+                    var has_child = $(has_childObj).attr('haschild');
+
+                    if (has_child) {
+                        $.post('/api/device/getDeviceType', {
+                            pid: pid
+                        }, function (d) {
+                            if (d.code == 200) {
+                                var optionStr = '<option haschild="0"></option>';
+                                $.each(d.data, function (k, v) {
+                                    optionStr += '<option haschild="' + v.has_child + '" value="' + v.id + '">' + v.name + '</option>';
+                                });
+                                $("select[name='type[1]']").html(optionStr);
+                                $(".type2").css('display','inline');
+                                form.render();
+
+
+
+                            }
+                        },'json');
+
+                    }else {
+                        $(".type2").css('display','none');
+                        $(".type3").css('display','none');
+                        form.render();
+                    }
+
+                   console.log(pid,has_childObj,has_child);
+                });
+
+                form.render();
+
+            }
+        }, 'json');
+
+
+    }
+
+    // initApp();
+    getDeviceType();
+</script>
