@@ -57,10 +57,12 @@ class Device extends Base
     public function getDeviceType()
     {
         $pid = $this->request->request('pid',0);
+        $level = $this->request->request('level',0);
 
         $types = DeviceType::Where([
-            'parent'=>$pid
-        ])->select()->toArray();
+            'parent'=>$pid,
+            'level'=>$level
+        ])->order(['t_id'=>'asc'])->group('name')->select()->toArray();
         if ($types) {
             return $this->json([
                 'code' => 200,
