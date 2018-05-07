@@ -24,8 +24,8 @@
 </div>
 <div class="x-body">
   <xblock>
-    <button class="layui-btn" onclick="imf_admin_show('添加菜单',',1200,800)"><i class="layui-icon"></i>添加</button>
-    <span class="x-right" style="line-height:40px">共有数据：{$articles->total()}  条</span>
+    <button class="layui-btn add"><i class="layui-icon"></i>添加</button>
+    <span class="x-right" style="line-height:40px">共有数据：{$pageNation['total']} 条</span>
   </xblock>
   <table class="layui-table">
     <thead>
@@ -52,10 +52,10 @@
         {/if}
       </td>
       <td class="td-manage">
-        <a title="编辑"  onclick="imf_admin_show('编辑','/admin/article/edit',600,400)" href="javascript:;">
+        <a title="编辑" onclick="edit('{$vo.id}')" href="javascript:;">
           <i class="layui-icon">&#xe642;</i>
         </a>
-        <a title="删除" onclick="member_del(this,'/admin/article/del')" href="javascript:;">
+        <a title="删除" onclick="del(this,'{$vo.id}')" href="javascript:;">
           <i class="layui-icon">&#xe640;</i>
         </a>
       </td>
@@ -64,45 +64,77 @@
     </tbody>
   </table>
   <div class="page">
-    <!--{$articles->render()}-->
     <div>
-      <a class="prev" href="">&lt;&lt;</a>
-      <span class="current">1</span>
-      <a class="next" href="">&gt;&gt;</a>
+      <a class="prev" >&lt;&lt;</a>
+      <span class="current"><?=$pageNation['currentPage']?>/<?=$pageNation['allPage']?></span>
+      <a class="next" >&gt;&gt;</a>
     </div>
   </div>
 </div>
 <script>
-    /*用户-停用*/
-    function member_stop(obj,id){
-        layer.confirm('确认要停用吗？',function(index){
-
-            if($(obj).attr('title')=='启用'){
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title','停用')
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!',{icon: 5,time:1000});
-
-            }else{
-                $(obj).attr('title','启用')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!',{icon: 5,time:1000});
-            }
-
+    $('.prev').click(function () {
+        var currentPage = parseInt($('.current').text());
+        var allPage = parseInt({$pageNation['allPage']});
+        if(currentPage>1){
+            currentPage = currentPage -1;
+            location.href = '?page='+currentPage;
+        }else{
+            layui.layer.msg('亲爱哒，已经是第一页了！');
+        }
+    });
+    $('.next').click(function () {
+        var currentPage = parseInt($('.current').text());
+        var allPage = parseInt({$pageNation['allPage']});
+        if(currentPage<allPage){
+            currentPage = currentPage + 1;
+            location.href = '?page='+currentPage;
+        }else{
+            layui.layer.msg('亲爱哒，我是有底线的！');
+        }
+    });
+    $('.add').click(function () {
+        layer.open({
+            title:'添加文章',
+            fix: false, //不固定
+            maxmin: true,
+            shadeClose: true,
+            shade:0.4,
+            area: [650+'px', 450 +'px'],
+            type: 2,
+            content:'/admin/article/add'
+        });
+    });
+    function edit($mid) {
+        layer.open({
+            title:'编辑菜单',
+            fix: false, //不固定
+            maxmin: true,
+            shadeClose: true,
+            shade:0.4,
+            area: [650+'px', 450 +'px'],
+            type: 2,
+            content:['/admin/rights/editmenu?mid='+$mid,'no']
         });
     }
-
-    /*用户-删除*/
-    function member_del(obj,id){
+    /*删除*/
+    function del(obj,id){
         layer.confirm('确认要删除吗？',function(index){
             //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!',{icon:1,time:1000});
+            $.ajax({
+                url:'/admin/rights/deletemenu?mid='+id,
+                type:'post',
+                dataType:'json',
+                success:function (d) {
+                    if(d.code == 200){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
+                        location.href = '/admin/rights/menulist';
+                    }else{
+                        layui.layer.msg(d.msg);
+                    }
+                }
+            });
+
         });
     }
 

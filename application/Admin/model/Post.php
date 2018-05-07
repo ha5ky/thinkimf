@@ -15,6 +15,9 @@ class Post extends Base
 
     public static function getList()
     {
+
+
+
         $post = self::alias('p')->join('imf_category cate','p.category_id=cate.id',"LEFT")->where(["status" => 1])->field("p.*,cate.title as category_title")->paginate(config("paginate"), false, ['query' => array()]);
         return $post;
     }
