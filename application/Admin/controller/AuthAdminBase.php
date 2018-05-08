@@ -1,5 +1,7 @@
 <?php
+
 namespace app\Admin\controller;
+
 use app\Admin\model\UserModel;
 use function imf_admin_login;
 use function imf_get_user_menu;
@@ -21,25 +23,40 @@ use think\Controller;
  * email:unnnnn@foxmail.com
  * function:AdminBase.php
  */
+
 use app\Admin\model\MenuModel;
 
 use think\Request;
+
 class AuthAdminBase extends Controller
 {
     public static $Menus;
+
     public function __construct(Request $request)
     {
         imf_admin_login();
 
         parent::__construct();
         if ($request->isMobile()) {
-            $this->view->config('view_path','themes/default/mobile/' . $request->module() . "/");
+            $this->view->config('view_path', 'themes/default/mobile/' . $request->module() . "/");
         } else {
-            $this->view->config('view_path','themes/default/web/' . $request->module() . "/");
+            $this->view->config('view_path', 'themes/default/web/' . $request->module() . "/");
         }
 
         imf_admin_login();
 
         self::$Menus = imf_get_user_menu(session('user_type'));
+    }
+
+    //返回json数据
+    public function json($re)
+    {
+
+        if ($re) {
+            header('Content-type: application/json');
+            exit(json_encode($re, JSON_UNESCAPED_UNICODE));
+        } else {
+            exit('response data not correct!');
+        }
     }
 }

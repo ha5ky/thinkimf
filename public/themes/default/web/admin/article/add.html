@@ -29,25 +29,29 @@
     <div class="layui-form-item">
         <label class="layui-form-label">标题</label>
         <div class="layui-input-block">
-            <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+            <input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off"
+                   class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">来源</label>
         <div class="layui-input-block">
-            <input type="text" name="url" required lay-verify="required" placeholder="请输入来源" autocomplete="off" class="layui-input">
+            <input type="text" name="url" required lay-verify="required" placeholder="请输入来源" autocomplete="off"
+                   class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">作者</label>
         <div class="layui-input-block">
-            <input type="text" name="url" required lay-verify="required" placeholder="请输入作者" autocomplete="off" class="layui-input">
+            <input type="text" name="url" required lay-verify="required" placeholder="请输入作者" autocomplete="off"
+                   class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">地区</label>
         <div class="layui-input-block">
-            <input type="text" name="url" required lay-verify="required" placeholder="请输入地区" autocomplete="off" class="layui-input">
+            <input type="text" name="url" required lay-verify="required" placeholder="请输入地区" autocomplete="off"
+                   class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -55,12 +59,21 @@
         <button type="button" class="layui-btn" id="pic">
             <i class="layui-icon">&#xe67c;</i>
         </button>
+        <input type="hidden" name="pic" value="" id="HiddenPic">
+        <span id="picSpan">
+        </span>
+
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">上传文件</label>
         <button type="button" class="layui-btn layui-bg-orange" id="text">
             <i class="layui-icon">&#xe62f;</i>
         </button>
+        <input type="hidden" name="text" value="" id="HiddenText">
+        <span id="textSpan">
+
+
+        </span>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">频道</label>
@@ -81,10 +94,10 @@
         </div>
     </div>-->
     <div class="layui-form-item">
-    <label class="layui-form-label">发送类型</label>
-    <div class="layui-input-block">
-        <textarea placeholder="请输入内容" id="content" name="content" class="layui-textarea"></textarea>
-    </div>
+        <label class="layui-form-label">发送类型</label>
+        <div class="layui-input-block">
+            <textarea placeholder="请输入内容" id="content" name="content" class="layui-textarea"></textarea>
+        </div>
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
@@ -97,10 +110,10 @@
 <script src="/static/ueditor/lang/zh-cn/zh-cn.js" charset="utf-8"></script>
 <script>
     //Demo
-    layui.use('form', function(){
+    layui.use('form', function () {
         var form = layui.form;
         //监听提交
-        form.on('submit(add)', function(data){
+        form.on('submit(add)', function (data) {
             //判断监听switch
             /*if(data.field.status){
                 data.field.status  = 1;
@@ -108,15 +121,15 @@
                 data.field.status  = 0;
             }*/
             $.ajax({
-                url:'/admin/article/add',
-                type:'post',
-                data:data.field,
-                dataType:'json',
-                success:function (d) {
-                    if(d.code == 200){
+                url: '/admin/article/add',
+                type: 'post',
+                data: data.field,
+                dataType: 'json',
+                success: function (d) {
+                    if (d.code == 200) {
                         layui.layer.msg(d.msg);
                         window.parent.location.href = '/admin/article/index';
-                    }else{
+                    } else {
                         layui.layer.msg(d.msg);
                         return false;
                     }
@@ -126,7 +139,7 @@
         });
     });
 
-    UE.getEditor('content',{    //content为要编辑的textarea的id
+    UE.getEditor('content', {    //content为要编辑的textarea的id
 
         initialFrameWidth: 500,   //初始化宽度
 
@@ -134,28 +147,38 @@
 
     });
 
-    layui.use('upload', function(){
+    layui.use('upload', function () {
         var upload = layui.upload;
 
         //执行实例
         var uploadInst = upload.render({
             elem: '#text' //绑定元素
-            ,url: '/upload/' //上传接口
-            ,done: function(res){
+            , url: '/admin/article/upload?type=text' //上传接口
+            , done: function (res) {
+                $("#textSpan").html(res.url);
+                $("#HiddenText").val(res.url);
                 //上传完毕回调
             }
-            ,error: function(){
+            , error: function () {
                 //请求异常回调
             }
         });
         //执行实例
         var uploadInst = upload.render({
             elem: '#pic' //绑定元素
-            ,url: '/upload/' //上传接口
-            ,done: function(res){
+            , url: '/admin/article/upload?type=pic' //上传接口
+            , done: function (res) {
                 //上传完毕回调
+                if (res.code == 200) {
+                    $("#picSpan").html('<img src="http://thinkimf.web.com/uploads' + res.url + '" >');
+                    $("#HiddenPic").val(res.url);
+                    layui.layer.msg("上传成功");
+                } else {
+                    layui.layer.msg("上传失败");
+                }
+
             }
-            ,error: function(){
+            , error: function () {
                 //请求异常回调
             }
         });

@@ -22,6 +22,7 @@ class Article extends AuthAdminBase
             $save = new Post([
                 'title' => $data['title'] ?? '',
                 'desc' => $data['content'] ?? '',
+                'pic' => $data['pic'] ?? '',
                 //'category_id' => $data['status'] ?? 1,
                 //'parent_id' => $data['parent_id'] ?? 0,
             ]);
@@ -63,5 +64,42 @@ class Article extends AuthAdminBase
         ]);
 
         return $this->fetch();
+    }
+
+    public function upload()
+    {
+
+        $file = request()->file("file");
+        //$file = request()->file('Filedata');
+        if (!$file)
+            return $this->json([
+                'code' => 0,
+                'msg' => '上传失败',
+            ]);
+        //$temp = $file->getInfo()["tmp_name"];
+        //$img_info = getimagesize($temp);
+        if ($this->request->get('type') == "pic") {
+            $info = $file->rule('uniqid')->move(APP_ROOT . DS . 'uploads' . DS . 'pic');
+            $fileName = '/pic' . DS . $info->getFileName();
+        } else {
+            $info = $file->rule('uniqid')->move(APP_ROOT . DS . 'uploads' . DS . 'text');
+            $fileName = '/text' .  DS . $info->getFileName();
+        }
+
+        if ($info) {
+            return $this->json([
+                'url' => $fileName,
+                'code' => 200,
+                'msg' => '上传成功',
+            ]);
+        } else {
+            return $this->json([
+                'code' => 0,
+                'msg' => '上传失败',
+            ]);
+            //return $this->result('', 0, '上传失败', 'json');
+            //return $this->error('上传失败');
+            //return $file->getError();
+        }
     }
 }
