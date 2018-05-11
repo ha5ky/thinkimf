@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>菜单编辑</title>
+    <title>文章编辑</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -14,77 +14,120 @@
     <link rel="stylesheet" href="/static/css/admin.css">
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="/static/lib/layui/layui.js" charset="utf-8"></script>
+    <script src="/static/ueditor/ueditor.config.js" charset="utf-8"></script>
+    <script src="/static/ueditor/ueditor.all.min.js" charset="utf-8"></script>
+
     <script type="text/javascript" src="/static/js/admin.js"></script>
 </head>
 
 <body>
 <form class="layui-form" action="">
+
     <div class="layui-form-item">
-        <input type="hidden" name="mid" value="{$mid}" />
-        <label class="layui-form-label">父级菜单</label>
+        <label class="layui-form-label">标题</label>
         <div class="layui-input-block">
-            <select name="parent_id" lay-verify="required">
-                <option value="0">一级菜单</option>
-                {volist name="allParentMenu" id="vo"}
-                <option
-                        {if $oldMenu['parent_id'] == $vo.id } selected {/if}
-                value="{$vo.id}">{$vo.title}</option>
-                {/volist}
+            <input type="text" name="title"  value="{$postInfo.title}" required lay-verify="required" placeholder="" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">来源</label>
+        <div class="layui-input-block">
+            <input type="text" name="url"  required lay-verify="required" placeholder="请输入来源" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">作者</label>
+        <div class="layui-input-block">
+            <input type="text" name="url" required lay-verify="required" placeholder="请输入作者" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">地区</label>
+        <div class="layui-input-block">
+            <input type="text" name="url" required lay-verify="required" placeholder="请输入地区" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">封面图片</label>
+        <button type="button" class="layui-btn" id="pic">
+            <i class="layui-icon">&#xe67c;</i>
+        </button>
+        <input type="hidden" name="pic" value="" id="HiddenPic">
+        <span id="picSpan">
+        </span>
+
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">上传文件</label>
+        <button type="button" class="layui-btn layui-bg-orange" id="text">
+            <i class="layui-icon">&#xe62f;</i>
+        </button>
+        <input type="hidden" name="text" value="" id="HiddenText">
+        <span id="textSpan">
+
+
+        </span>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">频道</label>
+        <div class="layui-input-block">
+            <select name="channel" lay-verify="required">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
             </select>
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">菜单名称</label>
-        <div class="layui-input-block">
-            <input type="text" name="title" value="{$oldMenu['title']}" required  lay-verify="required" placeholder="请输入菜单名称" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">Url</label>
-        <div class="layui-input-inline">
-            <input type="text" name="url" required value="{$oldMenu['url']}" lay-verify="required" placeholder="请输入菜单url" autocomplete="off" class="layui-input">
-        </div>
-        <div class="layui-form-mid layui-word-aux">url：/module/controller/action</div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">菜单状态</label>
-        <div class="layui-input-block">
 
-            <input type="checkbox" lay-filter="status" name="status" {if  $oldMenu['status'] == 1}checked{/if} lay-skin="switch">
-
+    <!--<div class="layui-form-item">
+        <label class="layui-form-label">发送类型</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="status" lay-skin="switch">
+        </div>
+    </div>-->
+    <div class="layui-form-item">
+        <label class="layui-form-label">内容</label>
+        <div class="layui-input-block">
+            <textarea placeholder="请输入内容"  id="content" name="content" class="layui-textarea">{$postInfo.desc}</textarea>
         </div>
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit lay-filter="addmenu">立即提交</button>
+            <input type="hidden" name="id" value="{$id}" >
+            <button class="layui-btn" lay-submit lay-filter="add">立即提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
 </form>
 
+<script src="/static/ueditor/lang/zh-cn/zh-cn.js" charset="utf-8"></script>
 <script>
     //Demo
-    layui.use('form', function(){
-        var menustatus = 0;
+    layui.use('form', function () {
         var form = layui.form;
         //监听提交
-        form.on('submit(addmenu)', function(data){
-            //layer.msg(JSON.stringify(data.field));
-            if(data.field.status){
+        form.on('submit(add)', function (data) {
+            //判断监听switch
+            /*if(data.field.status){
                 data.field.status  = 1;
             }else{
                 data.field.status  = 0;
-            }
+            }*/
             $.ajax({
-                url:'/admin/rights/editmenu',
-                type:'post',
-                data:data.field,
-                dataType:'json',
-                success:function (d) {
-                    if(d.code == 200){
+                url: '/admin/article/edit',
+                type: 'post',
+                data: data.field,
+                dataType: 'json',
+                success: function (d) {
+                    if (d.code == 200) {
                         layui.layer.msg(d.msg);
-                        window.parent.location.href = '/admin/rights/menulist';
-                    }else{
+                        window.parent.location.href = '/admin/article/index';
+                    } else {
                         layui.layer.msg(d.msg);
                         return false;
                     }
@@ -93,6 +136,54 @@
             return false;
         });
     });
+
+    UE.getEditor('content', {    //content为要编辑的textarea的id
+
+        initialFrameWidth: 500,   //初始化宽度
+
+        initialFrameHeight: 500,   //初始化高度
+
+
+    });
+
+    layui.use('upload', function () {
+        var upload = layui.upload;
+
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#text' //绑定元素
+            , url: '/admin/article/upload?type=text' //上传接口
+            , done: function (res) {
+                $("#textSpan").html(res.url);
+                $("#HiddenText").val(res.url);
+                //上传完毕回调
+            }
+            , error: function () {
+                //请求异常回调
+            }
+        });
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#pic' //绑定元素
+            , url: '/admin/article/upload?type=pic' //上传接口
+            , done: function (res) {
+                //上传完毕回调
+                if (res.code == 200) {
+                    $("#picSpan").html('<img src="http://thinkimf.web.com/uploads' + res.url + '" >');
+                    $("#HiddenPic").val(res.url);
+                    layui.layer.msg("上传成功");
+                } else {
+                    layui.layer.msg("上传失败");
+                }
+
+            }
+            , error: function () {
+                //请求异常回调
+            }
+        });
+
+    });
+
 </script>
 </body>
 

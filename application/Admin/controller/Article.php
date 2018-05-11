@@ -66,6 +66,63 @@ class Article extends AuthAdminBase
         return $this->fetch();
     }
 
+
+    public function edit()
+    {
+        $data = $this->request->request();
+
+
+        if($this->request->isPost()){
+            $post = new Post();
+            $f = $post->save([
+                'title' => $data['title'],
+                'desc' => $data['content'],
+            ],['id'=>(int)$data['id']]);
+            
+            if($f){
+                return json([
+                    'code'=>200,
+                    'msg'=>'修改成功'
+                ]);
+            }else{
+                return json([
+                    'code'=>400235,
+                    'msg'=>'更新失败'
+                ]);
+            }
+        }else{
+            $post = new Post();
+            $id  = $data['id']??1;
+            $postInfo =$post
+                ->where(['id'=>$id])
+                ->select()->toArray();
+            $this->assign("postInfo", $postInfo[0]);
+            $this->assign("id", $id);
+            return $this->fetch();
+        }
+    }
+
+    public function delete()
+    {
+        if($this->request->isPost()){
+            $id = $this->request->request('id');
+            $post = new Post();
+            $f = $post->find()
+                ->where(['id'=>$id])
+                ->delete();
+            if($f){
+                return json([
+                    'code'=>200,
+                    'msg'=>'删除成功'
+                ]);
+            }else{
+                return json([
+                    'code'=>400235,
+                    'msg'=>'删除失败'
+                ]);
+            }
+        }
+    }
     public function upload()
     {
 
