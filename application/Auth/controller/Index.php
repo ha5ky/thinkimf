@@ -21,7 +21,7 @@ class Index extends Base
 {
     public function login()
     {
-        $data = $this->request->request();
+        $data = $this->request->post();
         if(isset($data['redirect'])){
             $redirectUrl = $data['redirect'];
         }else{
@@ -43,7 +43,7 @@ class Index extends Base
                 $phone = 0;
             }
             if(empty($email)&&empty($phone)){
-                $this->error('手机号或者邮箱格式不正确！');
+                //$this->error('手机号或者邮箱格式不正确！');
             }
             if (strlen($data['password']) < 6||strlen($data['password']) >20) {
                 $this->error('密码长度必须6-20位,允许使用字母,数字,或者下划线！');
@@ -56,7 +56,7 @@ class Index extends Base
             $user = $userModel->where(['phone'=>$phone])
                 ->whereOr(['email'=>$email])
                 ->find();
-            //var_dump($user['phone']);exit;
+            //var_dump($data['username'],$email,$user['phone']);exit;
             if(md5($user['password_salt'].$data['password']) == $user['password']){
                 session('userid',$user['id']);
                 session('user_type',$user['user_type']);

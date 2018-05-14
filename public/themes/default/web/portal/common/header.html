@@ -49,8 +49,11 @@
         </dl>
     </li>
     <li class="layui-nav-item"><a href="/portal/index/projecttimeline">项目时间线</a></li>
-    {if session('username')}
     <li class="layui-nav-item" style="float:right;">
+        {if !session('username')}
+        <a href="/auth/index/login">登录</a>
+        {/if}
+    {if session('username')}
         <a href="javascript:;" style="color:red;"><?=session('username')?></a>
         <dl class="layui-nav-child">
             {if session('user_type') == 1}
@@ -58,6 +61,6 @@
             {/if}
             <dd><a href="/auth/index/logout">退出</a></dd>
         </dl>
-    </li>
     {/if}
+    </li>
 </ul>
