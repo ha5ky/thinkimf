@@ -18,7 +18,7 @@ use think\facade\Config;
 class Controller extends Make
 {
 
-    protected $type = "Controller";
+    protected $type = "Do";
 
     protected function configure()
     {

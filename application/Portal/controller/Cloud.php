@@ -3,7 +3,7 @@ namespace app\Portal\controller;
 
 use think\Controller;
 use app\Portal\controller\Base;
-
+use app\Api\model\Device;
 
 class Cloud extends Base
 {
@@ -37,5 +37,34 @@ class Cloud extends Base
         $this->assign('description','模拟物联网设备,实时消息服务器推送技术');
         $this->assign('keywords','模拟物联网设备,实时消息服务器推送技术');
         return $this->fetch('cloud/devicedetail');
+    }
+
+    public function push()
+    {
+        $this->assign('title',"消息发布");
+        $this->assign('description','模拟物联网设备,实时消息服务器推送技术');
+        $this->assign('keywords','模拟物联网设备,实时消息服务器推送技术');
+        return $this->fetch('cloud/push');
+    }
+
+    public function app()
+    {
+        $this->assign('title',"消息发布");
+        $this->assign('description','模拟物联网设备,实时消息服务器推送技术');
+        $this->assign('keywords','模拟物联网设备,实时消息服务器推送技术');
+        return $this->fetch('cloud/push');
+    }
+
+    public function myMessage()
+    {
+        $condition['uuid'] = session('uuid');
+        $deviceIds = Device::where($condition['uuid'])
+            ->where(['status'=>1])->select()->column('device_id');
+        //dump($deviceIds);
+        $this->assign('title',"我的推送数据");
+        $this->assign('deviceIds',$deviceIds);
+        $this->assign('description','我的推送数据,我的推送');
+        $this->assign('keywords','模拟物联网设备,实时消息服务器推送技术');
+        return $this->fetch('cloud/my_message');
     }
 }

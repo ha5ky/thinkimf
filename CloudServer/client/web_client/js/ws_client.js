@@ -44,8 +44,7 @@ function listenEvent() {
      * 连接建立时触发
      */
     ws.onopen = function (e) {
-        var msg = {"method": "join", "uid": client_id, "hobby": 1};
-        ws.send(JSON.stringify(msg));
+        ws.send("与服务端的连接已建立...");
     };
 
     ws.onmessage = function (e) {

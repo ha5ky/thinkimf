@@ -10,6 +10,13 @@ use function is_array;
 use function json_encode;
 use think\Controller;
 class Base extends Controller{
+    public $result = [
+        'code' => 200,
+        'msg' => 'ok',
+        'msg_code' => 'ok',
+        'data' => [
+        ]
+    ];
     //返回json数据
     public function json($re)
     {

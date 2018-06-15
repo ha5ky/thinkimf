@@ -39,7 +39,7 @@ class Console
         "think\\console\\command\\Lists",
         "think\\console\\command\\Build",
         "think\\console\\command\\Clear",
-        "think\\console\\command\\make\\Controller",
+        "think\\console\\command\\make\\Do",
         "think\\console\\command\\make\\Model",
         "think\\console\\command\\optimize\\Autoload",
         "think\\console\\command\\optimize\\Config",

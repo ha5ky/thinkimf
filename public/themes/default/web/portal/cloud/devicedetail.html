@@ -309,7 +309,7 @@
 </div>
 <script>
     var form;
-    layui.use(['form', 'layedit', 'laydate'], function () {
+    layui.use(['form', 'layedit', 'laydate','layer'], function () {
         form = layui.form
             , layer = layui.layer
         form.render();
@@ -343,91 +343,157 @@
     });
 </script>
 <script>
-    $(function () {
-        // 百度地图API功能
-        var map = new BMap.Map("bmap", {mapType: BMAP_HYBRID_MAP});// 创建Map实例
-        //map.setMapStyle({style: 'googlelite'}); //设置google风格模板
-        map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
-        map.disableDragging();
-        map.centerAndZoom(new BMap.Point(103.388611, 35.563611), 4);
-        map.addControl(new BMap.MapTypeControl({
-            mapTypes: [
-                BMAP_SATELLITE_MAP,
-                BMAP_HYBRID_MAP,
-            ]
-        }));
-        //根据ip定位
-        var myCity = new BMap.LocalCity();
-        myCity.get(UserDefaultLocation);
+    // 百度地图API功能
+    var map = new BMap.Map("bmap", {mapType: BMAP_HYBRID_MAP});// 创建Map实例
+    //map.setMapStyle({style: 'googlelite'}); //设置google风格模板
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+    map.disableDragging();
+    map.centerAndZoom(new BMap.Point(103.388611, 35.563611), 4);
+    map.addControl(new BMap.MapTypeControl({
+        mapTypes: [
+            BMAP_SATELLITE_MAP,
+            BMAP_HYBRID_MAP,
+        ]
+    }));
+    //根据ip定位
+    var myCity = new BMap.LocalCity();
+    myCity.get(UserDefaultLocation);
 
-        function G(id) {
-            return document.getElementById(id);
-        }
+    function G(id) {
+        return document.getElementById(id);
+    }
 
-        function UserDefaultLocation(result) {
-            var cityName = result.name;
-            //map.setCurrentCity("北京");
-            map.setCenter(cityName);
-        }
+    function UserDefaultLocation(result) {
+        var cityName = result.name;
+        //map.setCurrentCity("北京");
+        map.setCenter(cityName);
+    }
 
-        var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
-            {
-                "input": "suggestId"
-                , "location": map
-            });
-
-        ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
-            var str = "";
-            var _value = e.fromitem.value;
-            var value = "";
-            if (e.fromitem.index > -1) {
-                value = _value.province + _value.city + _value.district + _value.street + _value.business;
-            }
-            str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
-
-            value = "";
-            if (e.toitem.index > -1) {
-                _value = e.toitem.value;
-                value = _value.province + _value.city + _value.district + _value.street + _value.business;
-            }
-            str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
-            G("searchResultPanel").innerHTML = str;
+    var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
+        {
+            "input": "suggestId"
+            , "location": map
         });
 
-        var myValue;
-        ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
-            var _value = e.item.value;
-            //省市区地址
-            myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
-            G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
-            $('#searchResultPanel').hide(300);
+    ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
+        var str = "";
+        var _value = e.fromitem.value;
+        var value = "";
+        if (e.fromitem.index > -1) {
+            value = _value.province + _value.city + _value.district + _value.street + _value.business;
+        }
+        str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
 
-            map.clearOverlays();    //清除地图上所有覆盖物
-            function myFun() {
-
-                var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
-                $('input[name="mappoint"]').val(JSON.stringify(pp));
-                map.centerAndZoom(pp, 18);
-                var marker = new BMap.Marker(pp);
-                map.addOverlay(marker);    //添加标注
-                //添加信息窗口
-                var opts = {
-                    width: 200,     // 信息窗口宽度
-                    height: 100,     // 信息窗口高度
-                    title: '<b style="color:red;">信息提示</b>', // 信息窗口标题
-                }
-                var infoWindow = new BMap.InfoWindow(myValue, opts);  // 创建信息窗口对象
-                map.openInfoWindow(infoWindow, pp); //开启信息窗口
-                marker.addEventListener("click", function () {
-                    this.openInfoWindow(infoWindow);
-                });
-            }
-
-            var local = new BMap.LocalSearch(map, { //智能搜索
-                onSearchComplete: myFun
-            });
-            local.search(myValue);
-        });
-
+        value = "";
+        if (e.toitem.index > -1) {
+            _value = e.toitem.value;
+            value = _value.province + _value.city + _value.district + _value.street + _value.business;
+        }
+        str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+        G("searchResultPanel").innerHTML = str;
     });
+
+    var myValue;
+    ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
+        var _value = e.item.value;
+        //省市区地址
+        myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+        G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+        $('#searchResultPanel').hide(300);
+
+        map.clearOverlays();    //清除地图上所有覆盖物
+        function myFun() {
+
+            var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+            $('input[name="mappoint"]').val(JSON.stringify(pp));
+            map.centerAndZoom(pp, 18);
+            var marker = new BMap.Marker(pp);
+            map.addOverlay(marker);    //添加标注
+            //添加信息窗口
+            var opts = {
+                width: 200,     // 信息窗口宽度
+                height: 100,     // 信息窗口高度
+                title: '<b style="color:red;">信息提示</b>', // 信息窗口标题
+            }
+            var infoWindow = new BMap.InfoWindow(myValue, opts);  // 创建信息窗口对象
+            map.openInfoWindow(infoWindow, pp); //开启信息窗口
+            marker.addEventListener("click", function () {
+                this.openInfoWindow(infoWindow);
+            });
+        }
+
+        var local = new BMap.LocalSearch(map, { //智能搜索
+            onSearchComplete: myFun
+        });
+        local.search(myValue);
+    });
+    //设备 id 校验
+    //连接 ws 服务器
+    function randomString(len) {
+        len = len || 32;
+        var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz';
+        var maxPos = $chars.length;
+        var str = '';
+        for (i = 0; i < len; i++) {
+            str += $chars.charAt(Math.floor(Math.random() * maxPos));
+        }
+        return str;
+    }
+
+    var ws = {};
+    var client_id = Date.parse(new Date());
+    var config = {
+        'server': 'ws://127.0.0.1:9621',
+        'flash_websocket': true
+    }
+
+    //使用原生WebSocket
+    if (window.WebSocket || window.MozWebSocket) {
+        ws = new WebSocket(config.server);
+    }
+    //使用flash websocket
+    else if (config.flash_websocket) {
+        WEB_SOCKET_SWF_LOCATION = "./flash-websocket/WebSocketMain.swf";
+        $.getScript("./flash-websocket/swfobject.js", function () {
+            $.getScript("./flash-websocket/web_socket.js", function () {
+                ws = new WebSocket(config.server);
+            });
+        });
+    }
+    active();
+
+    function active() {
+        /**
+         * 连接建立时触发
+         */
+        //layer.msg("连接到服务器......");
+        ws.onopen = function (e) {
+            console.log(JSON.stringify(e));
+        };
+
+        ws.onmessage = function (e) {
+            layer.msg("接收到消息:"+JSON.stringify(e));
+        };
+
+        /**
+         * 连接关闭事件
+         */
+        ws.onclose = function (e) {
+            layer.msg("连接关闭......");
+        };
+
+        /**
+         * 异常事件
+         */
+        ws.onerror = function (e) {
+            console.log(e);
+        };
+    }
+    //设备 id 与秘钥校验
+    //心跳检测
+    //消息发送
+    //消息接收
+    //信息上报
+    //信息指令
+    //心跳检测
 </script>

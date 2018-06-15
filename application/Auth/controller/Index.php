@@ -58,6 +58,7 @@ class Index extends Base
                 ->find();
             //var_dump($data['username'],$email,$user['phone']);exit;
             if(md5($user['password_salt'].$data['password']) == $user['password']){
+                session('uuid',$user['id']);
                 session('userid',$user['id']);
                 session('user_type',$user['user_type']);
                 session('username',($user['name']??$user['id']??$user['email']??$user['phone']??$user['nickname']));

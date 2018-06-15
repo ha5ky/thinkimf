@@ -8,8 +8,10 @@
 namespace app\Api\controller;
 use function is_array;
 use function json_encode;
+use function RedisInstance;
 use think\Controller;
 class Base extends Controller{
+    public $redis = null;
     //返回json数据
     public function json($re)
     {
@@ -20,5 +22,6 @@ class Base extends Controller{
         }else{
             exit('response data not correct!');
         }
+        $this->redis = RedisInstance();
     }
 }

@@ -9,6 +9,7 @@ namespace app\Api\controller;
 use think\Controller;
 
 class AuthBase extends Controller{
+    public $redis = null;
     //返回json数据
     public function json($re)
     {
@@ -19,4 +20,5 @@ class AuthBase extends Controller{
             exit('response data not correct!');
         }
     }
+
 }

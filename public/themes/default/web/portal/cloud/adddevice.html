@@ -1,9 +1,7 @@
 <script type="text/javascript" src="//api.map.baidu.com/api?v=3.0&ak={$ak}"></script>
-<script type="text/javascript" src="/static/js/echarts.min.js"></script>
-<script type="text/javascript" src="/static/js/adddevice.js"></script>
 <div class="layui-container" style="margin-top:25px;">
     <fieldset class="layui-elem-field layui-field-title">
-        <legend>ThinkIMF - 模拟物联网设备 - Web版本</legend>
+        <legend>添加设备</legend>
     </fieldset>
     <div class="layui-row">
         <div class="layui-col-md10 layui-col-md-offset1">
@@ -14,16 +12,24 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
+                    <label class="layui-form-label">设备名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="name" lay-verify="required" autocomplete="off"
+                               placeholder="设备名称"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
                     <label class="layui-form-label">Cloud APP ID</label>
                     <div class="layui-input-block">
-                        <input type="text" name="appid" lay-verify="appid" autocomplete="off" placeholder="云App Id"
+                        <input type="text" name="appid" lay-verify="required" autocomplete="off" placeholder="云App Id"
                                class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">Cloud APP SECRET</label>
                     <div class="layui-input-block">
-                        <input type="text" name="appsecret" lay-verify="appsecret" autocomplete="appsecret"
+                        <input type="text" name="appsecret" lay-verify="required" autocomplete="appsecret"
                                placeholder="云App Secret"
                                class="layui-input">
                     </div>
@@ -31,24 +37,24 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">设备设备ID</label>
                     <div class="layui-input-block">
-                        <input type="text" name="deviceid" lay-verify="deviceid" autocomplete="off" placeholder="设备ID"
+                        <input type="text" name="device_id" lay-verify="required" autocomplete="off" placeholder="设备ID"
                                class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">设备类型</label>
                     <div class="layui-input-inline">
-                        <select name="type[0]" lay-filter="type1">
+                        <select name="type[0]" lay-verify="required" lay-filter="type1">
                             <option>请选择</option>
                         </select>
                     </div>
-                    <div class="layui-input-inline type2"  style="display:none;">
-                        <select name="type[1]" lay-filter="type2" >
+                    <div class="layui-input-inline type2" style="display:none;">
+                        <select name="type[1]" lay-filter="type2">
                             <option>请选择</option>
                         </select>
                     </div>
                     <div class="layui-input-inline type3" style="display: none;">
-                        <select name="type[2]" lay-filter="type3" >
+                        <select name="type[2]" lay-filter="type3">
                             <option>请选择</option>
                         </select>
                     </div>
@@ -56,22 +62,29 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">假|死设备</label>
                     <div class="layui-input-block">
-                        <input type="checkbox" name="fake_device"  lay-skin="switch" lay-text=" 是|否">
+                        <input value="1" type="checkbox" name="is_fake" <?php
+                             if(isset($_GET['is_fake'])&&$_GET['is_fake'] == 1){
+                             echo 'value="1"';
+                             }
+                        ?> lay-verify="required" lay-skin="switch"
+                               lay-text=" 是|否">
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label">数据上报</label>
                     <div class="layui-input-block">
-                        <input type="checkbox" name="push_tocloud" checked lay-skin="switch" lay-text="开|关">
+                        <input value="1" type="checkbox" name="upload_cloud" lay-verify="required" checked lay-skin="switch"
+                               lay-text="开|关">
                     </div>
                 </div>
 
                 <div class="layui-form-item">
-                    <label class="layui-form-label">Cloud 消息</label>
+                    <label class="layui-form-label">☁️消息接收</label>
                     <div class="layui-input-block">
-                        <input type="checkbox" checked="checked" name="is_receive" lay-skin="switch"
-                               lay-filter="clientSwitch"
+                        <input value="1" type="checkbox" checked="checked" lay-verify="required" name="accept_cloud"
+                               lay-skin="switch"
+                               lay-filter="required"
                                lay-text="开|关">
                     </div>
                 </div>
@@ -79,7 +92,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">设备描述</label>
                     <div class="layui-input-block">
-                        <input type="text" name="desc" lay-verify="desc" autocomplete="off" placeholder="设备描述"
+                        <input type="text" name="desc" lay-verify="required" autocomplete="off"
+                                value="一个充满无限可能的智能设备"
                                class="layui-input">
                     </div>
                 </div>
@@ -87,7 +101,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">技术方案</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="technology" value="cloud" title="☁️云模式(云端作为服务器)" checked="checked">
+                        <input type="radio" name="tech_way" value="cloud" title="☁️云模式(云端作为服务器)" checked="checked">
                         <input disabled type="radio" name="technology" value="wlan"
                                title="wlan(服务搭建在局域网中,特指本套源代码架设在局域网中)">
                     </div>
@@ -96,7 +110,14 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">IP地址</label>
                     <div class="layui-input-block">
-                        <input type="text" name="ip" lay-verify="ip" autocomplete="off" placeholder="IP地址"
+                        <input type="text" name="ip" lay-verify="required" autocomplete="off" placeholder="IP地址"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">版本</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="version" lay-verify="required" value="<?='V'.date('YmdHis').mt_rand(10000,99999)?>" autocomplete="off" placeholder="设备版本"
                                class="layui-input">
                     </div>
                 </div>
@@ -104,27 +125,32 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">地理位置</label>
                     <div class="layui-input-block">
-                        <input type="text" name="location" id="suggestId" lay-verify="location" autocomplete="off" placeholder="地理位置"
+                        <input type="text" name="location" id="suggestId" lay-verify="required" autocomplete="off"
+                               placeholder="地理位置"
                                class="layui-input">
                     </div>
-                    <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+                    <div id="searchResultPanel"
+                         style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
                 </div>
+                <input type="hidden" name="province"/>
+                <input type="hidden" name="city"/>
+                <input type="hidden" name="district"/>
+                <input type="hidden" name="street"/>
                 <div class="layui-form-item">
                     <label class="layui-form-label">地理点</label>
                     <div class="layui-input-block">
-                        <input type="text" name="mappoint" lay-verify="mappoint" autocomplete="off" placeholder="地理点"
+                        <input type="text" name="baidu_map_poi" lay-verify="required" autocomplete="off" placeholder="地理点"
                                class="layui-input">
                     </div>
                 </div>
                 <style>
-                    .anchorBL{
+                    .anchorBL {
                         display: none;
                     }
                 </style>
-                <div class="layui-form-item bmap layi-col-md4 layui-col-sm-offset1" id="bmap" style="width: 100%;height:450px">
-
+                <div class="layui-form-item bmap layi-col-md4 layui-col-sm-offset1" id="bmap"
+                     style="width: 100%;height:450px">
                 </div>
-
             </form>
         </div>
     </div>
@@ -135,29 +161,67 @@
         form = layui.form
             , layer = layui.layer
         form.render();
-
         //自定义验证规则
         form.verify({
             title: function (value) {
                 if (value.length < 5) {
                     return '标题至少得5个字符啊';
                 }
-            }
+            },
         });
-
-        //监听指定开关
-        form.on('switch(clientSwitch)', function (data) {
-            layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
-                offset: '6px'
-            });
-            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-        });
-
         //监听提交
         form.on('submit(client)', function (data) {
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
-            })
+
+            if(data.field.is_fake){
+                data.field.is_fake  = 1;
+            }else{
+                data.field.is_fake  = 0;
+            }
+            if(data.field.upload_cloud){
+                data.field.upload_cloud  = 1;
+            }else{
+                data.field.upload_cloud  = 0;
+            }
+            if(data.field.accept_cloud){
+                data.field.accept_cloud  = 1;
+            }else{
+                data.field.accept_cloud  = 0;
+            }
+            $.ajax({
+                url: '/api/device/adddevice',
+                type: 'post',
+                dataType: 'json',
+                data: data.field,
+                success: function (d) {
+                    if (d.code == 200) {
+                        //提示添加成功,之后跳转到设备详情页面
+                        var infoIndex = layer.open({
+                            title:'恭喜你',
+                            icon:1,
+                            shade:0,
+                            content: '设备创建成功'
+                            ,btn: ['好的,去查看设备详情']
+                            ,yes: function(index, layero){
+                                //按钮【按钮一】的回调
+                                location.href = '/portal/cloud/devicedetail?device_id='
+                            }
+                        });
+                    }else{
+                        //提示创建设备失败
+                        var infoIndex = layer.open({
+                            title:'Whoops',
+                            icon:2,
+                            shade:0,
+                            content: '设备创建失败'
+                            ,btn: ['知道了,我在创建试试']
+                            ,yes: function(index, layero){
+                                location.reload()
+                            }
+                        });
+
+                    }
+                }
+            });
             return false;
         });
 
@@ -169,7 +233,7 @@
             if (d.code == 200) {
                 $("input[name='appid']").attr('value', d.data.appid);
                 $("input[name='appsecret']").attr('value', d.data.appsecret);
-                $("input[name='deviceid']").attr('value', d.data.deviceid);
+                $("input[name='device_id']").attr('value', d.data.deviceid);
                 $("input[name='ip']").attr('value', d.data.ip);
             } else {
                 layui.layer.msg(d.msg);
@@ -186,17 +250,17 @@
                     optionStr += '<option haschild="' + v.has_child + '" value="' + v.t_id + '">' + v.name + '</option>';
                 });
                 $("select[name='type[0]']").html(optionStr);
-                form.on('select(type1)', function(data){
-                    $(".type2").css('display','none');
-                    $(".type3").css('display','none');
+                form.on('select(type1)', function (data) {
+                    $(".type2").css('display', 'none');
+                    $(".type3").css('display', 'none');
                     var pid = data.value;
-                    var has_childObj = $(data.elem).children("option[value='"+pid+"']");
+                    var has_childObj = $(data.elem).children("option[value='" + pid + "']");
                     var has_child = $(has_childObj).attr('haschild');
 
                     if (has_child) {
                         $.post('/api/device/getDeviceType', {
                             pid: pid,
-                            level:1
+                            level: 1
                         }, function (d) {
                             if (d.code == 200) {
                                 var optionStr = '<option haschild="0"></option>';
@@ -204,35 +268,31 @@
                                     optionStr += '<option haschild="' + v.has_child + '" value="' + v.t_id + '">' + v.name + '</option>';
                                 });
                                 $("select[name='type[1]']").html(optionStr);
-                                $(".type2").css('display','inline');
+                                $(".type2").css('display', 'inline');
                                 form.render();
 
-                                form.on('select(type2)', function(d2){
+                                form.on('select(type2)', function (d2) {
                                     var pid = d2.value;
-                                    var has_childObj = $(d2.elem).children("option[value='"+pid+"']");
+                                    var has_childObj = $(d2.elem).children("option[value='" + pid + "']");
                                     var has_child = $(has_childObj).attr('haschild');
 
                                     if (has_child) {
                                         $.post('/api/device/getDeviceType', {
                                             pid: pid,
-                                            level:2
-                                        },function (d) {
-
+                                            level: 2
+                                        }, function (d) {
                                             if (d.code == 200) {
-
                                                 var optionStr = '<option haschild="0"></option>';
                                                 $.each(d.data, function (k, v) {
                                                     optionStr += '<option haschild="' + v.has_child + '" value="' + v.t_id + '">' + v.name + '</option>';
                                                 });
                                                 $("select[name='type[2]']").html(optionStr);
-                                                $(".type3").css('display','inline');
+                                                $(".type3").css('display', 'inline');
                                                 form.render('select');
                                             }
-
-
-                                        },'json');
-                                    }else{
-                                        $(".type3").css('display','none');
+                                        }, 'json');
+                                    } else {
+                                        $(".type3").css('display', 'none');
                                         form.render();
                                     }
 
@@ -241,11 +301,11 @@
 
 
                             }
-                        },'json');
+                        }, 'json');
 
-                    }else {
-                        $('.type2').css('display','none');
-                        $('.type3').css('display','none');
+                    } else {
+                        $('.type2').css('display', 'none');
+                        $('.type3').css('display', 'none');
                         form.render();
                     }
 
@@ -265,16 +325,17 @@
 <script>
     $(function () {
         // 百度地图API功能
-        var map = new BMap.Map("bmap",{mapType:BMAP_HYBRID_MAP});// 创建Map实例
+        var map = new BMap.Map("bmap", {mapType: BMAP_HYBRID_MAP});// 创建Map实例
         //map.setMapStyle({style: 'googlelite'}); //设置google风格模板
         map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
         map.disableDragging();
-        map.centerAndZoom(new BMap.Point(103.388611,35.563611),4);
+        map.centerAndZoom(new BMap.Point(103.388611, 35.563611), 4);
         map.addControl(new BMap.MapTypeControl({
-            mapTypes:[
+            mapTypes: [
                 BMAP_SATELLITE_MAP,
                 BMAP_HYBRID_MAP,
-            ]}));
+            ]
+        }));
         //根据ip定位
         var myCity = new BMap.LocalCity();
         myCity.get(UserDefaultLocation);
@@ -282,67 +343,69 @@
         function G(id) {
             return document.getElementById(id);
         }
+
         function UserDefaultLocation(result) {
             var cityName = result.name;
-            //map.setCurrentCity("北京");
             map.setCenter(cityName);
         }
 
         var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
-            {"input" : "suggestId"
-                ,"location" : map
+            {
+                "input": "suggestId"
+                , "location": map
             });
-
-        ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
+        ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
             var str = "";
             var _value = e.fromitem.value;
             var value = "";
             if (e.fromitem.index > -1) {
-                value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+                value = _value.province + _value.city + _value.district + _value.street + _value.business;
             }
             str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
-
             value = "";
             if (e.toitem.index > -1) {
                 _value = e.toitem.value;
-                value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+                value = _value.province + _value.city + _value.district + _value.street + _value.business;
             }
             str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
             G("searchResultPanel").innerHTML = str;
         });
 
-        var myValue;
-        ac.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
+        var placeString;
+        ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
             var _value = e.item.value;
             //省市区地址
-            myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
-            G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+            placeString = _value.province + _value.city + _value.district + _value.street + _value.business;
+            console.log(placeString);
+            G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />placeString = " + placeString;
             $('#searchResultPanel').hide(300);
-
+            $("input[name='province']").attr('value', _value.province);
+            $("input[name='city']").attr('value', _value.city);
+            $("input[name='district']").attr('value', _value.district);
+            $("input[name='street']").attr('value', _value.street);
             map.clearOverlays();    //清除地图上所有覆盖物
-            function myFun(){
-
-                var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
-                $('input[name="mappoint"]').val(JSON.stringify(pp));
-                map.centerAndZoom(pp, 18);
-                var marker = new BMap.Marker(pp);
-                map.addOverlay(marker);    //添加标注
-                //添加信息窗口
-                var opts = {
-                    width : 200,     // 信息窗口宽度
-                    height: 100,     // 信息窗口高度
-                    title : '<b style="color:red;">信息提示</b>' , // 信息窗口标题
-                }
-                var infoWindow = new BMap.InfoWindow(myValue, opts);  // 创建信息窗口对象
-                map.openInfoWindow(infoWindow,pp); //开启信息窗口
-                marker.addEventListener("click", function(){
-                    this.openInfoWindow(infoWindow);
-                });
-            }
             var local = new BMap.LocalSearch(map, { //智能搜索
-                onSearchComplete: myFun
+                onSearchComplete: function () {
+                    var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+                    console.log(pp, 56789);
+                    $('input[name="baidu_map_poi"]').val(JSON.stringify(pp));
+                    map.centerAndZoom(pp, 18);
+                    var marker = new BMap.Marker(pp);
+                    map.addOverlay(marker);    //添加标注
+                    //添加信息窗口
+                    var opts = {
+                        width: 200,     // 信息窗口宽度
+                        height: 100,     // 信息窗口高度
+                        title: '<b style="color:red;">信息提示</b>', // 信息窗口标题
+                    }
+                    var infoWindow = new BMap.InfoWindow(placeString, opts);  // 创建信息窗口对象
+                    map.openInfoWindow(infoWindow, pp); //开启信息窗口
+                    marker.addEventListener("click", function () {
+                        this.openInfoWindow(infoWindow);
+                    });
+                }
             });
-
+            local.search(placeString);
         });
 
     });

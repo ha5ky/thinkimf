@@ -5,19 +5,22 @@
  * Date: 2018/4/26
  * Time: 上午2:30
  */
-namespace app\Api\controller;
-use app\Api\controller\Base;
-use function strtolower;
-use function uniqueString;
 
-class Message extends Base{
+namespace app\Api\controller;
+
+use app\Api\model\Messages;
+use app\Api\model\Device;
+use function var_dump;
+
+class Message extends AuthBase
+{
 
     /*
      * 推送给某一个设备消息
      */
     public function pushTo()
     {
-        
+
     }
 
     /*
@@ -25,7 +28,7 @@ class Message extends Base{
      */
     public function pushAll()
     {
-        
+
     }
 
     /*
@@ -33,7 +36,34 @@ class Message extends Base{
      */
     public function send()
     {
-        
+
+    }
+
+    public function messageList()
+    {
+        $condition['uuid'] = $this->request->get('user_id', session('userid'));
+        $device_id = $this->request->get('device_id', false);
+        $page = $this->request->get('page', 1);
+        $limit = $this->request->get('limit', 10);
+        if ($device_id) {
+            $condition['device_id'] = $device_id;
+        }
+        $result = [
+            'code' => 0,
+            'msg' => '',
+            'count' => '',
+            'data' => []
+        ];
+        $offset = ($page-1) *$limit;
+        $messageModel = new Messages();
+        $messageCount = $messageModel->where($condition)
+            ->count();
+        $messages = Messages::Where($condition)
+            ->limit($offset,$limit)
+            ->select()->toArray();
+        $result['count'] = $messageCount;
+        $result['data'] = $messages;
+        return $this->json($result);
     }
 
 

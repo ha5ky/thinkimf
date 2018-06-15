@@ -10,4 +10,4 @@ if (isset($GLOBALS['HTTP_RAW_POST_DATA'])) {
 } else {
     $final = file_get_contents('php://input');
 }
-exit(json_encode($final));
+var_export($final);

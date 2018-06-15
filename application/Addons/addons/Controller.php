@@ -16,7 +16,7 @@ use think\Loader;
 
 /**
  * 插件基类控制器
- * Class Controller
+ * Class Do
  * @package think\addons
  */
 class Controller extends \think\Controller

@@ -35,13 +35,13 @@ class Route extends Controller
                 }
                 // 调用操作
                 if (!method_exists($model, $this->action)) {
-                    abort(500, lang('Controller Class Method Not Exists'));
+                    abort(500, lang('Do Class Method Not Exists'));
                 }
                 // 监听addons_init
                 Hook::listen('addons_init', $this);
                 return call_user_func_array([$model, $this->action], [Request::instance()]);
             } else {
-                abort(500, lang('Controller Class Not Exists'));
+                abort(500, lang('Do Class Not Exists'));
             }
         }
         abort(500, lang('addon cannot name or action'));
