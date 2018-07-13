@@ -10,3 +10,4 @@ composer.lock
 composer.lock
 /node_modules
 public/temp
+config/datase.online.php

@@ -412,7 +412,7 @@
     <div class="copyright">
         <a title="官方网站" href="http://www.thinkimf.com">Innovation Framework</a>
         <span>V<?php echo date('Y-m-d H:i:s') ?></span>
-        <span>{ PHP 开发高性能框架 }</span>
+        <span>{ Innovation Framework IMF }</span>
     </div>
     <?php if(\think\facade\App::isDebug()) { ?>
     <script>
