@@ -31,12 +31,11 @@ $(function () {
         marker.setLabel(label);
         map.addOverlay(marker);              // 将标注添加到地图中
         var opts = {
-            width : 200,     // 信息窗口宽度
-            height: 100,     // 信息窗口高度
-            title :label, // 信息窗口标题
+
+            title :'设备名称:'+label, // 信息窗口标题
         }
         var infoWindow = new BMap.InfoWindow(infoString, opts);  // 创建信息窗口对象
-        map.openInfoWindow(infoWindow,bdPointer); //开启信息窗口
+        //map.openInfoWindow(infoWindow,bdPointer); //开启信息窗口
         marker.addEventListener("click", function(){
             this.openInfoWindow(infoWindow);
         });
@@ -45,28 +44,34 @@ $(function () {
         if(type == 'pulling'){
             setInterval(function () {
                 $.get('/api/device/cloudlist',{
-
                 },function (d) {
                     if(d.code == 200){
-                        layui.use(['layer'], function () {
-                            var layer = layui.layer;
-                            layer.msg('获取设备列表成功!');
-                        });
+                        // layui.use(['layer'], function () {
+                        //     var layer = layui.layer;
+                        //     layer.msg('获取设备列表成功!');
+                        // });
+                        map.clearOverlays();
                         $.each(d.data,function ($k,$v) {
                             //点渲染
-                            addMarkerWithClick($v.baidu_map_poi,$v.device_name,$v.location);
+                            var $infoString = '';
+                            $infoString += '设备描述:'+$v.desc + '<br/>';
+                            $infoString += '设备版本: '+$v.version + '<br/>';
+                            $infoString += '设备地点:'+$v.location + '<br/>';
+                            $infoString += '即使消息:'+'' + '<br/>';
+                            $infoString += '<a class="layui-btn layui-btn-radius layui-btn-normal" target="_blank" href="/portal/cloud/devicedetail?device_id='+$v.device_id+'">设备详情</a><br/>';
+                            addMarkerWithClick($v.baidu_map_poi,$v.device_name,$infoString);
                         });
                     }else{
-                        layui.use(['layer'], function () {
-                            var layer = layui.layer;
-                            layer.msg('获取不到设备');
-                        });
+                        // layui.use(['layer'], function () {
+                        //     var layer = layui.layer;
+                        //     layer.msg('获取不到设备');
+                        // });
                     }
                 });
             },3000);
         }
         if(type == 'cloud'){
-            
+
         }
     }
     initCloudDevice('pulling');

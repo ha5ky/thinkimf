@@ -44,7 +44,11 @@ class Device extends Model
         $this->district = $data['district'];
         $this->street = $data['street'];
         $f = $this->save();
-        return $f;
+        if($f){
+        	return $data['device_id'];
+        }else{
+        	return false;
+        }
     }
 
 }

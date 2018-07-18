@@ -3,11 +3,19 @@
 namespace app\Install\controller;
 
 use function date;
+use function header;
+use function is_file;
 use think\Db;
 use const SOURCE_ROOT;
 
 class Index extends Base
 {
+	public function __construct()
+	{
+		if(is_file(SOURCE_ROOT.'/data/install/install.lock')){
+			$this->success("您已经安装过了,如需重新安装请删除 ".SOURCE_ROOT.'/data/install/install.lock 文件','/');
+		};
+	}
 	public function index($step = 0)
 	{
 		switch ($step) {

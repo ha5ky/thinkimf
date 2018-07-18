@@ -142,9 +142,9 @@ class InnovationCloud extends baseClass
         //$taskID = $ws->task($requestData);
         $processData = [
             'status' => 2,
-            'msg' => '处理任务已经投递到了云服务器中,任务ID 为' . 9 . '请稍等......',
-            'msg_code' => 4236,
-            'data' => [],
+	        'msg' => '处理任务已经投递到了云服务器中,任务ID 为' . 9 . '请稍等......',
+	        'msg_code' => 4236,
+	        'data' => [],
         ];
         //写入日志
         swoole_async_writefile(

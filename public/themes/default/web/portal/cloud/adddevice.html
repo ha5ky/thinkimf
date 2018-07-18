@@ -203,7 +203,7 @@
                             ,btn: ['好的,去查看设备详情']
                             ,yes: function(index, layero){
                                 //按钮【按钮一】的回调
-                                location.href = '/portal/cloud/devicedetail?device_id='
+                                location.href = '/portal/cloud/devicedetail?device_id='+data.field.device_id
                             }
                         });
                     }else{
@@ -212,8 +212,8 @@
                             title:'Whoops',
                             icon:2,
                             shade:0,
-                            content: '设备创建失败'
-                            ,btn: ['知道了,我在创建试试']
+                            content: d.msg
+                            ,btn: ['知道了']
                             ,yes: function(index, layero){
                                 location.reload()
                             }
@@ -409,8 +409,4 @@
         });
 
     });
-</script>
-<script>
-    //echarts map
-
 </script>

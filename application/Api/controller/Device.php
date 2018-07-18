@@ -12,6 +12,7 @@ use app\Admin\model\App;
 use app\Admin\model\DeviceType;
 use app\Api\model\Device as DeviceModel;
 use function get_client_ip;
+use function imf_admin_login;
 use function RedisInstance;
 use function strtoupper;
 use function time;
@@ -27,24 +28,25 @@ class Device extends Base
         $deviceId = strtoupper(uniqueString(32));
         $clientIp = get_client_ip();
 
-        //写入数据
-        $app = new App();
-        $app->appid = $appid;
-        $app->secret = $secret;
-        $app->ip = $clientIp;
-        $app->create_at = time();
-        $app->device_id = $deviceId;
-        if ($app->save()) {
-            return $this->json([
-                'code' => 200,
-                'msg' => 'ok',
-                'data' => [
-                    'appid' => $appid,
-                    'appsecret' => $secret,
-                    'deviceid' => $deviceId,
-                    'ip' => $clientIp
-                ]
-            ]);
+//        //写入数据
+//        $app = new App();
+//        $app->appid = $appid;
+//        $app->secret = $secret;
+//        $app->ip = $clientIp;
+//        $app->create_at = time();
+//        $app->device_id = $deviceId;
+//	    $app->save()
+        if ($deviceId) {
+	        return $this->json([
+		        'code' => 200,
+		        'msg' => 'ok',
+		        'data' => [
+			        'appid' => $appid,
+			        'appsecret' => $secret,
+			        'deviceid' => $deviceId,
+			        'ip' => $clientIp
+		        ]
+	        ]);
         } else {
             return $this->json([
                 'code' => 400134,
@@ -83,17 +85,26 @@ class Device extends Base
      */
     public function AddDevice()
     {
+	    if (!session('userid')) {
+		    return $this->json([
+			    'code' => 40001,
+			    'msg' => '请先登录',
+			    'data' => []
+		    ]);
+	    }
         $data = $this->request->post();
         $device = new \app\Api\model\Device();
 
-        $f = $device->add($data);
+        $device_id = $device->add($data);
         //信息保存到 redis
-        if ($f) {
+        if ($device_id) {
             RedisInstance()->set('device' . $data['device_id'], 1);
             return $this->json([
                 'code' => 200,
                 'msg' => 'ok',
-                'data' => []
+                'data' => [
+                	'device_id'=>$device_id
+                ]
             ]);
         } else {
             return $this->json([
@@ -153,6 +164,9 @@ class Device extends Base
         $list = DeviceModel::where([])
             ->field(['device_id',
                 'device_name',
+                'version',
+                'desc',
+                'ip',
                 'city',
                 'location',
                 'icon',
@@ -189,7 +203,7 @@ class Device extends Base
     public function checkOnline()
     {
         $deviceId = $this->request->get('device_id');
-        $deviceIdKey = 'imf:' . $deviceId;
+        $deviceIdKey = 'device' . $deviceId;
         if (RedisInstance()->exists($deviceIdKey)) {
             $result = [
                 'code' => 200,

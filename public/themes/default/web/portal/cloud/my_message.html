@@ -8,12 +8,18 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">客户端ID</label>
                     <div class="layui-input-block">
-                        <select name="clientid" lay-verify="required"  lay-filter="clientid" lay-search="">
+                        <select name="clientid" lay-verify="required" lay-filter="clientid" lay-search="">
                             <option value=""></option>
                             {volist name="deviceIds" id="vo"}
-                            <option value="{$vo}">{$vo}</option>
+                            <option device_name="" value="{$vo}">{$vo}</option>
                             {/volist}
                         </select>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">客户端名称</label>
+                    <div class="layui-input-block">
+                        <input name="client_name" placeholder="客户端名称" class="layui-input"/>
                     </div>
                 </div>
                 <div class="layui-form-item layui-form-text">
@@ -51,6 +57,21 @@
                 }
             }
         });
+        //监听添加信息
+        layui.form.on('submit(add)', function (data) {
+            $.post({
+                url: '/api/message/addMessage',
+                data: data.field,
+                success: function (r) {
+                    layer.msg(r.msg);
+                    if (r.code == 200) {
+                        setTimeout(location.reload(), 2000)
+                    }
+                },
+                dataType: 'json'
+
+            });
+        });
         //监听提交
         layui.form.on('submit(push)', function (data) {
             $requestProtocol = {
@@ -65,12 +86,12 @@
         //layui table
         var table = layui.table;
         //监听工具条
-        table.on('tool(messageTable)', function(obj){
+        table.on('tool(messageTable)', function (obj) {
             var data = obj.data;
-            if(obj.event === 'push'){
-                if(data.status != 1){
-                    layer.alert('推送?：<br>'+ JSON.stringify(data))
-                }else{
+            if (obj.event === 'push') {
+                if (data.status != 1) {
+                    layer.alert('推送?：<br>' + JSON.stringify(data))
+                } else {
                     layer.alert('已经推送过了!')
                 }
             }
@@ -88,10 +109,10 @@
                 , {field: 'default', width: 180, title: '消息默认值'}
                 , {
                     field: 'message_type', width: 100, title: '消息类型', templet: function (d) {
-                        if(d.message_type == 1){
+                        if (d.message_type == 1) {
                             return '普通文本';
                         }
-                        if(d.message_type == 2){
+                        if (d.message_type == 2) {
                             return '协议数据';
                         }
                     }
@@ -115,186 +136,190 @@
                 }
                 , {field: 'create_at', width: 120, title: '创建时间'}
                 , {field: 'update_at', width: 120, title: '更新时间'}
-                ,{fixed: 'right',width:80,align:'left', toolbar: '#toolBar'}
+                , {fixed: 'right', width: 80, align: 'left', toolbar: '#toolBar'}
             ]]
             , page: true
         });
-        //listen select
-        layui.form.on('select(clientid)', function(data){
-            console.log(data);
-            var deviceid = data.value;
-            var layer = layui.layer;
-            if('' == deviceid){layer.msg('请选择设备!');return;};
-            $.get('/api/device/checkonline',{'device_id':deviceid},function (d) {
-                if(d.code == 200){
-                    layui.use(['layer'], function () {
-                        var layer = layui.layer;
-                        layer.msg(deviceid+'在线');
-                    });
-                }else{
-                    layui.use(['layer'], function () {
-                        var layer = layui.layer;
-                        layer.msg(deviceid+'设备不在线');
-                    });
-                }
-            });
-        });
-        //====================================================心跳包重连CODE START=======================================
-        var lockReconnect = false;  //避免ws重复连接
-        var ws = {};// 判断当前浏览器是否支持WebSocket
-        ws.config = {
-            'server': 'ws://127.0.0.1:9621',
-            'flash_websocket': true
-        };
-        createWebSocket(ws.config.server);  //连接ws
-        function createWebSocket(url) {
-            try {
-                if ('WebSocket' in window) {
-                    ws = new WebSocket(url);
-                } else if ('MozWebSocket' in window) {
-                    ws = new MozWebSocket(url);
-                } else if (ws.config.flash_websocket) {
-                    WEB_SOCKET_SWF_LOCATION = "./flash-websocket/WebSocketMain.swf";
-                    $.getScript("./flash-websocket/swfobject.js", function () {
-                        $.getScript("./flash-websocket/web_socket.js", function () {
-                            ws = new WebSocket(ws.config.server);
-                        });
-                    });
-                } else {
-                    layui.use(['layer'], function () {
-                        var layer = layui.layer;
-                        layer.alert("您的浏览器不支持websocket协议,建议使用新版谷歌、火狐等浏览器，请勿使用IE10以下浏览器，360浏览器请使用极速模式，不要使用兼容模式！");
-                    });
-                }
-                iniCloudConnection();
-            } catch (e) {
-                reconnect(url);
-                console.log(e);
-            }
-        }
-
-        function iniCloudConnection() {
-            ws.onclose = function (e) {
-                console.log("Cloud☁️关闭!" + new Date().toUTCString());
-                layui.use(['layer'], function () {
-                    var layer = layui.layer;
-                    layer.open({
-                        title: "☁️云平台实时信息",
-                        icon: 2,
-                        offset: 'rt',
-                        content: '服务连接不上或者已关闭......'
-                        , btnAlign: 'r' //按钮居中
-                        , shade: 0 //不显示遮罩
-                        , time: 2000
-                    });
-                });
-                reconnect(ws.config.server);
-            };
-            ws.onerror = function (e) {
-                console.log("Cloud☁️错误!");
-                layui.use(['layer'], function () {
-                    var layer = layui.layer;
-                    layer.open({
-                        title: "☁️云平台实时信息",
-                        icon: 2,
-                        offset: 'rt',
-                        content: e
-                        , btnAlign: 'r' //按钮居中
-                        , shade: 0 //不显示遮罩
-                        , time: 2000
-                    });
-                });
-                reconnect(ws.config.server);
-            };
-            ws.onopen = function (e) {
-                //设备 id 与秘钥校验
-                $requestProtocol = {
-                    'cmd': 'system/login',
-                    'data': {
-                        'token': 'token',
-                    }
-                };
-                ws.send(JSON.stringify($requestProtocol));
-                heartCheck.reset().start();      //心跳检测重置
-                console.log("连接成功!" + e.data + new Date().toUTCString());
-                layui.use(['layer'], function () {
-                    var layer = layui.layer;
-                    layer.open({
-                        title: "☁️云平台实时信息",
-                        icon: 2,
-                        offset: 'rt',
-                        content: e
-                        , btnAlign: 'r' //按钮居中
-                        , shade: 0 //不显示遮罩
-                        , time: 2000
-                    });
-                });
-            };
-            ws.onmessage = function (event) {    //如果获取到消息，心跳检测重置
-                heartCheck.reset().start();      //拿到任何消息都说明当前连接是正常的
-                var eventData = event.data;
-                layui.use(['layer'], function () {
-                    var layer = layui.layer;
-                    layer.open({
-                        title: "☁️云平台实时信息",
-                        icon: 1,
-                        offset: 'rt',
-                        content: eventData
-                        , btnAlign: 'r' //按钮居中
-                        , shade: 0 //不显示遮罩
-                        , time: 2000
-                    });
-                });
-                handMsg(eventData);
-            };
-        }
-
-        // 监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
-        window.onbeforeunload = function () {
-            ws.close();
-        };
-
-        function reconnect(url) {
-            if (lockReconnect) return;
-            lockReconnect = true;
-            setTimeout(function () {     //没连接上会一直重连，设置延迟避免请求过多
-                createWebSocket(url);
-                lockReconnect = false;
-            }, 2000);
-        }
-
-        //心跳检测
-        var heartCheck = {
-            //timeout: 540000,        //9分钟发一次心跳
-            //timeout: 3600,        //1分钟发一次心跳
-            timeout: 10800,        //3分钟发一次心跳
-            timeoutObj: null,
-            serverTimeoutObj: null,
-            reset: function () {
-                clearTimeout(this.timeoutObj);
-                clearTimeout(this.serverTimeoutObj);
-                return this;
-            },
-            start: function () {
-                var self = this;
-                this.timeoutObj = setTimeout(function () {
-                    //这里发送一个心跳，后端收到后，返回一个心跳消息，
-                    //onmessage拿到返回的心跳就说明连接正常
-                    ws.send("ping");
-                    console.log("ping!")
-                    self.serverTimeoutObj = setTimeout(function () {
-                        //如果超过一定时间还没重置，说明后端主动断开了
-                        //如果onclose会执行reconnect，我们执行ws.close()就行了.如果直接执行reconnect 会触发onclose导致重连两次
-                        ws.close();
-                    }, self.timeout)
-                }, this.timeout)
-            }
-        }
-        //====================================================心跳包重连CODE END=========================================
-        //处理消息
-        function handMsg(evtdata) {
-
-        }
+//        //listen select
+//        layui.form.on('select(clientid)', function (data) {
+//            console.log(data);
+//            var deviceid = data.value;
+//            var layer = layui.layer;
+//            if ('' == deviceid) {
+//                layer.msg('请选择设备!');
+//                return;
+//            }
+//            ;
+//            $.get('/api/device/checkonline', {'device_id': deviceid}, function (d) {
+//                if (d.code == 200) {
+//                    layui.use(['layer'], function () {
+//                        var layer = layui.layer;
+//                        layer.msg(deviceid + '在线');
+//                    });
+//                } else {
+//                    layui.use(['layer'], function () {
+//                        var layer = layui.layer;
+//                        layer.msg(deviceid + '设备不在线');
+//                    });
+//                }
+//            });
+//        });
+//        //====================================================心跳包重连CODE START=======================================
+//        var lockReconnect = false;  //避免ws重复连接
+//        var ws = {};// 判断当前浏览器是否支持WebSocket
+//        ws.config = {
+//            'server': 'ws://127.0.0.1:9621',
+//            'flash_websocket': true
+//        };
+//        createWebSocket(ws.config.server);  //连接ws
+//        function createWebSocket(url) {
+//            try {
+//                if ('WebSocket' in window) {
+//                    ws = new WebSocket(url);
+//                } else if ('MozWebSocket' in window) {
+//                    ws = new MozWebSocket(url);
+//                } else if (ws.config.flash_websocket) {
+//                    WEB_SOCKET_SWF_LOCATION = "./flash-websocket/WebSocketMain.swf";
+//                    $.getScript("./flash-websocket/swfobject.js", function () {
+//                        $.getScript("./flash-websocket/web_socket.js", function () {
+//                            ws = new WebSocket(ws.config.server);
+//                        });
+//                    });
+//                } else {
+//                    layui.use(['layer'], function () {
+//                        var layer = layui.layer;
+//                        layer.alert("您的浏览器不支持websocket协议,建议使用新版谷歌、火狐等浏览器，请勿使用IE10以下浏览器，360浏览器请使用极速模式，不要使用兼容模式！");
+//                    });
+//                }
+//                iniCloudConnection();
+//            } catch (e) {
+//                reconnect(url);
+//                console.log(e);
+//            }
+//        }
+//
+//        function iniCloudConnection() {
+//            ws.onclose = function (e) {
+//                console.log("Cloud☁️关闭!" + new Date().toUTCString());
+//                layui.use(['layer'], function () {
+//                    var layer = layui.layer;
+//                    layer.open({
+//                        title: "☁️云平台实时信息",
+//                        icon: 2,
+//                        offset: 'rt',
+//                        content: '服务连接不上或者已关闭......'
+//                        , btnAlign: 'r' //按钮居中
+//                        , shade: 0 //不显示遮罩
+//                        , time: 2000
+//                    });
+//                });
+//                reconnect(ws.config.server);
+//            };
+//            ws.onerror = function (e) {
+//                console.log("Cloud☁️错误!");
+//                layui.use(['layer'], function () {
+//                    var layer = layui.layer;
+//                    layer.open({
+//                        title: "☁️云平台实时信息",
+//                        icon: 2,
+//                        offset: 'rt',
+//                        content: e
+//                        , btnAlign: 'r' //按钮居中
+//                        , shade: 0 //不显示遮罩
+//                        , time: 2000
+//                    });
+//                });
+//                reconnect(ws.config.server);
+//            };
+//            ws.onopen = function (e) {
+//                //设备 id 与秘钥校验
+//                $requestProtocol = {
+//                    'cmd': 'system/login',
+//                    'data': {
+//                        'token': 'token',
+//                    }
+//                };
+//                ws.send(JSON.stringify($requestProtocol));
+//                heartCheck.reset().start();      //心跳检测重置
+//                console.log("连接成功!" + e.data + new Date().toUTCString());
+//                layui.use(['layer'], function () {
+//                    var layer = layui.layer;
+//                    layer.open({
+//                        title: "☁️云平台实时信息",
+//                        icon: 2,
+//                        offset: 'rt',
+//                        content: e
+//                        , btnAlign: 'r' //按钮居中
+//                        , shade: 0 //不显示遮罩
+//                        , time: 2000
+//                    });
+//                });
+//            };
+//            ws.onmessage = function (event) {    //如果获取到消息，心跳检测重置
+//                heartCheck.reset().start();      //拿到任何消息都说明当前连接是正常的
+//                var eventData = event.data;
+//                layui.use(['layer'], function () {
+//                    var layer = layui.layer;
+//                    layer.open({
+//                        title: "☁️云平台实时信息",
+//                        icon: 1,
+//                        offset: 'rt',
+//                        content: eventData
+//                        , btnAlign: 'r' //按钮居中
+//                        , shade: 0 //不显示遮罩
+//                        , time: 2000
+//                    });
+//                });
+//                handMsg(eventData);
+//            };
+//        }
+//
+//        // 监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+//        window.onbeforeunload = function () {
+//            ws.close();
+//        };
+//
+//        function reconnect(url) {
+//            if (lockReconnect) return;
+//            lockReconnect = true;
+//            setTimeout(function () {     //没连接上会一直重连，设置延迟避免请求过多
+//                createWebSocket(url);
+//                lockReconnect = false;
+//            }, 2000);
+//        }
+//
+//        //心跳检测
+//        var heartCheck = {
+//            //timeout: 540000,        //9分钟发一次心跳
+//            //timeout: 3600,        //1分钟发一次心跳
+//            timeout: 10800,        //3分钟发一次心跳
+//            timeoutObj: null,
+//            serverTimeoutObj: null,
+//            reset: function () {
+//                clearTimeout(this.timeoutObj);
+//                clearTimeout(this.serverTimeoutObj);
+//                return this;
+//            },
+//            start: function () {
+//                var self = this;
+//                this.timeoutObj = setTimeout(function () {
+//                    //这里发送一个心跳，后端收到后，返回一个心跳消息，
+//                    //onmessage拿到返回的心跳就说明连接正常
+//                    ws.send("ping");
+//                    console.log("ping!")
+//                    self.serverTimeoutObj = setTimeout(function () {
+//                        //如果超过一定时间还没重置，说明后端主动断开了
+//                        //如果onclose会执行reconnect，我们执行ws.close()就行了.如果直接执行reconnect 会触发onclose导致重连两次
+//                        ws.close();
+//                    }, self.timeout)
+//                }, this.timeout)
+//            }
+//        }
+//        //====================================================心跳包重连CODE END=========================================
+//        //处理消息
+//        function handMsg(evtdata) {
+//
+//        }
 
 
     });
