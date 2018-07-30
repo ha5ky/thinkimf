@@ -13,7 +13,7 @@
  * $Author: 陈建华 $
  * $Create Time: 2018/2/9 0009 $
  * email:dyoungchen@gmail.com
- * function:Auth.php
+ * function:auth.php
  */
 
 namespace think;
@@ -24,7 +24,7 @@ use think\route\Dispatch;
 use think\Config;
 
 /**
- * App 应用管理
+ * app 应用管理
  */
 class App implements \ArrayAccess
 {

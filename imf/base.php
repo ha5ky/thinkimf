@@ -13,7 +13,7 @@
  * $Author: 陈建华 $
  * $Create Time: 2018/2/9 0009 $
  * email:dyoungchen@gmail.com
- * function:Auth.php
+ * function:auth.php
  */
 
 namespace think;
@@ -85,7 +85,7 @@ Facade::bind([
 
 // 注册类库别名
 Loader::addClassAlias([
-    'App' => facade\App::class,
+    'app' => facade\App::class,
     'Build' => facade\Build::class,
     'Cache' => facade\Cache::class,
     'Config' => facade\Config::class,

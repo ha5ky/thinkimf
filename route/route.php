@@ -13,7 +13,7 @@
  * $Author: 陈建华 $
  * $Create Time: 2018/2/9 0009 $
  * email:dyoungchen@gmail.com
- * function:Auth.php
+ * function:auth.php
  */
 
 Route::get('imf', function () {

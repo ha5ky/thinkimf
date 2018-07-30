@@ -1,11 +1,9 @@
 <?php
 /*
  *
- * @auth chenjianhua <dyoung@qq.com>
+ * @auth chenjianhua <dyoungchen@gmail.com>
  * @desc 短信发送
  * @link https://dyoung.unnnnn.com
- */
-/*
  * 接口和代理地址：http://47.95.229.24:9008/
  * 报告地址 http://47.95.229.24:9003
  * @param $data array
@@ -31,13 +29,15 @@ function SendSms($data = []){
     $result = file_get_contents($url);
     $encode = mb_detect_encoding($result, array('ASCII','GB2312','GBK','UTF-8'));
     $utf8Result = mb_convert_encoding($result,"UTF-8",$encode);
+	var_dump($utf8Result);
+	exit;
     file_put_contents('./logs/smslog.txt',date('Y-m-d H:i:s').' 手机号码:'.$data['bumber'].'内容:'.$data['content'].' 发送状态:'.$utf8Result,FILE_APPEND);
     //var_dump(mb_strrpos($result,"success"));exit;
     if (!strpos($utf8Result,"success")) {
       echo  json_encode([
             'code'=>200,
             'msg'=>'ok'
-        ]);
+      ]);
     }else{
         $reString = json_encode([
             'code'=>400,
@@ -49,6 +49,6 @@ function SendSms($data = []){
 }
 
 $data['number'] = '18721662013';
-$data['content'] = '【尤霓裳】你的电话已缴费,充值1000086元成功,退订回T';
+$data['content'] = '【UNISSA】上海中心气象台2018年07月22日22时发布:未来的3小时内本市阴有时有阵雨。退订回T';
 //尤霓裳
 SendSms($data);

@@ -13,7 +13,7 @@
  * $Author: 陈建华 $
  * $Create Time: 2018/2/9 0009 $
  * email:dyoungchen@gmail.com
- * function:Auth.php
+ * function:auth.php
  */
 if (is_file($_SERVER["DOCUMENT_ROOT"] . $_SERVER["SCRIPT_NAME"])) {
     return false;

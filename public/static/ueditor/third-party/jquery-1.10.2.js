@@ -8106,7 +8106,7 @@ jQuery.extend({
 		// aborting is no longer a cancellation
 		strAbort = "abort";
 
-		// Install callbacks on deferreds
+		// install callbacks on deferreds
 		for ( i in { success: 1, error: 1, complete: 1 } ) {
 			jqXHR[ i ]( s[ i ] );
 		}
@@ -8438,7 +8438,7 @@ function ajaxConvert( s, response, jqXHR, isSuccess ) {
 
 	return { state: "success", data: response };
 }
-// Install script dataType
+// install script dataType
 jQuery.ajaxSetup({
 	accepts: {
 		script: "text/javascript, application/javascript, application/ecmascript, application/x-ecmascript"
@@ -8572,7 +8572,7 @@ jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
 		// force json dataType
 		s.dataTypes[ 0 ] = "json";
 
-		// Install callback
+		// install callback
 		overwritten = window[ callbackName ];
 		window[ callbackName ] = function() {
 			responseContainer = arguments;

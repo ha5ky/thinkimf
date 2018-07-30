@@ -13,14 +13,14 @@
  * $Author: 陈建华 $
  * $Create Time: 2018/2/9 0009 $
  * email:dyoungchen@gmail.com
- * function:Auth.php
+ * function:auth.php
  */
 return [
     // 生成应用公共文件
     '__file__' => ['common.php'],
 
     // 定义App模块的自动生成 （按照实际定义的文件名生成）
-    'Portal'     => [
+    'portal'     => [
         '__file__'   => ['common.php'],
         '__dir__'    => ['behavior', 'controller', 'model', 'view'],
         'controller' => ['Index'],
@@ -28,7 +28,7 @@ return [
         'view'       => ['/default'],
     ],
     // 其他更多的模块定义
-    'Admin'     => [
+    'admin'     => [
         '__file__'   => ['common.php'],
         '__dir__'    => ['behavior', 'controller', 'model', 'view'],
         'controller' => ['Index'],
@@ -42,7 +42,7 @@ return [
         'model'      => ['UserModel'],
         'view'       => ['default/default'],
     ],
-    'Api'     => [
+    'api'     => [
         '__file__'   => ['common.php'],
         '__dir__'    => ['behavior', 'controller', 'model', 'view'],
         'controller' => ['Index'],
