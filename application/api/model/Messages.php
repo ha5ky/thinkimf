@@ -10,11 +10,9 @@ namespace app\api\model;
 
 use function get_client_ip;
 use function session;
-use \think\Db;
-use \think\model;
 use function time;
 
-class Messages extends Model
+class Messages extends \think\Model
 {
     protected $table = 'imf_data_message';
 
