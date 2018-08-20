@@ -5,8 +5,6 @@
  * Date: 2018/5/19
  * Time: 下午7:14
  */
-
-
 define("APP_ROOT",__DIR__);
 define("APP_VERSION","V".date('Y-m'));
 define("APP_AUTHOR","chenjianhua");
@@ -35,3 +33,5 @@ $cloud->setDbConnection($dbConnection);
 $cloud->setRedisConnection($redisConnection);
 
 $cloud->run();
+
+

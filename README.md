@@ -5,7 +5,7 @@
 ##ThinkIMF有哪些功能？
 * 登录注册
 * 用户管理
-* 扫码登录[特色功能]
+* 扫码登录
 * 权限管理
 * 物联网设备管理 
 * 物联网设备通信 
@@ -33,36 +33,8 @@
 * ThinkIMF Powered By PHP7.X  and Dyoung Chen
 
 
-##docker使用
-
-可以使用当前目录下的Dockerfile进行构建
-```
- docker build -t registry.cn-hangzhou.aliyuncs.com/thinkimf/iot:thinkimf .
-```
-
-```
-或者 docker pull registry.cn-hangzhou.aliyuncs.com/thinkimf/iot:thinkimf
-```
-
-```
-启动 docker run -i -t -d -P -p 80:80 -p 3306:3306 -p 2110:22 --hostname thinimf registry.cn-hangzhou.aliyuncs.com/thinkimf/iot:thinkimf
-```
-
-```
-启动后 使用 docker exec -i -t 容器ID /bin/bash/
-```
-
-```
-进入后 执行 open_service (开启nginx,mysql,php-fpm,ssh)
-```
-
-```
-之后可以远程访问  ssh -p 2110 root@ip   用户名:root,密码thinkimf
-```
-
-```php
 <?php
     
-  print 'PHP是世界上最便捷的web开发语言';
+  print '项目使用PHP 驱动！';
   
 ```
