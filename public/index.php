@@ -35,6 +35,7 @@ header("Access-Control-Allow-Headers:Origin, X-Requested-With, Content-Type, Acc
 if($_SERVER['REQUEST_METHOD'] == 'OPTIONS'){
     exit;
 }
+
 require 'waf.php';
 // 加载基础文件
 require __DIR__ . '/../imf/base.php';

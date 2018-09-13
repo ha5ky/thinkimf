@@ -298,7 +298,7 @@ function uniqueNumber($num = 18)
     $i = 0;
     do {
         $i++;
-        $return_str .= $string[mt_rand(0, 61)];
+        $return_str .= $string[mt_rand(0, 8)];
     } while ($i < $num);
 
     return $return_str;
@@ -700,4 +700,6 @@ function imf_parse_sql($sql='',$limit=0,$prefix=[])
 	} else {
 		return $limit == 1 ? '' : [];
 	}
+
+
 }

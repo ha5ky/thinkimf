@@ -14,7 +14,7 @@ class Request
      *
      * headers 数组，HTTP头
      * method 字符串，设置请求方法，如GET、POST
-     * path 字符串，设置URL路径，如/index.php?a=1&b=2，必须以/作为开始
+     * path 字符串，设置URL路径，如/outStockServices.php?a=1&b=2，必须以/作为开始
      * cookies 数组，设置COOKIES
      * data 设置请求的body，如果为字符串时将直接作为RAW form-data进行发送
      * data 为数组时，底层自动会打包为x-www-form-urlencoded格式的POST内容，并设置Content-Type为application/x-www-form-urlencoded

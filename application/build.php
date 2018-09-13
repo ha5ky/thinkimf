@@ -56,11 +56,4 @@ return [
         'model'      => ['UserModel'],
         'view'       => ['default/default'],
     ],
-    'statistics'     => [
-        '__file__'   => ['common.php'],
-        '__dir__'    => ['behavior', 'controller', 'model', 'view'],
-        'controller' => ['Index'],
-        'model'      => ['UserModel'],
-        'view'       => ['default/default'],
-    ],
 ];

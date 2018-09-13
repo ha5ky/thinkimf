@@ -18,28 +18,28 @@ class Article extends AuthBase
      */
     public function list()
     {
-        $page = $this->request->get('page',1);
-        $page_size = $this->request->get('page_size',20);
-        $offset = ($page-1) *$page_size;
+        $page = $this->request->get('page', 1);
+        $page_size = $this->request->get('page_size', 20);
+        $offset = ($page - 1) * $page_size;
         $articles = ArticleModel::Where([])
-            ->limit($offset,$page_size)
-            ->order(['updated_at'=>'desc','created_at'=>'desc'])
+            ->limit($offset, $page_size)
+            ->order(['updated_at' => 'desc', 'created_at' => 'desc'])
             ->select()->toArray();
-        if($articles){
+        if ($articles) {
             $result = [
-                'code'=>200,
-                'status'=>1,
-                'msg'=>'ok',
-                'msg_code'=>0,
-                'data'=>$articles
+                'code' => 200,
+                'status' => 1,
+                'msg' => 'ok',
+                'msg_code' => 0,
+                'data' => $articles
             ];
-        }else{
+        } else {
             $result = [
-                'code'=>40012,
-                'status'=>-1,
-                'msg'=>'no article',
-                'msg_code'=>0,
-                'data'=>[]
+                'code' => 40012,
+                'status' => -1,
+                'msg' => 'no article',
+                'msg_code' => 0,
+                'data' => []
             ];
         }
         return $this->json($result);

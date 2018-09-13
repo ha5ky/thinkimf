@@ -16,5 +16,4 @@ class Article extends \think\Model
 {
     protected $table = 'imf_post';
 
-
 }
