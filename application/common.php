@@ -416,7 +416,7 @@ function getIp()
      * 或者使用正则方式：$ip = preg_match("/[\d\.]{7,15}/", $ip, $matches) ? $matches[0] : $unknown;
      */
     if (false !== strpos($ip, ',')) $ip = reset(explode(',', $ip));
-    $ipinf = $this->getIpInfo($ip);
+    $ipinf = getIpInfo($ip);
     if ($ipinf['city'] == '内网IP') {
         $ipinf['city'] = '上海市';
     }
@@ -700,6 +700,5 @@ function imf_parse_sql($sql='',$limit=0,$prefix=[])
 	} else {
 		return $limit == 1 ? '' : [];
 	}
-
-
 }
+

@@ -39,6 +39,12 @@ class Message extends AuthBase
 
     }
 
+    /**
+     * @desc 我的所有数据列表
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     public function messageList()
     {
         $condition['uuid'] = $this->request->get('user_id', session('userid'));
@@ -66,5 +72,11 @@ class Message extends AuthBase
         return $this->json($result);
     }
 
+    /**
+     * @desc 消息详情
+     */
+    public function msgDetail()
+    {
 
+    }
 }

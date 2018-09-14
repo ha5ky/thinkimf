@@ -12,7 +12,7 @@ use function uniqueString;
 
 class Data extends Base{
 
-    /*
+    /**
      * 手动信息上报
      */
     public function handUpload()
@@ -20,7 +20,7 @@ class Data extends Base{
         
     }
 
-    /*
+    /**
      * 自动信息上报
      */
     public function autoUpload()

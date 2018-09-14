@@ -13,8 +13,8 @@ use function json;
 
 Class Partner extends Base{
 
-    /*
-     * 合伙人招募列表
+    /**
+     * @desc 合伙人招募列表
      */
     public function index()
     {
