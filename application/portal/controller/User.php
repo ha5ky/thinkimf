@@ -58,6 +58,7 @@ class User extends Base
             /* $this->assign('description','');
              $this->assign('keywords','');*/
             return $this->fetch('user/device');
+            $_SERVER['REQUEST_URI'];
         }
     }
 
@@ -75,5 +76,19 @@ class User extends Base
         }
     }
 
+    /**
+     * @desc 设置
+     * @return mixed
+     */
+    public function setting()
+    {
+        if ($this->request->isPost()) {
+        } else {
+            $this->assign('title', '设置');
+            /* $this->assign('description','');
+             $this->assign('keywords','');*/
+            return $this->fetch('user/setting');
+        }
+    }
 
 }
