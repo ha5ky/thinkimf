@@ -58,7 +58,6 @@ class User extends Base
             /* $this->assign('description','');
              $this->assign('keywords','');*/
             return $this->fetch('user/device');
-            $_SERVER['REQUEST_URI'];
         }
     }
 
