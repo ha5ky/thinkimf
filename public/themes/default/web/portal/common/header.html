@@ -26,8 +26,8 @@
         </a>
         <ul class="layui-nav fly-nav layui-hide-xs">
             <li class="layui-nav-item"><a href="/portal/cloud/index"></a></li>
-            <!--<li class="layui-nav-item"><a href="">社区</a></li>-->
-            <!--<li class="layui-nav-item"><a href="">开放平台</a></li>-->
+            <li class="layui-nav-item"><a href="//bbs.thinkimf.com">社区</a></li>
+            <li class="layui-nav-item"><a href="//bbs.thinkimf.com">技术文档</a></li>
             <li class="layui-nav-item"><a href="/portal/partner/index">合伙人招募</a></li>
 
             <li class="layui-nav-item">
@@ -38,6 +38,9 @@
             </li>
             <li class="layui-nav-item">
                 <a href="/portal/cloud/mymessage">数据推送</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="/portal/lib/index">IMF研究院</a>
             </li>
             <!--<li class="layui-nav-item">-->
             <!--<a href="javascript:;">核心能力</a>-->
@@ -91,43 +94,13 @@
                 <dl class="layui-nav-child">
                     {if session('user_type') == 1}
                     <dd><a href="/admin">管理后台</a></dd>
+                    <dd><a href="/portal/user/info">用户云</a></dd>
                     {/if}
                     <dd><a href="/auth/index/logout">退出</a></dd>
                 </dl>
                 {/if}
             </li>
-        </ul>
-        <ul class="layui-nav fly-nav-user">
-            <!-- 登入后的状态 -->
-            <li class="layui-nav-item" style="float:right;">
-                {if !session('username')}
-                <a href="/auth/index/login">登录</a>
-                {/if}
-                {if session('username')}
-                <a href="javascript:;" style="color:red;"><?=session('username')?></a>
-                <dl class="layui-nav-child">
-                    {if session('user_type') == 1}
-                    <dd><a href="/admin">管理后台</a></dd>
-                    {/if}
-                    <dd><a href="/auth/index/logout">退出</a></dd>
-                </dl>
-                {/if}
-            </li>
-           <!-- <li class="layui-nav-item">
-                <a class="fly-nav-avatar" href="javascript:;">
-                    <cite class="layui-hide-xs">贤心</cite>
-                    <i class="iconfont icon-renzheng layui-hide-xs" title="认证信息：layui 作者"></i>
-                    <i class="layui-badge fly-badge-vip layui-hide-xs">VIP3</i>
-                    <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">
-                </a>
-                <dl class="layui-nav-child">
-                    <dd><a href="../user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
-                    <dd><a href="../user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>
-                    <dd><a href="../user/home.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
-                    <hr style="margin: 5px 0;">
-                    <dd><a href="" style="text-align: center;">退出</a></dd>
-                </dl>
-            </li>-->
         </ul>
     </div>
 </div>
+<div style="margin-bottom: 10px"></div>

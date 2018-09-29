@@ -16,6 +16,6 @@ class Lib extends Base
     {
 
         $this->assign('title','实验室');
-        return $this->fetch('duty/index');
+        return $this->fetch('lib/index');
     }
 }

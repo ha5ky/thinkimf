@@ -1,7 +1,6 @@
 .idea
 composer.lock
 *.log
-/vendor/
 .buildpath
 .DS_Store
 .project
@@ -10,4 +9,3 @@ composer.lock
 composer.lock
 /node_modules
 public/temp
-config/datase.online.php
