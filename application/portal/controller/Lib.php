@@ -15,7 +15,18 @@ class Lib extends Base
     public function index()
     {
 
-        $this->assign('title','实验室');
+        $this->assign('title', '实验室');
         return $this->fetch('lib/index');
     }
+
+    /**
+     * 信息救助
+     */
+    public function infoHelpOrg()
+    {
+
+    }
+
+
+
 }
