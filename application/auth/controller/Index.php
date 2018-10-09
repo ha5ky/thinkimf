@@ -22,7 +22,7 @@ class Index extends Base
 {
     public function login()
     {
-        $data = $this->request->post();
+        $data = $this->request->request();
         if (isset($data['redirect'])) {
             $redirectUrl = $data['redirect'];
         } else {
@@ -60,8 +60,9 @@ class Index extends Base
             //var_dump($data['username'],$email,$user['phone']);exit;
             if (md5($user['password_salt'] . $data['password']) == $user['password']) {
 
-                //登录XImf community
+
                 //判断用户是否存在，如果存在直接登录,如果不存在则用户同步
+                //登录XImf community
                 //使用cookies登录
                 session('uuid', $user['id']);
                 session('userid', $user['id']);
@@ -95,6 +96,7 @@ class Index extends Base
         } else {
             $redirectUrl = $this->request->domain();
         }
+        var_dump($redirectUrl);
         if ($request->isPost()) {
             $email = false;
             $phone = false;

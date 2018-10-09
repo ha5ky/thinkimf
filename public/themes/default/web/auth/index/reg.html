@@ -68,6 +68,7 @@
             <form style="margin-left:50px;margin-top:-55px" id="authRegForm" method="post" action="{$_SERVER['REQUEST_URI']}">
                 <input class="username" name="regname" class="text" type="text" placeholder="邮箱或者手机号" >
                 <input class="password" name="password" type="password" placeholder="密码">
+                <input type="hidden" name="redirect" value="<?=$redirect?>" />
                 <a class="a web-reg" href="#">立即注册</a>
             </form>
         </div>

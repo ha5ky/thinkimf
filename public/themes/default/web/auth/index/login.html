@@ -61,6 +61,7 @@
             <form style="margin-top:-50px;margin-left:55px;" id="authloginForm" action="/auth/index/login" method="post" >
                     <input class="username"name="username" class="text" type="text" placeholder="邮箱或者手机号" required >
                     <input class="password" type="password" name="password" placeholder="密码">
+                    <input type="hidden" name="redirect" value="<?=$redirect?>" />
                     <a class="a auth-login" href="#">用户登录</a>
             </form>
             <a href="/auth/index/scancodelogin"><div style="width:60px;height: 60px;position: relative;left: 309px;top: -15px;background-image:url('/static/images/auth/erweima.png');">

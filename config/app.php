@@ -34,7 +34,7 @@ return [
     // 是否支持多模块
     'app_multi_module' => true,
     // 入口自动绑定模块
-    'auto_bind_module' => false,
+    'auto_bind_module' => true,
     // 注册的根命名空间
     'root_namespace' => [],
     // 默认输出类型
@@ -73,9 +73,9 @@ return [
     // 默认验证器
     'default_validate' => '',
     // 默认的空模块名
-    'empty_module' => '',
+    'empty_module' => 'portal',
     // 默认的空控制器名
-    'empty_controller' => 'Error',
+    'empty_controller' => 'Index',
     // 操作方法前缀
     'use_action_prefix' => false,
     // 操作方法后缀
