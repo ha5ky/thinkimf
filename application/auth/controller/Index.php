@@ -17,11 +17,16 @@ use app\admin\model\UserModel;
 use think\Validate;
 use function uniqueString;
 
+require_once SOURCE_ROOT.'/vendor/uc_client/client.php';
 
 class Index extends Base
 {
     public function login()
     {
+        if (session("userid")) {
+            $domain = $this->request->domain();
+            header("Location:$domain");
+        }
         $data = $this->request->request();
         if (isset($data['redirect'])) {
             $redirectUrl = $data['redirect'];
@@ -59,11 +64,9 @@ class Index extends Base
                 ->find();
             //var_dump($data['username'],$email,$user['phone']);exit;
             if (md5($user['password_salt'] . $data['password']) == $user['password']) {
-
-
                 //判断用户是否存在，如果存在直接登录,如果不存在则用户同步
                 //登录XImf community
-                //使用cookies登录
+
                 session('uuid', $user['id']);
                 session('userid', $user['id']);
                 session('user_type', $user['user_type']);
@@ -90,13 +93,16 @@ class Index extends Base
 
     public function reg(Request $request)
     {
+        if (session("userid")) {
+            $domain = $this->request->domain();
+            header("Location:$domain");
+        }
         $data = $this->request->request();
         if (isset($data['redirect'])) {
             $redirectUrl = $data['redirect'];
         } else {
             $redirectUrl = $this->request->domain();
         }
-        var_dump($redirectUrl);
         if ($request->isPost()) {
             $email = false;
             $phone = false;
