@@ -79,7 +79,7 @@ class Index extends Base
                 if(strstr($_SERVER['HTTP_HOST'],"127.0.0.1")){
                     $api = $httpPre."127.0.0.1:9091/api/imf.php";
                 }else{
-                    $api = $httpPre."http://bbs.thinkimf.com/api/imf.php";
+                    $api = $httpPre."bbs.thinkimf.com/api/imf.php";
                 }
                 if($email){
                     $loginEmail = $email;
