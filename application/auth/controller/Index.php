@@ -73,6 +73,32 @@ class Index extends Base
                 session('username', ($user['name'] ?? $user['id'] ?? $user['email'] ?? $user['phone'] ?? $user['nickname']));
                 cookie('userid', $user['id']);
                 cookie('username', $user['name']);
+                if(is_SSL()){
+                    $httpPre = 'https://';
+                }else{
+                    $httpPre = 'http://';
+                }
+                if(strstr($_SERVER['HTTP_HOST'],"127.0.0.1")){
+                    $api = $httpPre."127.0.0.1:9091/api/imf.php";
+                }else{
+                    $api = $httpPre."http://bbs.thinkimf.com/api/imf.php";
+                }
+                if($email){
+                    $loginEmail = $email;
+                    $loginUsername = $email;
+                    $loginPassword = substr(md5($loginEmail),0,6);
+                }
+                if($phone){
+                    $loginEmail = $phone."@thinkimf.com";
+                    $loginUsername = $email;
+                    $loginPassword = substr(md5($loginEmail),0,6);
+                }
+                $api .= "?api_code=imfpwdfghjkdhgadv&action=login&email="
+                    .$email."&password=".$loginPassword."&username=".$loginUsername;
+                $loginInfo = ImfHttpRequest($api);
+
+                var_dump($loginInfo);
+                exit;
 
                 $this->success('登录成功，正在前往', $redirectUrl);
             } else {

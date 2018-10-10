@@ -163,6 +163,72 @@ function httpRequest($URL, $data = null, $type = 'GET', $headers = [])
     return $file_contents;
 }
 
+/*
+* 检测链接是否是SSL连接
+* @return bool
+*/
+function is_SSL(){
+    if(!isset($_SERVER['HTTPS']))
+        return FALSE;
+    if($_SERVER['HTTPS'] === 1){  //Apache
+        return TRUE;
+    }elseif($_SERVER['HTTPS'] === 'on'){ //IIS
+        return TRUE;
+    }elseif($_SERVER['SERVER_PORT'] == 443){ //其他
+        return TRUE;
+    }
+    return FALSE;
+}
+
+function ImfHttpRequest($url = null, $method = 'get', $headers = [], $params = [], $timeout = 60)
+{
+    if (is_array($params)) {
+        $requestString = http_build_query($params);
+    }
+    if (empty($headers)) {
+        $headers = ['Content-type: text/json'];
+    }
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+    curl_setopt($ch, CURLOPT_DNS_CACHE_TIMEOUT, 180);
+    curl_setopt($ch, CURLOPT_VERBOSE, 1);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    switch (strtoupper($method)) {
+        case "GET" :
+            curl_setopt($ch, CURLOPT_HTTPGET, 1);
+            break;
+        case "POST":
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $requestString);
+            break;
+        case "PUT" :
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $requestString);
+            break;
+        case "DELETE":
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $requestString);
+            break;
+    }
+    $response = curl_exec($ch);
+    $responseInfo = curl_getinfo($ch);
+    //var_dump($responseInfo);
+    if (200 != $responseInfo['http_code']) {
+        return [
+            'error' => curl_error($ch),
+            'errno' => curl_errno($ch),
+            'url' => $url,
+        ];
+    } else {
+        return $response;
+    }
+    curl_close($ch);
+}
+
 /**
  * 生成数字号码(no-repeat)
  * @param int $num
@@ -258,6 +324,7 @@ function decrypt($data, $key)
     }
     return $str;
 }
+
 /*
 6217 9873 00000 845821
 
@@ -286,6 +353,7 @@ function uniqueString($num = 18)
 
     return $return_str;
 }
+
 /**
  * 生成唯一数组合
  * @param int $num
@@ -322,12 +390,12 @@ function numCodeRe($num = 4)
     return $return_str;
 }
 
-function genUuid():string
+function genUuid(): string
 {
     if (function_exists('atom_next_id')) {
         return atom_next_id();
     }
-    return uniqueNumber(6).uniqueNumber(6).uniqueNumber(6);
+    return uniqueNumber(6) . uniqueNumber(6) . uniqueNumber(6);
 }
 
 function parseUid($uid): array
@@ -576,129 +644,126 @@ function RedisInstance()
 
 }
 
-function imf_substring($str, $lenth, $start=0)
+function imf_substring($str, $lenth, $start = 0)
 {
-	$len = strlen($str);
-	$r = array();
-	$n = 0;
-	$m = 0;
+    $len = strlen($str);
+    $r = array();
+    $n = 0;
+    $m = 0;
 
-	for($i=0;$i<$len;$i++){
-		$x = substr($str, $i, 1);
-		$a = base_convert(ord($x), 10, 2);
-		$a = substr( '00000000 '.$a, -8);
+    for ($i = 0; $i < $len; $i++) {
+        $x = substr($str, $i, 1);
+        $a = base_convert(ord($x), 10, 2);
+        $a = substr('00000000 ' . $a, -8);
 
-		if ($n < $start){
-			if (substr($a, 0, 1) == 0) {
-			}
-			else if (substr($a, 0, 3) == 110) {
-				$i += 1;
-			}
-			else if (substr($a, 0, 4) == 1110) {
-				$i += 2;
-			}
-			$n++;
-		}
-		else{
-			if (substr($a, 0, 1) == 0) {
-				$r[] = substr($str, $i, 1);
-			}else if (substr($a, 0, 3) == 110) {
-				$r[] = substr($str, $i, 2);
-				$i += 1;
-			}else if (substr($a, 0, 4) == 1110) {
-				$r[] = substr($str, $i, 3);
-				$i += 2;
-			}else{
-				$r[] = ' ';
-			}
-			if (++$m >= $lenth){
-				break;
-			}
-		}
-	}
-	return  join('',$r);
+        if ($n < $start) {
+            if (substr($a, 0, 1) == 0) {
+            } else if (substr($a, 0, 3) == 110) {
+                $i += 1;
+            } else if (substr($a, 0, 4) == 1110) {
+                $i += 2;
+            }
+            $n++;
+        } else {
+            if (substr($a, 0, 1) == 0) {
+                $r[] = substr($str, $i, 1);
+            } else if (substr($a, 0, 3) == 110) {
+                $r[] = substr($str, $i, 2);
+                $i += 1;
+            } else if (substr($a, 0, 4) == 1110) {
+                $r[] = substr($str, $i, 3);
+                $i += 2;
+            } else {
+                $r[] = ' ';
+            }
+            if (++$m >= $lenth) {
+                break;
+            }
+        }
+    }
+    return join('', $r);
 }
 
-function imf_parse_sql($sql='',$limit=0,$prefix=[])
+function imf_parse_sql($sql = '', $limit = 0, $prefix = [])
 {
-	// 被替换的前缀
-	$from = '';
-	// 要替换的前缀
-	$to = '';
+    // 被替换的前缀
+    $from = '';
+    // 要替换的前缀
+    $to = '';
 
-	// 替换表前缀
-	if (!empty($prefix)) {
-		$to   = current($prefix);
-		$from = current(array_flip($prefix));
-	}
+    // 替换表前缀
+    if (!empty($prefix)) {
+        $to = current($prefix);
+        $from = current(array_flip($prefix));
+    }
 
-	if ($sql != '') {
-		// 纯sql内容
-		$pure_sql = [];
+    if ($sql != '') {
+        // 纯sql内容
+        $pure_sql = [];
 
-		// 多行注释标记
-		$comment = false;
+        // 多行注释标记
+        $comment = false;
 
-		// 按行分割，兼容多个平台
-		$sql = str_replace(["\r\n", "\r"], "\n", $sql);
-		$sql = explode("\n", trim($sql));
+        // 按行分割，兼容多个平台
+        $sql = str_replace(["\r\n", "\r"], "\n", $sql);
+        $sql = explode("\n", trim($sql));
 
-		// 循环处理每一行
-		foreach ($sql as $key => $line) {
-			// 跳过空行
-			if ($line == '') {
-				continue;
-			}
+        // 循环处理每一行
+        foreach ($sql as $key => $line) {
+            // 跳过空行
+            if ($line == '') {
+                continue;
+            }
 
-			// 跳过以#或者--开头的单行注释
-			if (preg_match("/^(#|--)/", $line)) {
-				continue;
-			}
+            // 跳过以#或者--开头的单行注释
+            if (preg_match("/^(#|--)/", $line)) {
+                continue;
+            }
 
-			// 跳过以/**/包裹起来的单行注释
-			if (preg_match("/^\/\*(.*?)\*\//", $line)) {
-				continue;
-			}
+            // 跳过以/**/包裹起来的单行注释
+            if (preg_match("/^\/\*(.*?)\*\//", $line)) {
+                continue;
+            }
 
-			// 多行注释开始
-			if (substr($line, 0, 2) == '/*') {
-				$comment = true;
-				continue;
-			}
+            // 多行注释开始
+            if (substr($line, 0, 2) == '/*') {
+                $comment = true;
+                continue;
+            }
 
-			// 多行注释结束
-			if (substr($line, -2) == '*/') {
-				$comment = false;
-				continue;
-			}
+            // 多行注释结束
+            if (substr($line, -2) == '*/') {
+                $comment = false;
+                continue;
+            }
 
-			// 多行注释没有结束，继续跳过
-			if ($comment) {
-				continue;
-			}
+            // 多行注释没有结束，继续跳过
+            if ($comment) {
+                continue;
+            }
 
-			// 替换表前缀
-			if ($from != '') {
-				$line = str_replace('`'.$from, '`'.$to, $line);
-			}
-			if ($line == 'BEGIN;' || $line =='COMMIT;') {
-				continue;
-			}
-			// sql语句
-			array_push($pure_sql, $line);
-		}
+            // 替换表前缀
+            if ($from != '') {
+                $line = str_replace('`' . $from, '`' . $to, $line);
+            }
+            if ($line == 'BEGIN;' || $line == 'COMMIT;') {
+                continue;
+            }
+            // sql语句
+            array_push($pure_sql, $line);
+        }
 
-		// 只返回一条语句
-		if ($limit == 1) {
-			return implode($pure_sql, "");
-		}
+        // 只返回一条语句
+        if ($limit == 1) {
+            return implode($pure_sql, "");
+        }
 
-		// 以数组形式返回sql语句
-		$pure_sql = implode($pure_sql, "\n");
-		$pure_sql = explode(";\n", $pure_sql);
-		return $pure_sql;
-	} else {
-		return $limit == 1 ? '' : [];
-	}
+        // 以数组形式返回sql语句
+        $pure_sql = implode($pure_sql, "\n");
+        $pure_sql = explode(";\n", $pure_sql);
+        return $pure_sql;
+    } else {
+        return $limit == 1 ? '' : [];
+    }
 }
 
