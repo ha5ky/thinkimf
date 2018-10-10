@@ -83,12 +83,12 @@ class Index extends Base
                 }
                 if($email){
                     $loginEmail = $email;
-                    $loginUsername = $email;
+                    $loginUsername = substr(md5($loginEmail),0,6);
                     $loginPassword = substr(md5($loginEmail),0,6);
                 }
                 if($phone){
                     $loginEmail = $phone."@thinkimf.com";
-                    $loginUsername = $email;
+                    $loginUsername = $phone;
                     $loginPassword = substr(md5($loginEmail),0,6);
                 }
                 $api .= "?api_code=imfpwdfghjkdhgadv&action=login&email="
