@@ -17,8 +17,6 @@ use app\admin\model\UserModel;
 use think\Validate;
 use function uniqueString;
 
-require_once SOURCE_ROOT.'/vendor/uc_client/client.php';
-
 class Index extends Base
 {
     public function login()
