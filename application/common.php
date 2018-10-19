@@ -853,5 +853,12 @@ function BBSgetcookie($key)
     return isset($_G['cookie'][$key]) ? $_G['cookie'][$key] : '';
 }
 
+function random_str($length = 16)
+{
+    $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    return substr(str_shuffle(str_repeat($pool, $length)), 0, $length);
+}
+
 
 
