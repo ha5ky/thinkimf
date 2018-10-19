@@ -9,6 +9,7 @@
 namespace app\auth\controller;
 
 use app\common\Base;
+use function QiQiuYun\SDK\random_str;
 use think\Controller;
 use SplString;
 use think\Session;
@@ -95,11 +96,18 @@ class Index extends Base
                     . $email . "&password=" . $loginPassword . "&username=" . $loginUsername;
                 $loginInfo = ImfHttpRequest($api);
                 $bbsuid = json_decode($loginInfo, true)['result']['uid'];
-                $authCode = BBSauthcode("$loginPassword\t$bbsuid", 'ENCODE','0e57e5e2d35e02d3f3d7f35deef67ef3wKrnfhkZjvgansbjTS');
 
+                $salt = BBSgetcookie("thinkimf_0ce7_saltkey");
+                if ($salt) {
+                    $authKey = md5("0e57e5e2d35e02d3f3d7f35deef67ef3wKrnfhkZjvgansbjTS" . $salt);
+                } else {
+                    $salt = random_str(6);
+                    $authKey = md5("0e57e5e2d35e02d3f3d7f35deef67ef3wKrnfhkZjvgansbjTS" . $salt);
+                    $secure = $_SERVER['SERVER_PORT'] == 443 ? 1 : 0;
+                    setcookie("thinkimf_0ce7_saltkey", $salt, 2596600, '/', ".tinkimf.com", $secure);
+                }
+                $authCode = BBSauthcode("$loginPassword\t$bbsuid", 'ENCODE', $authKey);
                 BBSdsetcookie('auth', $authCode, 2596600, "thinkimf_0ce7_", false);
-                /* var_dump($loginInfo);
-                 exit;*/
                 $this->success('登录成功，正在前往', $redirectUrl);
             } else {
                 $this->error('你的账号和密码不匹配！');
@@ -212,8 +220,17 @@ class Index extends Base
                     . $email . "&password=" . $loginPassword . "&username=" . $loginUsername;
                 $loginInfo = ImfHttpRequest($api);
                 $bbsuid = json_decode($loginInfo, true)['result']['uid'];
-                $authCode = BBSauthcode("$loginPassword\t$bbsuid", 'ENCODE','0e57e5e2d35e02d3f3d7f35deef67ef3wKrnfhkZjvgansbjTS');
 
+                $salt = BBSgetcookie("thinkimf_0ce7_saltkey");
+                if ($salt) {
+                    $authKey = md5("0e57e5e2d35e02d3f3d7f35deef67ef3wKrnfhkZjvgansbjTS" . $salt);
+                } else {
+                    $salt = random_str(6);
+                    $authKey = md5("0e57e5e2d35e02d3f3d7f35deef67ef3wKrnfhkZjvgansbjTS" . $salt);
+                    $secure = $_SERVER['SERVER_PORT'] == 443 ? 1 : 0;
+                    setcookie("thinkimf_0ce7_saltkey", $salt, 2596600, '/', ".tinkimf.com", $secure);
+                }
+                $authCode = BBSauthcode("$loginPassword\t$bbsuid", 'ENCODE', $authKey);
                 BBSdsetcookie('auth', $authCode, 2596600, "thinkimf_0ce7_", false);
                 $this->success('注册成功，正在前往', $redirectUrl);
             };
