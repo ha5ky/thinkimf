@@ -767,3 +767,90 @@ function imf_parse_sql($sql = '', $limit = 0, $prefix = [])
     }
 }
 
+function BBSauthcode($string, $operation = 'DECODE', $key = '0e57e5e2d35e02d3f3d7f35deef67ef3wKrnfhkZjvgansbjTS', $expiry = 0) {
+
+    $ckey_length = 4;
+
+    $key = md5($key ? $key : UC_KEY);
+    $keya = md5(substr($key, 0, 16));
+    $keyb = md5(substr($key, 16, 16));
+    $keyc = $ckey_length ? ($operation == 'DECODE' ? substr($string, 0, $ckey_length): substr(md5(microtime()), -$ckey_length)) : '';
+
+    $cryptkey = $keya.md5($keya.$keyc);
+    $key_length = strlen($cryptkey);
+
+    $string = $operation == 'DECODE' ? base64_decode(substr($string, $ckey_length)) : sprintf('%010d', $expiry ? $expiry + time() : 0).substr(md5($string.$keyb), 0, 16).$string;
+    $string_length = strlen($string);
+
+    $result = '';
+    $box = range(0, 255);
+
+    $rndkey = array();
+    for($i = 0; $i <= 255; $i++) {
+        $rndkey[$i] = ord($cryptkey[$i % $key_length]);
+    }
+
+    for($j = $i = 0; $i < 256; $i++) {
+        $j = ($j + $box[$i] + $rndkey[$i]) % 256;
+        $tmp = $box[$i];
+        $box[$i] = $box[$j];
+        $box[$j] = $tmp;
+    }
+
+    for($a = $j = $i = 0; $i < $string_length; $i++) {
+        $a = ($a + 1) % 256;
+        $j = ($j + $box[$a]) % 256;
+        $tmp = $box[$a];
+        $box[$a] = $box[$j];
+        $box[$j] = $tmp;
+        $result .= chr(ord($string[$i]) ^ ($box[($box[$a] + $box[$j]) % 256]));
+    }
+
+    if($operation == 'DECODE') {
+        if((substr($result, 0, 10) == 0 || substr($result, 0, 10) - time() > 0) && substr($result, 10, 16) == substr(md5(substr($result, 26).$keyb), 0, 16)) {
+            return substr($result, 26);
+        } else {
+            return '';
+        }
+    } else {
+        return $keyc.str_replace('=', '', base64_encode($result));
+    }
+
+}
+
+function BBSdsetcookie($var, $value = '', $life = 0, $prefix = "thinkimf_", $httponly = false,$domain = '') {
+    $var = $prefix .$var;
+    $_COOKIE[$var] = $value;
+    if($value == '' || $life < 0) {
+        $value = '';
+        $life = -1;
+    }
+
+    if(defined('IN_MOBILE')) {
+        $httponly = false;
+    }
+
+    $life = $life > 0 ? getglobal('timestamp') + $life : ($life < 0 ? getglobal('timestamp') - 31536000 : 0);
+    $path = $httponly && PHP_VERSION < '5.2.0' ? "/".'; HttpOnly' : "/";
+
+    $secure = $_SERVER['SERVER_PORT'] == 443 ? 1 : 0;
+    if($domain){
+        $domainReal = $domain;
+    }else{
+        $domainReal = ".thinkimf.com";
+    }
+    if(PHP_VERSION < '5.2.0') {
+        setcookie($var, $value, $life, $path, $domainReal, $secure);
+    } else {
+        setcookie($var, $value, $life, $path, $domainReal, $secure);
+        //setcookie($var, $value, $life, $path, $domainReal, $secure, $httponly);
+    }
+}
+
+function BBSgetcookie($key) {
+    global $_G;
+    return isset($_G['cookie'][$key]) ? $_G['cookie'][$key] : '';
+}
+
+
+
