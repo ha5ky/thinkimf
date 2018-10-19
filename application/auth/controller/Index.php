@@ -95,8 +95,8 @@ class Index extends Base
                     .$email."&password=".$loginPassword."&username=".$loginUsername;
                 $loginInfo = ImfHttpRequest($api);
 
-                var_dump($loginInfo);
-                exit;
+               /* var_dump($loginInfo);
+                exit;*/
 
                 $this->success('登录成功，正在前往', $redirectUrl);
             } else {
