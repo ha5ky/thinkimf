@@ -230,9 +230,7 @@ class Index extends Base
         session('userid', null);
         cookie('username', null);
         cookie('userid', null);
-        cookie("thinkimf_0ce7_auth",null);
-        cookie("thinkimf_0ce7_saltkey",null);
-        unset($_COOKIE);
+        BBSdsetcookie('auth', uniqueString(6), -1, "thinkimf_0ce7_", false);
         $this->success('退出成功', '/auth/index/login');
     }
 }
