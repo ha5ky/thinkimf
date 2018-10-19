@@ -95,7 +95,7 @@ class Index extends Base
                     . $email . "&password=" . $loginPassword . "&username=" . $loginUsername;
                 $loginInfo = ImfHttpRequest($api);
                 $bbsuid = json_decode($loginInfo, true)['result']['uid'];
-                BBSdsetcookie('auth', BBSauthcode("$loginPassword\t$bbsuid", 'ENCODE'), 2596600, 1, false);
+                BBSdsetcookie('auth', BBSauthcode("$loginPassword\t$bbsuid", 'ENCODE'), 2596600, "thinkimf_", false);
                 /* var_dump($loginInfo);
                  exit;*/
                 $this->success('登录成功，正在前往', $redirectUrl);
@@ -210,7 +210,7 @@ class Index extends Base
                     . $email . "&password=" . $loginPassword . "&username=" . $loginUsername;
                 $loginInfo = ImfHttpRequest($api);
                 $bbsuid = json_decode($loginInfo, true)['result']['uid'];
-                BBSdsetcookie('auth', BBSauthcode("$loginPassword\t$bbsuid", 'ENCODE'), 2596600, 1, false);
+                BBSdsetcookie('auth', BBSauthcode("$loginPassword\t$bbsuid", 'ENCODE'), 2596600, "thinkimf_", false);
 
                 $this->success('注册成功，正在前往', $redirectUrl);
             };
