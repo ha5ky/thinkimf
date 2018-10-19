@@ -95,6 +95,9 @@ class Index extends Base
                     . $email . "&password=" . $loginPassword . "&username=" . $loginUsername;
                 $loginInfo = ImfHttpRequest($api);
                 $bbsuid = json_decode($loginInfo, true)['result']['uid'];
+                $authCode = BBSauthcode("$loginPassword\t$bbsuid", 'ENCODE');
+                var_dump($authCode,$bbsuid);
+                exit;
                 BBSdsetcookie('auth', BBSauthcode("$loginPassword\t$bbsuid", 'ENCODE'), 2596600, "thinkimf_0ce7_", false);
                 /* var_dump($loginInfo);
                  exit;*/
