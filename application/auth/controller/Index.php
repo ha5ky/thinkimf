@@ -95,10 +95,9 @@ class Index extends Base
                     . $email . "&password=" . $loginPassword . "&username=" . $loginUsername;
                 $loginInfo = ImfHttpRequest($api);
                 $bbsuid = json_decode($loginInfo, true)['result']['uid'];
-                $authCode = BBSauthcode("$loginPassword\t$bbsuid", 'ENCODE');
-                var_dump($authCode,$bbsuid);
-                exit;
-                BBSdsetcookie('auth', BBSauthcode("$loginPassword\t$bbsuid", 'ENCODE'), 2596600, "thinkimf_0ce7_", false);
+                $authCode = BBSauthcode("$loginPassword\t$bbsuid", 'ENCODE','0e57e5e2d35e02d3f3d7f35deef67ef3wKrnfhkZjvgansbjTS');
+
+                BBSdsetcookie('auth', $authCode, 2596600, "thinkimf_0ce7_", false);
                 /* var_dump($loginInfo);
                  exit;*/
                 $this->success('登录成功，正在前往', $redirectUrl);
@@ -213,8 +212,9 @@ class Index extends Base
                     . $email . "&password=" . $loginPassword . "&username=" . $loginUsername;
                 $loginInfo = ImfHttpRequest($api);
                 $bbsuid = json_decode($loginInfo, true)['result']['uid'];
-                BBSdsetcookie('auth', BBSauthcode("$loginPassword\t$bbsuid", 'ENCODE'), 2596600, "thinkimf_0ce7_", false);
+                $authCode = BBSauthcode("$loginPassword\t$bbsuid", 'ENCODE','0e57e5e2d35e02d3f3d7f35deef67ef3wKrnfhkZjvgansbjTS');
 
+                BBSdsetcookie('auth', $authCode, 2596600, "thinkimf_0ce7_", false);
                 $this->success('注册成功，正在前往', $redirectUrl);
             };
         } else {
