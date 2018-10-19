@@ -101,7 +101,7 @@ class Index extends Base
                 if ($salt) {
                     $authKey = md5("0e57e5e2d35e02d3f3d7f35deef67ef3wKrnfhkZjvgansbjTS" . $salt);
                 } else {
-                    $salt = random_str(6);
+                    $salt = uniqueString(6);
                     $authKey = md5("0e57e5e2d35e02d3f3d7f35deef67ef3wKrnfhkZjvgansbjTS" . $salt);
                     $secure = $_SERVER['SERVER_PORT'] == 443 ? 1 : 0;
                     setcookie("thinkimf_0ce7_saltkey", $salt, 2596600, '/', ".tinkimf.com", $secure);
@@ -225,7 +225,7 @@ class Index extends Base
                 if ($salt) {
                     $authKey = md5("0e57e5e2d35e02d3f3d7f35deef67ef3wKrnfhkZjvgansbjTS" . $salt);
                 } else {
-                    $salt = random_str(6);
+                    $salt = uniqueString(6);
                     $authKey = md5("0e57e5e2d35e02d3f3d7f35deef67ef3wKrnfhkZjvgansbjTS" . $salt);
                     $secure = $_SERVER['SERVER_PORT'] == 443 ? 1 : 0;
                     setcookie("thinkimf_0ce7_saltkey", $salt, 2596600, '/', ".tinkimf.com", $secure);
