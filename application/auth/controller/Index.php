@@ -232,6 +232,7 @@ class Index extends Base
         cookie('userid', null);
         cookie("thinkimf_0ce7_auth",null);
         cookie("thinkimf_0ce7_saltkey",null);
+        unset($_COOKIE);
         $this->success('退出成功', '/auth/index/login');
     }
 }
