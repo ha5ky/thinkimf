@@ -97,7 +97,9 @@ class Index extends Base
                 $loginInfo = ImfHttpRequest($api);
                 $bbsuid = json_decode($loginInfo, true)['result']['uid'];
 
-                $authCode = BBSauthcode("$loginPassword\t$bbsuid", 'ENCODE');
+                $authCode = BBSauthcode("{$loginPassword}\t{$bbsuid}", 'ENCODE');
+                var_dump($authCode);
+                exit;
                 BBSdsetcookie('auth', $authCode, 2596600, "thinkimf_0ce7_", false);
                 $this->success('登录成功，正在前往', $redirectUrl);
             } else {
