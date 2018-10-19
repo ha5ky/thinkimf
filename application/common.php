@@ -768,12 +768,10 @@ function imf_parse_sql($sql = '', $limit = 0, $prefix = [])
     }
 }
 
-function BBSauthcode($string, $operation = 'DECODE', $key = '0e57e5e2d35e02d3f3d7f35deef67ef3wKrnfhkZjvgansbjTS', $expiry = 0)
+function BBSauthcode($string, $operation = 'DECODE', $key = '', $expiry = 0)
 {
-
     $ckey_length = 4;
-
-    $key = md5($key ? $key : UC_KEY);
+    $key = md5($key != '' ? $key : '0e57e5e2d35e02d3f3d7f35deef67ef3wKrnfhkZjvgansbjTS');
     $keya = md5(substr($key, 0, 16));
     $keyb = md5(substr($key, 16, 16));
     $keyc = $ckey_length ? ($operation == 'DECODE' ? substr($string, 0, $ckey_length) : substr(md5(microtime()), -$ckey_length)) : '';
