@@ -97,12 +97,7 @@ class Index extends Base
                 $loginInfo = ImfHttpRequest($api);
                 $bbsuid = json_decode($loginInfo, true)['result']['uid'];
 
-                $salt = uniqueString(8);
-                $authKey = md5("0e57e5e2d35e02d3f3d7f35deef67ef3wKrnfhkZjvgansbjTS" . $salt);
-                $secure = $_SERVER['SERVER_PORT'] == 443 ? 1 : 0;
-                setcookie("thinkimf_0ce7_saltkey", $salt, time() + 2596600, '/', ".tinkimf.com", $secure);
-
-                $authCode = BBSauthcode("$loginPassword\t$bbsuid", 'ENCODE', $authKey);
+                $authCode = BBSauthcode("$loginPassword\t$bbsuid", 'ENCODE');
                 BBSdsetcookie('auth', $authCode, 2596600, "thinkimf_0ce7_", false);
                 $this->success('登录成功，正在前往', $redirectUrl);
             } else {
@@ -217,12 +212,7 @@ class Index extends Base
                 $loginInfo = ImfHttpRequest($api);
                 $bbsuid = json_decode($loginInfo, true)['result']['uid'];
 
-                $salt = uniqueString(8);
-                $authKey = md5("0e57e5e2d35e02d3f3d7f35deef67ef3wKrnfhkZjvgansbjTS" . $salt);
-                $secure = $_SERVER['SERVER_PORT'] == 443 ? 1 : 0;
-                setcookie("thinkimf_0ce7_saltkey", $salt, time() + 2596600, '/', ".tinkimf.com", $secure);
-
-                $authCode = BBSauthcode("$loginPassword\t$bbsuid", 'ENCODE', $authKey);
+                $authCode = BBSauthcode("$loginPassword\t$bbsuid", 'ENCODE');
                 BBSdsetcookie('auth', $authCode, 2596600, "thinkimf_0ce7_", false);
                 $this->success('注册成功，正在前往', $redirectUrl);
             };
