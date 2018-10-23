@@ -60,12 +60,12 @@ class Message extends AuthBase
             'count' => '',
             'data' => []
         ];
-        $offset = ($page-1) *$limit;
+        $offset = ($page - 1) * $limit;
         $messageModel = new Messages();
         $messageCount = $messageModel->where($condition)
             ->count();
         $messages = Messages::Where($condition)
-            ->limit($offset,$limit)
+            ->limit($offset, $limit)
             ->select()->toArray();
         $result['count'] = $messageCount;
         $result['data'] = $messages;
@@ -77,6 +77,37 @@ class Message extends AuthBase
      */
     public function msgDetail()
     {
+        $msgId = $this->request->get("id", 0);
+        if ($msgId) {
+            $condition = ['id' => $msgId];
+        };
+        $message = Messages::Where($condition)
+            ->select()->toArray();
+        $result = [
+            'code' => 1,
+            'msg' => 'ok',
+            'data' => $message
+        ];
+        return $this->json($result);
+    }
 
+    /**
+     * @desc 将信息删除
+     */
+    public function markDelete()
+    {
+        $msgId = $this->request->get("id", 0);
+        if ($msgId) {
+            $condition = ['id' => $msgId];
+        };
+        $messageModel = new Messages();
+
+
+        $result = [
+            'code' => 1,
+            'msg' => 'ok',
+            'data' => $message
+        ];
+        return $this->json($result);
     }
 }
