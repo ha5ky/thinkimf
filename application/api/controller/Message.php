@@ -48,7 +48,7 @@ class Message extends AuthBase
     public function messageList()
     {
         $condition['uuid'] = $this->request->get('user_id', session('userid'));
-        $device_id = $this->request->get('device_id', false);
+        $device_id = $this->reque3st->get('device_id', false);
         $page = $this->request->get('page', 1);
         $limit = $this->request->get('limit', 10);
         if ($device_id) {
