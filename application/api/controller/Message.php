@@ -68,7 +68,8 @@ class Message extends AuthBase
             ->limit($offset, $limit)
             ->select()->toArray();
         $result['count'] = $messageCount;
-        $result['data'] = $messages;
+        $result['data'] =
+            $messages;
         return $this->json($result);
     }
 
