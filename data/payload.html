@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Php,Jquery - Payload 测试</title>
+    <meta charset="utf-8" />
+</head>
+<script type="application/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<body>
+<div>
+    <button id="payload">payload 请求</button>
+</div>
+<script>
+    $(function () {
+        $("#payload").click(function () {
+            var data = {
+                'user':{
+                    'number':'34567890',
+                    'name':'lidong'
+                }
+            };
+            $.ajax('/payload.php', {
+                //payload只能用于POST方式
+                method: 'POST',
+                //  数据类型必须为application/x-www-form-urlencoded之外的类型
+                contentType: 'application/plain;charset=utf-8,charset=UTF-8',
+                //  数据必须转换为字符串
+                data: JSON.stringify(data),
+                success: function (datas) {
+                    console.log(datas)
+                }
+            })
+        });
+    });
+</script>
+</body>
+</html>

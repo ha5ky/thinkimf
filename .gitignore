@@ -1,0 +1,14 @@
+.idea
+.git
+composer.lock
+*.log
+.buildpath
+.DS_Store
+.project
+.settings
+.idea
+composer.lock
+/node_modules
+public/temp/*
+/public/data/*
+config/database.php

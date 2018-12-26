@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link type="text/css" rel="stylesheet" href="static/layui/css/layui.css"/>
+    <link type="text/css" rel="stylesheet" href="static/layui/css/layui.mobile.css"/>
+    <script type="text/javascript" src="static/layui/layui.all.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+</head>
+<body>
+<div style="margin-top:35px"></div>
+<div class="layui-container layui-row layui-bg-gray">
+    <div class="layui-col-lg10">
+        <form class="layui-form" action="" lay-filter="duihua">
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">神的回复</label>
+                <div class="layui-input-block">
+                    <textarea placeholder=" 年轻的朋友(＾Ｕ＾)ノ~ＹＯ" class="layui-textarea" name="desc"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class=" layui-col-lg2" >
+        <style>
+            .radar {
+                background: -webkit-radial-gradient(center, rgba(32, 255, 77, 0.3) 0%, rgba(32, 255, 77, 0) 75%), -webkit-repeating-radial-gradient(rgba(32, 255, 77, 0) 5.8%, rgba(32, 255, 77, 0) 18%, #20ff4d 18.6%, rgba(32, 255, 77, 0) 18.9%), -webkit-linear-gradient(90deg, rgba(32, 255, 77, 0) 49.5%, #20ff4d 50%, #20ff4d 50%, rgba(32, 255, 77, 0) 50.2%), -webkit-linear-gradient(0deg, rgba(32, 255, 77, 0) 49.5%, #20ff4d 50%, #20ff4d 50%, rgba(32, 255, 77, 0) 50.2%);
+                background: radial-gradient(center, rgba(32, 255, 77, 0.3) 0%, rgba(32, 255, 77, 0) 75%), repeating-radial-gradient(rgba(32, 255, 77, 0) 5.8%, rgba(32, 255, 77, 0) 18%, #20ff4d 18.6%, rgba(32, 255, 77, 0) 18.9%), linear-gradient(90deg, rgba(32, 255, 77, 0) 49.5%, #20ff4d 50%, #20ff4d 50%, rgba(32, 255, 77, 0) 50.2%), linear-gradient(0deg, rgba(32, 255, 77, 0) 49.5%, #20ff4d 50%, #20ff4d 50%, rgba(32, 255, 77, 0) 50.2%);
+                width: 80vw;
+                height: 75vw;
+                max-height: 75vh;
+                max-width: 80vh;
+                position: relative;
+                border: 0.2rem solid #20ff4d;
+                overflow: hidden;
+            }
+            .radar:before {
+                content: ' ';
+                display: block;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                animation: blips 5s infinite;
+                animation-timing-function: linear;
+                animation-delay: 1.4s;
+            }
+            .radar:after {
+                content: ' ';
+                display: block;
+                background-image: linear-gradient(44deg, rgba(0, 255, 51, 0) 50%, #00ff33 100%);
+                width: 50%;
+                height: 50%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                animation: radar-beam 5s infinite;
+                animation-timing-function: linear;
+                transform-origin: bottom right;
+                border-radius: 100% 0 0 0;
+            }
+
+            @keyframes radar-beam {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+            @keyframes blips {
+                14% {
+                    background: radial-gradient(2vmin circle at 75% 70%, #ffffff 10%, #20ff4d 30%, rgba(255, 255, 255, 0) 100%);
+                }
+                14.0002% {
+                    background: radial-gradient(2vmin circle at 75% 70%, #ffffff 10%, #20ff4d 30%, rgba(255, 255, 255, 0) 100%), radial-gradient(2vmin circle at 63% 72%, #ffffff 10%, #20ff4d 30%, rgba(255, 255, 255, 0) 100%);
+                }
+                25% {
+                    background: radial-gradient(2vmin circle at 75% 70%, #ffffff 10%, #20ff4d 30%, rgba(255, 255, 255, 0) 100%), radial-gradient(2vmin circle at 63% 72%, #ffffff 10%, #20ff4d 30%, rgba(255, 255, 255, 0) 100%), radial-gradient(2vmin circle at 56% 86%, #ffffff 10%, #20ff4d 30%, rgba(255, 255, 255, 0) 100%);
+                }
+                26% {
+                    background: radial-gradient(2vmin circle at 75% 70%, #ffffff 10%, #20ff4d 30%, rgba(255, 255, 255, 0) 100%), radial-gradient(2vmin circle at 63% 72%, #ffffff 10%, #20ff4d 30%, rgba(255, 255, 255, 0) 100%), radial-gradient(2vmin circle at 56% 86%, #ffffff 10%, #20ff4d 30%, rgba(255, 255, 255, 0) 100%);
+                    opacity: 1;
+                }
+                100% {
+                    background: radial-gradient(2vmin circle at 75% 70%, #ffffff 10%, #20ff4d 30%, rgba(255, 255, 255, 0) 100%), radial-gradient(2vmin circle at 63% 72%, #ffffff 10%, #20ff4d 30%, rgba(255, 255, 255, 0) 100%), radial-gradient(2vmin circle at 56% 86%, #ffffff 10%, #20ff4d 30%, rgba(255, 255, 255, 0) 100%);
+                    opacity: 0;
+                }
+            }
+        </style>
+        <div class="redarinfo" style="width: 100%;height: 100%;" >
+            <img  style="border-radius: 50%" height="30%" width="50%" src="./static/cover.jpg">
+            <audio id="speak"  >
+                <source src="" type="audio/mpeg" />
+            </audio>
+        </div>
+    </div>
+    <script type="text/javascript">
+    </script>
+</div>
+<div class="layui-container layui-row layui-bg-gray">
+    <div class="layui-bg-gray layui-col-lg10">
+        <form class="layui-form" action="" lay-filter="duihua">
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">你的问题</label>
+                <div class="layui-input-block">
+                    <textarea placeholder="年轻的朋友(＾Ｕ＾)ノ~ＹＯ" class="layui-textarea" name="myWords"></textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit="" lay-filter="tellMe">告诉我</button>
+                </div>
+            </div>
+        </form>
+        <script>
+            layui.use(['form','layer'], function () {
+                var form = layui.form;
+                var layer = layui.layer;
+                form.on('submit(tellMe)', function (data) {
+                    $.ajax({
+                        type: 'POST',
+                        url: './voice.php',
+                        data: {
+                            'words': data.field.myWords
+                        },
+                        dateType: 'json',
+                        success: function (d) {
+                            if (d.code == 1) {
+                                layer.msg("获取信息成功");
+                                var music = document.getElementById("speak");
+                                var source = document.getElementsByTagName("source")[0];
+                                source.src = d.src;
+                                music.load();
+                                music.addEventListener("canplaythrough",function(){
+                                    music.paused && (music.play());
+                                },false);
+                                $(".redarinfo").addClass("radar");
+                                $timer = setInterval(function () {
+                                    var music = document.getElementById("speak");
+                                    if(!music.paused){
+                                        if(!$('.redarinfo').hasClass("radar")){
+                                            $('.redarinfo').addClass("radar");
+                                        }
+                                    }else{
+                                        $('.redarinfo').removeClass("radar");
+                                        clearInterval($timer);
+                                    }
+                                },200);
+
+                            } else {
+                                layer.msg(d.message);
+                            }
+                        }
+                    });
+                    return false;
+                });
+                form.render();
+            });
+        </script>
+    </div>
+    <div class=" layui-col-lg2">
+        <h1>说</h1>
+    </div>
+</div>
+</body>
+</html>

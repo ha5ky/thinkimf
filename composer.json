@@ -1,0 +1,23 @@
+{
+    "name": "chenjianhua/thinkimf",
+    "description": "think innovation content management framework",
+    "authors": [
+        {
+            "name": "chenjianhua",
+            "email": "dyoungchen@gmail.com"
+        }
+    ],
+    "require": {
+        "pendalff/phpqrcode": "^1.0",
+        "predis/predis": "^1.1",
+        "guzzlehttp/guzzle": "^6.3",
+        "psr/log": "^1.0",
+        "phpunit/phpunit": "^7.2"
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.laravel-china.org"
+        }
+    }
+}

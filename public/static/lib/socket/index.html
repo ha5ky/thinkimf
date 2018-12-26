@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <title>ThinkIMF - 模拟物联网设备 - Web版本</title>
+    <meta name="Keywords" content="模拟物联网设备,实时消息服务器推送技术">
+    <meta name="Description" content="模拟物联网设备,实时消息服务器推送技术">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="//upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.3.min.js"></script>
+    <link rel="stylesheet" href="lib/layui/css/layui.css"/>
+    <link rel="stylesheet" href="lib/layui/css/layui.mobile.css"/>
+    <script src="lib/layui/layui.all.js"></script>
+    <script src="js/ws_client.js"></script>
+</head>
+<body>
+<div class="layui-container" style="margin-top:25px;">
+    <fieldset class="layui-elem-field layui-field-title">
+        <legend>ThinkIMF - 模拟物联网设备 - Web版本</legend>
+    </fieldset>
+    <div class="layui-row">
+        <div class="layui-col-md10 layui-col-md-offset1">
+            <form class="layui-form" action="">
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit="" lay-filter="client">创建设备</button>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Cloud APP ID</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="appid" lay-verify="appid" autocomplete="off" placeholder="云App Id"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Cloud APP SECRET</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="appsecret" lay-verify="appsecret" autocomplete="appsecret" placeholder="云App Secret"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">设备设备ID</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="deviceid" lay-verify="deviceid" autocomplete="off" placeholder="设备ID"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">设备类型</label>
+                    <div class="layui-input-inline" >
+                        <select name="type[0]">
+                            <option value="你最喜欢的老师">福建省</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline">
+                        <select name="type[1]">
+                            <option value="">绍兴</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline" >
+                        <select name="type[2]">
+                            <option value="西湖区">西湖区</option>
+                            <option value="余杭区">余杭区</option>
+                            <option value="拱墅区">临安市</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">数据上报</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="close" checked lay-skin="switch" lay-text="ON|OFF">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Cloud 消息</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" checked="checked" name="is_receive" lay-skin="switch" lay-filter="clientSwitch"
+                               lay-text="ON|OFF">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">设备描述</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="desc"  lay-verify="desc" autocomplete="off" placeholder="设备描述"
+                               class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">技术方案</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="technology" value="cloud" title="☁️云模式(云端作为服务器)" checked="checked">
+                        <input disabled type="radio" name="technology" value="wlan" title="wlan(服务搭建在局域网中,特指本套源代码架设在局域网中)">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">IP地址</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="ip"  lay-verify="ip" autocomplete="off" placeholder="IP地址"
+                               class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">地理位置</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="ip"  lay-verify="ip" autocomplete="off" placeholder="地理位置"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="bmap" id="bmap" style="width: 100%;height: 320px">
+
+                </div>
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="layui-container">
+    <style>
+        .copy-right a {
+            color: red;
+        }
+    </style>
+    <script>
+        layui.use(['form', 'layedit', 'laydate'], function () {
+            var form = layui.form
+                , layer = layui.layer
+            form.render();
+
+            //自定义验证规则
+            form.verify({
+                title: function (value) {
+                    if (value.length < 5) {
+                        return '标题至少得5个字符啊';
+                    }
+                }
+            });
+
+            //监听指定开关
+            form.on('switch(clientSwitch)', function (data) {
+                layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
+                    offset: '6px'
+                });
+                layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+            });
+
+            //监听提交
+            form.on('submit(client)', function (data) {
+                layer.alert(JSON.stringify(data.field), {
+                    title: '最终的提交信息'
+                })
+                return false;
+            });
+
+
+        });
+    </script>
+    <div class="copy-right">
+        <p style="color:rgba(0,0,0,0.7)">
+            &copy;2014 - <?=date('Y')?>
+            Made by <a href="https://www.thinkimf.com" target="_blank">ThinkIMF</a>
+            Code licensed under the
+            <a href="http://www.apache.org/licenses/LICENSE-2.0" rel="nofollow" target="_blank">Apache License
+                v2.0</a>.
+            <br/>
+            Based on
+            <a href="http://www.layui.com/" target="_blank">Layui</a>.
+            Icons from
+            <a href="http://fortawesome.github.com/Font-Awesome/" target="_blank">Font Awesome</a>
+            <a href="http://www.ancc.org.cn/Application/IoT.aspx">中国物品编码中心网站|物联网频道</a>
+            <br>
+            备案号:沪ICP20180302-1号
+        </p>
+    </div>
+</div>
+</body>
+</html>

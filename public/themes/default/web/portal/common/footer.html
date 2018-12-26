@@ -1,0 +1,41 @@
+<div class="layui-container layui-bg-red" style="height: 2px;"></div>
+<div class="layui-container">
+    <!--<fieldset class="layui-elem-field layui-field-title">-->
+        <!--<legend>全国分中心</legend>-->
+        <!--<div class="layui-field-box">-->
+            <!--<span class="layui-breadcrumb" lay-separator="|">-->
+              <!--<a href="">北京</a>-->
+              <!--<a href="">上海</a>-->
+              <!--<a href="">昆明</a>-->
+              <!--<a href="">广州</a>-->
+              <!--<a href="">贵州</a>-->
+              <!--<a href="">四川</a>-->
+            <!--</span>-->
+        <!--</div>-->
+    <!--</fieldset>-->
+    <style>
+        .copy-right a {
+            color: red;
+        }
+    </style>
+    <div class="copy-right ">
+        <p style="color:rgba(0,0,0,0.7);text-align: center">
+            &copy;2014 - <?=date('Y')?>
+            <br>
+            备案号:沪ICP20180302-1号
+        </p>
+
+    </div>
+</div>
+<script>
+    layui.use('element', function(){
+        var element = layui.element;
+        //监听导航点击
+        element.on('nav(demo)', function(elem){
+            //console.log(elem)
+            layer.msg(elem.text());
+        });
+    });
+</script>
+</body>
+</html>

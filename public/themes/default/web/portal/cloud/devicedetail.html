@@ -1,0 +1,499 @@
+<script type="text/javascript" src="//api.map.baidu.com/api?v=3.0&ak={$ak}"></script>
+<script type="text/javascript" src="/static/js/adddevice.js"></script>
+<script type="text/javascript" src="/static/js/echarts.min.js"></script>
+<div class="layui-container" style="margin-top:25px;">
+    <fieldset class="layui-elem-field layui-field-title">
+        <legend>{$deviceid} - 设备详情 - Web版本 - ThinkIMF</legend>
+    </fieldset>
+    <style>
+        .opMenu button {
+            margin-top: 15px;
+        }
+    </style>
+    <div class="layui-row">
+        <div class="layui-col-md6">
+            <div class="layui-anim layui-anim-fadein layui-anim-loop">
+                <img style="width:100%;height:360px" src="/static/images/cloud/heart.png"/>
+            </div>
+            <audio autoplay="autoplay" loop="loop">
+                <source src="/static/audio/beat.wav" type="audio/wav">
+                <source src="/static/audio/beat.mp3" type="audio/mpeg">
+            </audio>
+            <div class="">
+                <form class="layui-form" action="">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">搜索设备</label>
+                        <div class="layui-input-inline">
+                            <select name="modules" lay-verify="required" lay-search="">
+                                <option value="">默认是本设备</option>
+                                <option value="1">layer</option>
+                                <option value="2">form</option>
+                                <option value="3">layim</option>
+                                <option value="4">element</option>
+                                <option value="5">laytpl</option>
+                                <option value="6">upload</option>
+                                <option value="7">laydate</option>
+                                <option value="8">laypage</option>
+                                <option value="9">flow</option>
+                                <option value="10">util</option>
+                                <option value="11">code</option>
+                                <option value="12">tree</option>
+                                <option value="13">layedit</option>
+                                <option value="14">nav</option>
+                                <option value="15">tab</option>
+                                <option value="16">table</option>
+                                <option value="17">select</option>
+                                <option value="18">checkbox</option>
+                                <option value="19">switch</option>
+                                <option value="20">radio</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">客户端ID</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="appid" value="" lay-verify="appid" autocomplete="off" placeholder="云App Id"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">消息推送</label>
+                        <div class="layui-input-block">
+                            <textarea placeholder="消息内容" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit="" lay-filter="">发送消息</button>
+                        </div>
+                    </div>
+                </form>
+                <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+                <div id="days" style="width: 600px;height:400px;"></div>
+                <div id="main" style="width: 600px;height:400px;"></div>
+                <script type="text/javascript">
+                    // 基于准备好的dom，初始化echarts实例
+                    var myChart = echarts.init(document.getElementById('main'));
+                    var daysCharts = echarts.init(document.getElementById('days'));
+
+                    // 指定图表的配置项和数据
+                    function randomData() {
+                        now = new Date(+now + oneDay);
+                        value = value + Math.random() * 21 - 10;
+                        return {
+                            name: now.toString(),
+                            value: [
+                                [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'),
+                                Math.round(value)
+                            ]
+                        }
+                    }
+
+                    var data = [];
+                    var now = +new Date(1997, 9, 3);
+                    var oneDay = 24 * 3600 * 1000;
+                    var value = Math.random() * 1000;
+                    for (var i = 0; i < 1000; i++) {
+                        data.push(randomData());
+                    }
+
+                    option = {
+                        title: {
+                            text: '动态数据 + 时间坐标轴'
+                        },
+                        tooltip: {
+                            trigger: 'axis',
+                            formatter: function (params) {
+                                params = params[0];
+                                var date = new Date(params.name);
+                                return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
+                            },
+                            axisPointer: {
+                                animation: false
+                            }
+                        },
+                        xAxis: {
+                            type: 'time',
+                            splitLine: {
+                                show: false
+                            }
+                        },
+                        yAxis: {
+                            type: 'value',
+                            boundaryGap: [0, '100%'],
+                            splitLine: {
+                                show: false
+                            }
+                        },
+                        series: [{
+                            name: '模拟数据',
+                            type: 'line',
+                            showSymbol: false,
+                            hoverAnimation: false,
+                            data: data
+                        }]
+                    };
+
+                    setInterval(function () {
+
+                        for (var i = 0; i < 5; i++) {
+                            data.shift();
+                            data.push(randomData());
+                        }
+
+                        myChart.setOption({
+                            series: [{
+                                data: data
+                            }]
+                        });
+                    }, 1000);
+                    var daysoption = {
+                        tooltip : {
+                            formatter: "{a} <br/>{b} : {c}%"
+                        },
+                        toolbox: {
+                            feature: {
+                                restore: {},
+                                saveAsImage: {}
+                            }
+                        },
+                        series: [
+                            {
+                                name: '业务指标',
+                                type: 'gauge',
+                                detail: {formatter:'{value}%'},
+                                data: [{value: 50, name: '完成率'}]
+                            }
+                        ]
+                    };
+
+                    setInterval(function () {
+                        daysoption.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
+                        daysCharts.setOption(daysoption, true);
+                    },2000);
+
+                    // 使用刚指定的配置项和数据显示图表。
+                    daysCharts.setOption(daysoption);
+                    myChart.setOption(option);
+
+                </script>
+            </div>
+        </div>
+        <div class="layui-col-md6">
+            <div class="opMenu">
+                <button style="margin-left: 10px" class="layui-btn-fluid layui-btn layui-btn-radius layui-btn-warm">
+                    设备状态
+                </button>
+                <button class="layui-btn-fluid layui-btn layui-btn-radius layui-btn-normal">开启/停止设备</button>
+                <button class="layui-btn-fluid layui-btn layui-btn-radius layui-btn-warm">心跳检测</button>
+
+            </div>
+            <form class="layui-form" action="">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Cloud APP ID</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="appid" lay-verify="appid" autocomplete="off" placeholder="云App Id"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Cloud APP SECRET</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="appsecret" lay-verify="appsecret" autocomplete="appsecret"
+                               placeholder="云App Secret"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">设备设备ID</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="deviceid" lay-verify="deviceid" autocomplete="off" placeholder="设备ID"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">设备类型</label>
+                    <div class="layui-input-inline">
+                        <select name="type[0]" lay-filter="type1">
+                            <option>请选择</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline type2" style="display:none;">
+                        <select name="type[1]" lay-filter="type2">
+                            <option>请选择</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline type3" style="display: none;">
+                        <select name="type[2]" lay-filter="type3">
+                            <option>请选择</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">假|死设备</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="fake_device" lay-skin="switch" lay-text=" 是|否">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">数据上报</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="push_tocloud" checked lay-skin="switch" lay-text="开|关">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Cloud 消息</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" checked="checked" name="is_receive" lay-skin="switch"
+                               lay-filter="clientSwitch"
+                               lay-text="开|关">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">设备描述</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="desc" lay-verify="desc" autocomplete="off" placeholder="设备描述"
+                               class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">技术方案</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="technology" value="cloud" title="☁️云模式(云端作为服务器)" checked="checked">
+                        <input disabled type="radio" name="technology" value="wlan"
+                               title="wlan(服务搭建在局域网中,特指本套源代码架设在局域网中)">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">IP地址</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="ip" lay-verify="ip" autocomplete="off" placeholder="IP地址"
+                               class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">地理位置</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="location" id="suggestId" lay-verify="location" autocomplete="off"
+                               placeholder="地理位置"
+                               class="layui-input">
+                    </div>
+                    <div id="searchResultPanel"
+                         style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">地理点</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="mappoint" lay-verify="mappoint" autocomplete="off" placeholder="地理点"
+                               class="layui-input">
+                    </div>
+                </div>
+                <style>
+                    .anchorBL {
+                        display: none;
+                    }
+                </style>
+                <div class="layui-form-item bmap layi-col-md4 layui-col-sm-offset1" id="bmap"
+                     style="width: 100%;height:450px">
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    var form;
+    layui.use(['form', 'layedit', 'laydate','layer'], function () {
+        form = layui.form
+            , layer = layui.layer
+        form.render();
+
+        //自定义验证规则
+        form.verify({
+            title: function (value) {
+                if (value.length < 5) {
+                    return '标题至少得5个字符啊';
+                }
+            }
+        });
+
+        //监听指定开关
+        form.on('switch(clientSwitch)', function (data) {
+            layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
+                offset: '6px'
+            });
+            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+        });
+
+        //监听提交
+        form.on('submit(client)', function (data) {
+            layer.alert(JSON.stringify(data.field), {
+                title: '最终的提交信息'
+            })
+            return false;
+        });
+
+
+    });
+</script>
+<script>
+    // 百度地图API功能
+    var map = new BMap.Map("bmap", {mapType: BMAP_HYBRID_MAP});// 创建Map实例
+    //map.setMapStyle({style: 'googlelite'}); //设置google风格模板
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+    map.disableDragging();
+    map.centerAndZoom(new BMap.Point(103.388611, 35.563611), 4);
+    map.addControl(new BMap.MapTypeControl({
+        mapTypes: [
+            BMAP_SATELLITE_MAP,
+            BMAP_HYBRID_MAP,
+        ]
+    }));
+    //根据ip定位
+    var myCity = new BMap.LocalCity();
+    myCity.get(UserDefaultLocation);
+
+    function G(id) {
+        return document.getElementById(id);
+    }
+
+    function UserDefaultLocation(result) {
+        var cityName = result.name;
+        //map.setCurrentCity("北京");
+        map.setCenter(cityName);
+    }
+
+    var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
+        {
+            "input": "suggestId"
+            , "location": map
+        });
+
+    ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
+        var str = "";
+        var _value = e.fromitem.value;
+        var value = "";
+        if (e.fromitem.index > -1) {
+            value = _value.province + _value.city + _value.district + _value.street + _value.business;
+        }
+        str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+
+        value = "";
+        if (e.toitem.index > -1) {
+            _value = e.toitem.value;
+            value = _value.province + _value.city + _value.district + _value.street + _value.business;
+        }
+        str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+        G("searchResultPanel").innerHTML = str;
+    });
+
+    var myValue;
+    ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
+        var _value = e.item.value;
+        //省市区地址
+        myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+        G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+        $('#searchResultPanel').hide(300);
+
+        map.clearOverlays();    //清除地图上所有覆盖物
+        function myFun() {
+
+            var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+            $('input[name="mappoint"]').val(JSON.stringify(pp));
+            map.centerAndZoom(pp, 18);
+            var marker = new BMap.Marker(pp);
+            map.addOverlay(marker);    //添加标注
+            //添加信息窗口
+            var opts = {
+                width: 200,     // 信息窗口宽度
+                height: 100,     // 信息窗口高度
+                title: '<b style="color:red;">信息提示</b>', // 信息窗口标题
+            }
+            var infoWindow = new BMap.InfoWindow(myValue, opts);  // 创建信息窗口对象
+            map.openInfoWindow(infoWindow, pp); //开启信息窗口
+            marker.addEventListener("click", function () {
+                this.openInfoWindow(infoWindow);
+            });
+        }
+
+        var local = new BMap.LocalSearch(map, { //智能搜索
+            onSearchComplete: myFun
+        });
+        local.search(myValue);
+    });
+    //设备 id 校验
+    //连接 ws 服务器
+    function randomString(len) {
+        len = len || 32;
+        var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz';
+        var maxPos = $chars.length;
+        var str = '';
+        for (i = 0; i < len; i++) {
+            str += $chars.charAt(Math.floor(Math.random() * maxPos));
+        }
+        return str;
+    }
+
+    var ws = {};
+    var client_id = Date.parse(new Date());
+    var config = {
+        'server': 'ws://127.0.0.1:9621',
+        'flash_websocket': true
+    }
+
+    //使用原生WebSocket
+    if (window.WebSocket || window.MozWebSocket) {
+        ws = new WebSocket(config.server);
+    }
+    //使用flash websocket
+    else if (config.flash_websocket) {
+        WEB_SOCKET_SWF_LOCATION = "./flash-websocket/WebSocketMain.swf";
+        $.getScript("./flash-websocket/swfobject.js", function () {
+            $.getScript("./flash-websocket/web_socket.js", function () {
+                ws = new WebSocket(config.server);
+            });
+        });
+    }
+    active();
+
+    function active() {
+        /**
+         * 连接建立时触发
+         */
+        //layer.msg("连接到服务器......");
+        ws.onopen = function (e) {
+            console.log(JSON.stringify(e));
+        };
+
+        ws.onmessage = function (e) {
+            layer.msg("接收到消息:"+JSON.stringify(e));
+        };
+
+        /**
+         * 连接关闭事件
+         */
+        ws.onclose = function (e) {
+            layer.msg("连接关闭......");
+        };
+
+        /**
+         * 异常事件
+         */
+        ws.onerror = function (e) {
+            console.log(e);
+        };
+    }
+    //设备 id 与秘钥校验
+    //心跳检测
+    //消息发送
+    //消息接收
+    //信息上报
+    //信息指令
+    //心跳检测
+</script>
