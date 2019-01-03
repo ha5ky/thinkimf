@@ -19,10 +19,6 @@
 // [ 应用入口文件 ]
 namespace think;
 //网页主色调 #1E9FFF
-use function dirname;
-use function header;
-use function realpath;
-
 define('THINKIMF_VERSION', '1.36.201802');
 define('IN_THINKIMF', true);
 define('APP_ROOT', __DIR__);
@@ -35,7 +31,6 @@ header("Access-Control-Allow-Headers:Origin, X-Requested-With, Content-Type, Acc
 if($_SERVER['REQUEST_METHOD'] == 'OPTIONS'){
     exit;
 }
-require 'waf.php';
 // 加载基础文件
 require __DIR__ . '/../imf/base.php';
 
