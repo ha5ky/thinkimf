@@ -1,0 +1,80 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Demo</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+</head>
+
+<body>
+<p>当前空气质量Pm2.5：<span id="pm"></span></p>
+<p>当前空气湿度：<span id="shidu"></span></p>
+<p>当前温度为：<span id="wendu"></span></p>
+<p>当前光照强度为:<span id="guangzhao"></span></p>
+
+<script>$(function(){
+
+
+    /***********************************/
+
+    function post_ins(id){ //这个函数主要是接收指令ID 并用AJAX 调用接口发送指令，这个DEMO 主要用RS485继电器板 + 485水温传感器
+
+        $.ajax({
+            url:'./ctrl.php?ins='+id, //将指令的ID 传到接口文件中
+            type:"GET", //GET方式
+            cache:false, //取消缓存
+            dataType:"text", //文本方式
+            success: function(d,x,r){
+
+            }
+
+        })
+
+    }
+
+    /**********************************/
+
+    post_ins('27,28'); //页面加载后默认AJAX调用接口查询空气质量,温湿度及光照度
+
+    /***********************************/
+
+    function kongqi(){
+
+        $.ajax({
+            url:'./kongqi.html', //将指令的ID 传到接口文件中
+            type:"GET", //GET方式
+            cache:false, //取消缓存
+            dataType:"text", //文本方式
+            success: function(d,x,r){$('span#pm').html(d)}});
+    }
+
+    setInterval(kongqi(), 1500);  //1.5秒查询本地空气指令
+
+    /******************************/
+    function more(){
+
+        $.ajax({
+            url:'./qiwen.html', //将指令的ID 传到接口文件中
+            type:"GET", //GET方式
+            cache:false, //取消缓存
+            dataType:"text", //文本方式
+            success: function(d,x,r){
+
+                d=$.parseJSON(d);
+
+                $('span#shidu').html(d.shidu);
+                $('span#wendu').html(d.wendu);
+                $('span#guangzhao').html(d.gz);
+
+            }});
+    }
+
+    setInterval(more(),1000);  //1秒查询本地温湿度光照强度
+
+
+
+})</script>
+
+</body>
+</html>

@@ -11,14 +11,14 @@ use think\Controller;
 class AuthBase extends Controller{
     public $redis = null;
     //返回json数据
-    public function json($re)
+    public function json($code = 1, $message = '', $data = [])
     {
-        if($re){
-            header('Content-type: application/json');
-            exit(json_encode($re,JSON_UNESCAPED_UNICODE));
-        }else{
-            exit('response data not correct!');
-        }
+        header('Content-type: application/json');
+        exit(json_encode([
+            'code'    => $code,
+            'message' => $message,
+            'data'    => $data
+        ], JSON_UNESCAPED_UNICODE));
     }
 
 }

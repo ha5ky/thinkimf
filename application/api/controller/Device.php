@@ -20,11 +20,21 @@ use function uniqueString;
 
 class Device extends Base
 {
+    public function initialize()
+    {
+        /*if (!session('userid')) {
+            return $this->json([
+                'code' => 40001,
+                'msg' => '请先登录',
+                'data' => []
+            ]);
+        }*/
+    }
 
     public function getDevice()
     {
-        $appid = genUuid();
-        $secret = strtoupper(uniqueString(32));
+        $appid    = genUuid();
+        $secret   = strtoupper(uniqueString(32));
         $deviceId = strtoupper(uniqueString(32));
         $clientIp = get_client_ip();
 
@@ -37,20 +47,20 @@ class Device extends Base
 //        $app->device_id = $deviceId;
 //	    $app->save()
         if ($deviceId) {
-	        return $this->json([
-		        'code' => 200,
-		        'msg' => 'ok',
-		        'data' => [
-			        'appid' => $appid,
-			        'appsecret' => $secret,
-			        'deviceid' => $deviceId,
-			        'ip' => $clientIp
-		        ]
-	        ]);
+            return $this->json([
+                'code' => 200,
+                'msg'  => 'ok',
+                'data' => [
+                    'appid'     => $appid,
+                    'appsecret' => $secret,
+                    'deviceid'  => $deviceId,
+                    'ip'        => $clientIp
+                ]
+            ]);
         } else {
             return $this->json([
                 'code' => 400134,
-                'msg' => '数据获取太过频繁'
+                'msg'  => '数据获取太过频繁'
             ]);
         }
 
@@ -58,23 +68,23 @@ class Device extends Base
 
     public function getDeviceType()
     {
-        $pid = $this->request->request('pid', 0);
+        $pid   = $this->request->request('pid', 0);
         $level = $this->request->request('level', 0);
 
         $types = DeviceType::Where([
             'parent' => $pid,
-            'level' => $level
+            'level'  => $level
         ])->order(['t_id' => 'asc'])->group('name')->select()->toArray();
         if ($types) {
             return $this->json([
                 'code' => 200,
-                'msg' => 'ok',
+                'msg'  => 'ok',
                 'data' => $types
             ]);
         } else {
             return $this->json([
                 'code' => 400135,
-                'msg' => '分组获取失败'
+                'msg'  => '分组获取失败'
             ]);
         }
 
@@ -85,14 +95,7 @@ class Device extends Base
      */
     public function AddDevice()
     {
-	    if (!session('userid')) {
-		    return $this->json([
-			    'code' => 40001,
-			    'msg' => '请先登录',
-			    'data' => []
-		    ]);
-	    }
-        $data = $this->request->post();
+        $data   = $this->request->post();
         $device = new \app\api\model\Device();
 
         $device_id = $device->add($data);
@@ -101,15 +104,15 @@ class Device extends Base
             RedisInstance()->set('device' . $data['device_id'], 1);
             return $this->json([
                 'code' => 200,
-                'msg' => 'ok',
+                'msg'  => 'ok',
                 'data' => [
-                	'device_id'=>$device_id
+                    'device_id' => $device_id
                 ]
             ]);
         } else {
             return $this->json([
                 'code' => 41677,
-                'msg' => '添加失败',
+                'msg'  => '添加失败',
                 'data' => []
             ]);
         }
@@ -121,7 +124,22 @@ class Device extends Base
      */
     public function deleteDevice()
     {
-
+        $data   = $this->request->post();
+        $device = new \app\api\model\Device();
+        if (empty($data['device_id']) || !is_numeric($data['device_id']))
+            $this->json(-1, 'device_id为空或者格式不正确');
+        $find = \app\api\model\Device::get(['id' => $data['device_id']]);
+        if (!$find) {
+            $this->json(-1, 'deviceid 为' . $data['device_id'] . '的数据记录不存在');
+        }
+        $delete = $device->remove($data['device_id']);
+        //信息保存到 redis
+        if ($delete) {
+            //RedisInstance()->del('device' . $data['device_id'], 1);
+            $this->json(1, '删除成功', ['device_id' => $data['device_id']]);
+        } else {
+            $this->json(-1, '删除失败');
+        }
     }
 
     /*
@@ -129,72 +147,38 @@ class Device extends Base
      */
     public function editDevice()
     {
+        $deviceId = $this->request->post('device_id');
 
     }
 
-    /*
-     * list 某一设备
-     */
-    public function list()
-    {
 
-    }
-
-    /*
-     * list 所有设备
-     */
     public function CloudList()
     {
         $condition = [];
-        $province = $this->request->get('province', false);
-        $city = $this->request->get('province', false);
-        $district = $this->request->get('district', false);
-        if($province){
+        $province  = $this->request->get('province', false);
+        $city      = $this->request->get('city', false);
+        $district  = $this->request->get('district', false);
+        if ($province) {
             $condition['province'] = $province;
         }
-        if($city){
+        if ($city) {
             $condition['city'] = $city;
         }
-        if($district){
+        if ($district) {
             $condition['district'] = $district;
         }
-        $page = $this->request->get('page', 1);
+        $page      = $this->request->get('page', 1);
         $page_size = $this->request->get('page_size', 500);
-        $offset = ($page - 1) * $page_size;
-        $list = DeviceModel::where([])
-            ->field(['device_id',
-                'device_name',
-                'version',
-                'desc',
-                'ip',
-                'city',
-                'location',
-                'icon',
-                'map_marker',
-                'baidu_map_poi'])
-            ->limit($offset, $page_size)
-            ->select()
-            ->toArray();
-        //todo
+        $offset    = ($page - 1) * $page_size;
+        $list      = DeviceModel::where([])
+            ->field(['device_id', 'device_name', 'version', 'desc', 'ip', 'city', 'location', 'icon', 'map_marker', 'baidu_map_poi'])
+            ->limit($offset, $page_size)->select()->toArray();
         //处理是否在线
         if ($list) {
-            $result = [
-                'code' => 200,
-                'status' => 1,
-                'msg' => 'ok',
-                'msg_code' => 0,
-                'data' => $list
-            ];
+            $this->json(1, "成功", ['list' => $list]);
         } else {
-            $result = [
-                'code' => 40023,
-                'status' => -1,
-                'msg' => 'no data',
-                'msg_code' => 0,
-                'data' => []
-            ];
+            $this->json(-1, "获取失败");
         }
-        return $this->json($result);
     }
 
     /*
@@ -202,48 +186,22 @@ class Device extends Base
      */
     public function checkOnline()
     {
-        $deviceId = $this->request->get('device_id');
+        $deviceId    = $this->request->get('device_id');
         $deviceIdKey = 'device' . $deviceId;
         if (RedisInstance()->exists($deviceIdKey)) {
-            $result = [
-                'code' => 200,
-                'status' => 1,
-                'msg' => 'ok',
-                'msg_code' => 0,
-                'data' => []
-            ];
+            $this->json(1, "成功", []);
         } else {
-            $result = [
-                'code' => 505,
-                'status' => -1,
-                'msg' => 'not online',
-                'msg_code' => 0,
-                'data' => []
-            ];
+            $this->json(-1, "失败");
         }
-        return $this->json($result);
     }
 
     public function deviceDetail()
     {
         $deviceId = $this->request->get('device_id');
-        if (1) {
-            $result = [
-                'code' => 200,
-                'status' => 1,
-                'msg' => 'ok',
-                'msg_code' => 0,
-                'data' => []
-            ];
+        if ($deviceId) {
+            $this->json(1, "成功", []);
         } else {
-            $result = [
-                'code' => 505,
-                'status' => -1,
-                'msg' => 'not online',
-                'msg_code' => 0,
-                'data' => []
-            ];
+            $this->json(-1, "失败");
         }
-        return $this->json($result);
     }
 }

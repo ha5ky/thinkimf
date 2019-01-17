@@ -33,6 +33,6 @@ if($_SERVER['REQUEST_METHOD'] == 'OPTIONS'){
 }
 // 加载基础文件
 require __DIR__ . '/../imf/base.php';
-
+//不只是技术上的争斗
 // 执行应用并响应
 Container::get('app')->run()->send();

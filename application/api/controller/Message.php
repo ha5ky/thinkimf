@@ -20,7 +20,7 @@ class Message extends AuthBase
      */
     public function pushTo()
     {
-        
+
     }
 
     /*
@@ -48,27 +48,27 @@ class Message extends AuthBase
     public function messageList()
     {
         $condition['uuid'] = $this->request->get('user_id', session('userid'));
-        $device_id = $this->reque3st->get('device_id', false);
-        $page = $this->request->get('page', 1);
-        $limit = $this->request->get('limit', 10);
+        $device_id         = $this->reque3st->get('device_id', false);
+        $page              = $this->request->get('page', 1);
+        $limit             = $this->request->get('limit', 10);
         if ($device_id) {
             $condition['device_id'] = $device_id;
         }
-        $result = [
-            'code' => 0,
-            'msg' => '',
+        $result          = [
+            'code'  => 0,
+            'msg'   => '',
             'count' => '',
-            'data' => []
+            'data'  => []
         ];
-        $offset = ($page - 1) * $limit;
-        $messageModel = new Messages();
-        $messageCount = $messageModel->where($condition)
+        $offset          = ($page - 1) * $limit;
+        $messageModel    = new Messages();
+        $messageCount    = $messageModel->where($condition)
             ->count();
-        $messages = Messages::Where($condition)
+        $messages        = Messages::Where($condition)
             ->limit($offset, $limit)
             ->select()->toArray();
         $result['count'] = $messageCount;
-        $result['data'] =
+        $result['data']  =
             $messages;
         return $this->json($result);
     }
@@ -84,9 +84,9 @@ class Message extends AuthBase
         };
         $message = Messages::Where($condition)
             ->select()->toArray();
-        $result = [
+        $result  = [
             'code' => 1,
-            'msg' => 'ok',
+            'msg'  => 'ok',
             'data' => $message
         ];
         return $this->json($result);
@@ -102,13 +102,26 @@ class Message extends AuthBase
             $condition = ['id' => $msgId];
         };
         $messageModel = new Messages();
-
-
         $result = [
             'code' => 1,
-            'msg' => 'ok',
-            'data' => $message
+            'msg'  => 'ok',
+            'data' => []
         ];
         return $this->json($result);
+    }
+
+    public function messageType()
+    {
+        $types = [
+            'utf8'     => 'UTF8字符串',
+            'utf8json' => 'UTF8 JSON字符串',
+            'utf8bson' => 'UTF8 BSON字符串',
+            'utf8xml'  => 'UTF8 XML字符串',
+            'hex'      => 'HEX(16进制字符串)',
+            'ascii'    => 'Ascii字符串',
+            'base64'   => 'Base64字符串',
+            'latin'    => 'Latin字符串',
+        ];
+        $this->json(1, "获取成功", $types);
     }
 }
