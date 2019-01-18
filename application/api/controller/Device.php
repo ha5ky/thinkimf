@@ -47,21 +47,14 @@ class Device extends Base
 //        $app->device_id = $deviceId;
 //	    $app->save()
         if ($deviceId) {
-            return $this->json([
-                'code' => 200,
-                'msg'  => 'ok',
-                'data' => [
-                    'appid'     => $appid,
-                    'appsecret' => $secret,
-                    'deviceid'  => $deviceId,
-                    'ip'        => $clientIp
-                ]
+            $this->json(1, 'ok', [
+                'appid'     => $appid,
+                'appsecret' => $secret,
+                'deviceid'  => $deviceId,
+                'ip'        => $clientIp
             ]);
         } else {
-            return $this->json([
-                'code' => 400134,
-                'msg'  => '数据获取太过频繁'
-            ]);
+            $this->json('400134', '数据获取太过频繁');
         }
 
     }
@@ -76,18 +69,37 @@ class Device extends Base
             'level'  => $level
         ])->order(['t_id' => 'asc'])->group('name')->select()->toArray();
         if ($types) {
-            return $this->json([
-                'code' => 200,
-                'msg'  => 'ok',
-                'data' => $types
-            ]);
+            return $this->json(1, 'ok', $types);
         } else {
-            return $this->json([
-                'code' => 400135,
-                'msg'  => '分组获取失败'
-            ]);
+            return $this->json(400135, '分组获取失败');
         }
 
+    }
+
+    /**
+     * @desc 设备列表
+     * @author chenjianhua
+     * @version v1.0
+     */
+    public function deviceList()
+    {
+        $page      = $this->request->get('page', 1);
+        $page_size = $this->request->get('page_size', 20);
+
+        $offset = ($page - 1) * $page_size;
+        $total  = DeviceModel::where([])
+            ->field(['device_id', 'device_name', 'desc', 'status', 'location', 'create_at'])->count();
+        $list   = DeviceModel::where([])
+            ->field(['device_id', 'device_name', 'desc', 'status', 'location', 'create_at'])->select()->toArray();
+        foreach ($list as $k=>$v){
+            $list[$k]['create_at'] = date('Y-m-d H:i:s',$v['create_at']);
+        }
+        //处理是否在线
+        if ($list) {
+            $this->json(1, "成功", ['total' => $total, 'rows' => $list]);
+        } else {
+            $this->json(-1, "获取失败");
+        }
     }
 
     /*
@@ -101,22 +113,11 @@ class Device extends Base
         $device_id = $device->add($data);
         //信息保存到 redis
         if ($device_id) {
-            RedisInstance()->set('device' . $data['device_id'], 1);
-            return $this->json([
-                'code' => 200,
-                'msg'  => 'ok',
-                'data' => [
-                    'device_id' => $device_id
-                ]
-            ]);
+            //RedisInstance()->set('device' . $data['device_id'], 1);
+            return $this->json(1, 'ok', ['device_id' => $device_id]);
         } else {
-            return $this->json([
-                'code' => 41677,
-                'msg'  => '添加失败',
-                'data' => []
-            ]);
+            $this->json(-1, '添加失败');
         }
-
     }
 
     /*
@@ -158,6 +159,9 @@ class Device extends Base
         $province  = $this->request->get('province', false);
         $city      = $this->request->get('city', false);
         $district  = $this->request->get('district', false);
+        $page      = $this->request->get('page', 1);
+        $page_size = $this->request->get('page_size', 500);
+
         if ($province) {
             $condition['province'] = $province;
         }
@@ -167,10 +171,9 @@ class Device extends Base
         if ($district) {
             $condition['district'] = $district;
         }
-        $page      = $this->request->get('page', 1);
-        $page_size = $this->request->get('page_size', 500);
-        $offset    = ($page - 1) * $page_size;
-        $list      = DeviceModel::where([])
+
+        $offset = ($page - 1) * $page_size;
+        $list   = DeviceModel::where([])
             ->field(['device_id', 'device_name', 'version', 'desc', 'ip', 'city', 'location', 'icon', 'map_marker', 'baidu_map_poi'])
             ->limit($offset, $page_size)->select()->toArray();
         //处理是否在线

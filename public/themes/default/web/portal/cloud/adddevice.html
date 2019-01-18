@@ -193,7 +193,7 @@
                 dataType: 'json',
                 data: data.field,
                 success: function (d) {
-                    if (d.code == 200) {
+                    if (d.code == 1) {
                         //提示添加成功,之后跳转到设备详情页面
                         var infoIndex = layer.open({
                             title:'恭喜你',
@@ -212,7 +212,7 @@
                             title:'Whoops',
                             icon:2,
                             shade:0,
-                            content: d.msg
+                            content: d.message
                             ,btn: ['知道了']
                             ,yes: function(index, layero){
                                 location.reload()
@@ -230,13 +230,13 @@
 
     function initApp() {
         $.post('/api/device/getDevice', {}, function (d) {
-            if (d.code == 200) {
+            if (d.code == 1) {
                 $("input[name='appid']").attr('value', d.data.appid);
                 $("input[name='appsecret']").attr('value', d.data.appsecret);
                 $("input[name='device_id']").attr('value', d.data.deviceid);
                 $("input[name='ip']").attr('value', d.data.ip);
             } else {
-                layui.layer.msg(d.msg);
+                layui.layer.msg(d.message);
             }
         }, 'json');
     }
@@ -244,7 +244,7 @@
     function getDeviceType() {
 
         $.post('/api/device/getDeviceType', {}, function (d) {
-            if (d.code == 200) {
+            if (d.code == 1) {
                 var optionStr = '<option haschild="0"></option>';
                 $.each(d.data, function (k, v) {
                     optionStr += '<option haschild="' + v.has_child + '" value="' + v.t_id + '">' + v.name + '</option>';
@@ -262,7 +262,7 @@
                             pid: pid,
                             level: 1
                         }, function (d) {
-                            if (d.code == 200) {
+                            if (d.code == 1) {
                                 var optionStr = '<option haschild="0"></option>';
                                 $.each(d.data, function (k, v) {
                                     optionStr += '<option haschild="' + v.has_child + '" value="' + v.t_id + '">' + v.name + '</option>';
@@ -281,7 +281,7 @@
                                             pid: pid,
                                             level: 2
                                         }, function (d) {
-                                            if (d.code == 200) {
+                                            if (d.code == 1) {
                                                 var optionStr = '<option haschild="0"></option>';
                                                 $.each(d.data, function (k, v) {
                                                     optionStr += '<option haschild="' + v.has_child + '" value="' + v.t_id + '">' + v.name + '</option>';

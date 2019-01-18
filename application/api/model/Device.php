@@ -42,6 +42,7 @@ class Device extends \think\Model
         $this->city          = $data['city'];
         $this->district      = $data['district'];
         $this->street        = $data['street'];
+        $this->serial_number = genSerialCode();
         $f                   = $this->save();
         if ($f) {
             return $data['device_id'];

@@ -30,7 +30,7 @@ function getDomain()
 function imf_get_user_menu($rid)
 {
     //获取老的用户权限
-    $UserType = new app\admin\model\UserType();
+    $UserType     = new app\admin\model\UserType();
     $oldRightsStr = $UserType->where([
         'id' => $rid
     ])->field('menu_dict')->select()->toArray();
@@ -47,7 +47,7 @@ function imf_get_user_menu($rid)
             $v['checked'] = 'checked';
         }
         $v['submenu'] = '';
-        $allMenu[$k] = $v;
+        $allMenu[$k]  = $v;
 
     }
     foreach ($allMenu as $k => $v) {
@@ -107,8 +107,8 @@ function httpRequest($URL, $data = null, $type = 'GET', $headers = [])
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_SSLVERSION, 1);
     }
-    $connttime = 300; //连接等待时间500毫秒
-    $timeout = 15000;//超时时间15秒
+    $connttime   = 300; //连接等待时间500毫秒
+    $timeout     = 15000;//超时时间15秒
     $querystring = "";
     if (is_array($data)) {
         // Change data in to postable data
@@ -158,7 +158,7 @@ function httpRequest($URL, $data = null, $type = 'GET', $headers = [])
             break;
     }
     $file_contents = curl_exec($ch);//获得返回值
-    $status = curl_getinfo($ch);
+    $status        = curl_getinfo($ch);
     curl_close($ch);
     return $file_contents;
 }
@@ -215,14 +215,14 @@ function ImfHttpRequest($url = null, $method = 'get', $headers = [], $params = [
             curl_setopt($ch, CURLOPT_POSTFIELDS, $requestString);
             break;
     }
-    $response = curl_exec($ch);
+    $response     = curl_exec($ch);
     $responseInfo = curl_getinfo($ch);
     //var_dump($responseInfo);
     if (200 != $responseInfo['http_code']) {
         return [
             'error' => curl_error($ch),
             'errno' => curl_errno($ch),
-            'url' => $url,
+            'url'   => $url,
         ];
     } else {
         return $response;
@@ -237,7 +237,7 @@ function ImfHttpRequest($url = null, $method = 'get', $headers = [], $params = [
  */
 function numCodeNoRe($num = 4)
 {
-    $string = "0123456789";
+    $string     = "0123456789";
     $return_str = substr(str_shuffle($string), 0, $num);
     return $return_str;
 }
@@ -249,9 +249,9 @@ function numCodeNoRe($num = 4)
  */
 function numCode($num = 4)
 {
-    $string = "0123456789";
+    $string     = "0123456789";
     $return_str = '';
-    $i = 0;
+    $i          = 0;
     do {
         $i++;
         $return_str .= $string[mt_rand(0, 9)];
@@ -263,14 +263,14 @@ function numCode($num = 4)
 
 function getProvinceCity($ip)
 {
-    $api = 'http://ip.ws.126.net/ipquery';
-    $params = array('ip' => $ip);
+    $api     = 'http://ip.ws.126.net/ipquery';
+    $params  = ['ip' => $ip];
     $content = curl_get($api, $params);
     $content = iconv("gbk", "utf8", $content);
     if ($content) {
         $pattern = '/city:"([\s\S]*)", province:"([\s\S]*)"/';
         preg_match($pattern, $content, $matches);
-        $result['city'] = $matches[1];
+        $result['city']     = $matches[1];
         $result['province'] = $matches[2];
         return $result;
     }
@@ -280,12 +280,12 @@ function getProvinceCity($ip)
 //字符串加密
 function encrypt($data, $key)
 {
-    $key = md5($key);
-    $x = 0;
+    $key  = md5($key);
+    $x    = 0;
     $char = "";
-    $str = "";
-    $len = strlen($data);
-    $l = strlen($key);
+    $str  = "";
+    $len  = strlen($data);
+    $l    = strlen($key);
     for ($i = 0; $i < $len; $i++) {
         if ($x == $l) {
             $x = 0;
@@ -302,13 +302,13 @@ function encrypt($data, $key)
 //字符串解密
 function decrypt($data, $key)
 {
-    $key = md5($key);
-    $x = 0;
+    $key  = md5($key);
+    $x    = 0;
     $char = "";
-    $str = "";
+    $str  = "";
     $data = base64_decode($data);
-    $len = strlen($data);
-    $l = strlen($key);
+    $len  = strlen($data);
+    $l    = strlen($key);
     for ($i = 0; $i < $len; $i++) {
         if ($x == $l) {
             $x = 0;
@@ -344,9 +344,9 @@ function decrypt($data, $key)
  */
 function uniqueString($num = 18)
 {
-    $string = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    $string     = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     $return_str = '';
-    $i = 0;
+    $i          = 0;
     do {
         $i++;
         $return_str .= $string[mt_rand(0, 61)];
@@ -362,9 +362,9 @@ function uniqueString($num = 18)
  */
 function uniqueNumber($num = 18)
 {
-    $string = "123456789";
+    $string     = "123456789";
     $return_str = '';
-    $i = 0;
+    $i          = 0;
     do {
         $i++;
         $return_str .= $string[mt_rand(0, 8)];
@@ -380,9 +380,9 @@ function uniqueNumber($num = 18)
  */
 function numCodeRe($num = 4)
 {
-    $string = "0123456789";
+    $string     = "0123456789";
     $return_str = '';
-    $i = 0;
+    $i          = 0;
     do {
         $i++;
         $return_str .= $string[mt_rand(0, 9)];
@@ -520,7 +520,7 @@ function get_client_ip($type = 0)
     }
     // IP地址合法验证
     $long = sprintf("%u", ip2long($ip));
-    $ip = $long ? array($ip, $long) : array('0.0.0.0', 0);
+    $ip   = $long ? [$ip, $long] : ['0.0.0.0', 0];
     return $ip[$type];
 }
 
@@ -551,8 +551,8 @@ function curl_get($URL, $data = null, $type = 'GET', $headers = [])
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_SSLVERSION, 1);
     }
-    $connttime = 300; //连接等待时间500毫秒
-    $timeout = 15000;//超时时间15秒
+    $connttime   = 300; //连接等待时间500毫秒
+    $timeout     = 15000;//超时时间15秒
     $querystring = "";
     if (is_array($data)) {
         // Change data in to postable data
@@ -602,7 +602,7 @@ function curl_get($URL, $data = null, $type = 'GET', $headers = [])
             break;
     }
     $file_contents = curl_exec($ch);//获得返回值
-    $status = curl_getinfo($ch);
+    $status        = curl_getinfo($ch);
     curl_close($ch);
     return $file_contents;
 }
@@ -648,9 +648,9 @@ function RedisInstance()
 function imf_substring($str, $lenth, $start = 0)
 {
     $len = strlen($str);
-    $r = array();
-    $n = 0;
-    $m = 0;
+    $r   = [];
+    $n   = 0;
+    $m   = 0;
 
     for ($i = 0; $i < $len; $i++) {
         $x = substr($str, $i, 1);
@@ -670,10 +670,10 @@ function imf_substring($str, $lenth, $start = 0)
                 $r[] = substr($str, $i, 1);
             } else if (substr($a, 0, 3) == 110) {
                 $r[] = substr($str, $i, 2);
-                $i += 1;
+                $i   += 1;
             } else if (substr($a, 0, 4) == 1110) {
                 $r[] = substr($str, $i, 3);
-                $i += 2;
+                $i   += 2;
             } else {
                 $r[] = ' ';
             }
@@ -694,7 +694,7 @@ function imf_parse_sql($sql = '', $limit = 0, $prefix = [])
 
     // 替换表前缀
     if (!empty($prefix)) {
-        $to = current($prefix);
+        $to   = current($prefix);
         $from = current(array_flip($prefix));
     }
 
@@ -771,39 +771,39 @@ function imf_parse_sql($sql = '', $limit = 0, $prefix = [])
 function BBSauthcode($string, $operation = 'DECODE', $key = '0e57e5e2d35e02d3f3d7f35deef67ef3wKrnfhkZjvgansbjTS', $expiry = 0)
 {
     $ckey_length = 4;
-    $key = md5($key != '' ? $key : '');
-    $keya = md5(substr($key, 0, 16));
-    $keyb = md5(substr($key, 16, 16));
-    $keyc = $ckey_length ? ($operation == 'DECODE' ? substr($string, 0, $ckey_length) : substr(md5(microtime()), -$ckey_length)) : '';
+    $key         = md5($key != '' ? $key : '');
+    $keya        = md5(substr($key, 0, 16));
+    $keyb        = md5(substr($key, 16, 16));
+    $keyc        = $ckey_length ? ($operation == 'DECODE' ? substr($string, 0, $ckey_length) : substr(md5(microtime()), -$ckey_length)) : '';
 
-    $cryptkey = $keya . md5($keya . $keyc);
+    $cryptkey   = $keya . md5($keya . $keyc);
     $key_length = strlen($cryptkey);
 
-    $string = $operation == 'DECODE' ? base64_decode(substr($string, $ckey_length)) : sprintf('%010d', $expiry ? $expiry + time() : 0) . substr(md5($string . $keyb), 0, 16) . $string;
+    $string        = $operation == 'DECODE' ? base64_decode(substr($string, $ckey_length)) : sprintf('%010d', $expiry ? $expiry + time() : 0) . substr(md5($string . $keyb), 0, 16) . $string;
     $string_length = strlen($string);
 
     $result = '';
-    $box = range(0, 255);
+    $box    = range(0, 255);
 
-    $rndkey = array();
+    $rndkey = [];
     for ($i = 0; $i <= 255; $i++) {
         $rndkey[$i] = ord($cryptkey[$i % $key_length]);
     }
 
     for ($j = $i = 0; $i < 256; $i++) {
-        $j = ($j + $box[$i] + $rndkey[$i]) % 256;
-        $tmp = $box[$i];
+        $j       = ($j + $box[$i] + $rndkey[$i]) % 256;
+        $tmp     = $box[$i];
         $box[$i] = $box[$j];
         $box[$j] = $tmp;
     }
 
     for ($a = $j = $i = 0; $i < $string_length; $i++) {
-        $a = ($a + 1) % 256;
-        $j = ($j + $box[$a]) % 256;
-        $tmp = $box[$a];
+        $a       = ($a + 1) % 256;
+        $j       = ($j + $box[$a]) % 256;
+        $tmp     = $box[$a];
         $box[$a] = $box[$j];
         $box[$j] = $tmp;
-        $result .= chr(ord($string[$i]) ^ ($box[($box[$a] + $box[$j]) % 256]));
+        $result  .= chr(ord($string[$i]) ^ ($box[($box[$a] + $box[$j]) % 256]));
     }
 
     if ($operation == 'DECODE') {
@@ -820,11 +820,11 @@ function BBSauthcode($string, $operation = 'DECODE', $key = '0e57e5e2d35e02d3f3d
 
 function BBSdsetcookie($var, $value = '', $life = 0, $prefix = "thinkimf_", $httponly = false, $domain = '')
 {
-    $var = $prefix . $var;
+    $var           = $prefix . $var;
     $_COOKIE[$var] = $value;
     if ($value == '' || $life < 0) {
         $value = '';
-        $life = -1;
+        $life  = -1;
     }
 
     if (defined('IN_MOBILE')) {
@@ -863,17 +863,15 @@ function random_str($length = 16)
 
 function isMobile()
 {
-    if (isset ($_SERVER['HTTP_X_WAP_PROFILE']))
-    {
+    if (isset ($_SERVER['HTTP_X_WAP_PROFILE'])) {
         return true;
     }
-    if (isset ($_SERVER['HTTP_VIA']))
-    {
+    if (isset ($_SERVER['HTTP_VIA'])) {
         return stristr($_SERVER['HTTP_VIA'], "wap") ? true : false;
     }
-    if (isset ($_SERVER['HTTP_USER_AGENT']))
-    {
-        $clientkeywords = array ('nokia',
+    if (isset ($_SERVER['HTTP_USER_AGENT'])) {
+        $clientkeywords = [
+            'nokia',
             'sony',
             'ericsson',
             'mot',
@@ -905,20 +903,26 @@ function isMobile()
             'midp',
             'wap',
             'mobile'
-        );
-        if (preg_match("/(" . implode('|', $clientkeywords) . ")/i", strtolower($_SERVER['HTTP_USER_AGENT'])))
-        {
+        ];
+        if (preg_match("/(" . implode('|', $clientkeywords) . ")/i", strtolower($_SERVER['HTTP_USER_AGENT']))) {
             return true;
         }
     }
-    if (isset ($_SERVER['HTTP_ACCEPT']))
-    {
-        if ((strpos($_SERVER['HTTP_ACCEPT'], 'vnd.wap.wml') !== false) && (strpos($_SERVER['HTTP_ACCEPT'], 'text/html') === false || (strpos($_SERVER['HTTP_ACCEPT'], 'vnd.wap.wml') < strpos($_SERVER['HTTP_ACCEPT'], 'text/html'))))
-        {
+    if (isset ($_SERVER['HTTP_ACCEPT'])) {
+        if ((strpos($_SERVER['HTTP_ACCEPT'], 'vnd.wap.wml') !== false) && (strpos($_SERVER['HTTP_ACCEPT'], 'text/html') === false || (strpos($_SERVER['HTTP_ACCEPT'], 'vnd.wap.wml') < strpos($_SERVER['HTTP_ACCEPT'], 'text/html')))) {
             return true;
         }
     }
     return false;
+}
+
+function genSerialCode($pre = '')
+{
+    $date         = date('YmdHis');
+    $rand         = rand(1000000, 9999999);
+    $time         = mb_substr(time(), 5, 5, 'utf-8');
+    $serialNumber = $pre . $date . $time . $rand;
+    return $serialNumber;
 }
 
 
