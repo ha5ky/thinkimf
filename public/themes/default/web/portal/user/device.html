@@ -45,11 +45,25 @@
         table.on('tool(deviceList)', function (obj) {
             var data = obj.data;
             if (obj.event === 'view') {
-                location.href = '/portal/cloud/deviceDetail?device='+obj.data.device_id;
+                location.href = '/portal/cloud/deviceDetail?device=' + obj.data.device_id;
             }
             if (obj.event === 'del') {
                 layer.confirm('确定删除吗？', function (index) {
-                    //layer.ajax({url:'',});
+                    console.log(data);
+                    $.ajax({
+                        url: '/api/device/deleteDevice', dataType: 'json', type: 'post', data: {
+                            'device_id': data.device_id
+                        }, success: function (d) {
+                            if (d.code == 1) {
+                                layer.msg('删除成功！');
+                                setTimeout(function () {
+                                    location.reload()
+                                },800);
+                            } else {
+                                layer.msg(d.message);
+                            }
+                        }
+                    });
                     console.log(obj.data);
                 });
             }

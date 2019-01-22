@@ -87,9 +87,9 @@ class Device extends Base
         $page_size = $this->request->get('limit', 10);
 
         $offset = ($page - 1) * $page_size;
-        $total  = DeviceModel::where([])
+        $total  = DeviceModel::where([['status','<>',100]])
             ->field(['device_id', 'device_name', 'desc', 'status', 'location', 'create_at'])->count();
-        $list   = DeviceModel::where([])
+        $list   = DeviceModel::where([['status','<>',100]])
             ->field(['device_id', 'device_name', 'desc', 'status', 'location', 'create_at'])
             ->limit($offset,$page_size)->select()
             ->toArray();
@@ -129,9 +129,9 @@ class Device extends Base
     {
         $data   = $this->request->post();
         $device = new \app\api\model\Device();
-        if (empty($data['device_id']) || !is_numeric($data['device_id']))
+        if (empty($data['device_id']) || !is_string($data['device_id']))
             $this->json(-1, 'device_id为空或者格式不正确');
-        $find = \app\api\model\Device::get(['id' => $data['device_id']]);
+        $find = \app\api\model\Device::get(['device_id' => $data['device_id']]);
         if (!$find) {
             $this->json(-1, 'deviceid 为' . $data['device_id'] . '的数据记录不存在');
         }

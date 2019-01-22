@@ -65,7 +65,7 @@ class Device extends \think\Model
 
     public function softRemove($device_id)
     {
-        return $this->update(['status'=>DEVICE_STATUS_SOFTUNLINK],['id' => $device_id]);
+        return $this->update(['status'=>self::DEVICE_STATUS_SOFTUNLINK],['device_id' => $device_id]);
     }
 
 }
