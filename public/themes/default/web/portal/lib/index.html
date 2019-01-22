@@ -20,8 +20,29 @@
         background-image: url('/static/images/xx.jpg');
         background-size:100% 100%;
     }
-
+    .lib-nav{
+        height: 140px;
+        text-align: center;
+    }
+    .lib-nav div{border:1px solid #0e90d2;margin-left:5px;border-radius: 128px;cursor:pointer;}
 </style>
+<div class="layui-container" style="margin-bottom: 5px">
+    <div class="layui-row lib-nav">
+        <div style="font-size: 4em;line-height: 80px" class="rsjg layui-col-lg6  layui-anim" data-anim="layui-anim-scale">人生架构</div>
+        <div  style="font-size: 3em;line-height: 80px" class="tvimf layui-col-lg5 layui-col-lg-offset1 layui-anim" data-anim="layui-anim-scale">
+            <p>TV UNISSA<span style="color:red;font-size:16px;">（IMF 官方电视台）</span></p>
+        </div>
+    </div>
+    <script>
+        $(".rsjg").click(function () {
+            location.href = '/portal/lib/renshengjiagou';
+        });
+        $(".tvimf").click(function () {
+            location.href = '/portal/lib/tv';
+        });
+    </script>
+</div>
+<hr style="color:red;height: 2px"/>
 <div class="layui-container">
     <div class="layui-row">
         <!--人生实验室-->

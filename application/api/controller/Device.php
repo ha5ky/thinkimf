@@ -84,13 +84,15 @@ class Device extends Base
     public function deviceList()
     {
         $page      = $this->request->get('page', 1);
-        $page_size = $this->request->get('page_size', 20);
+        $page_size = $this->request->get('limit', 10);
 
         $offset = ($page - 1) * $page_size;
         $total  = DeviceModel::where([])
             ->field(['device_id', 'device_name', 'desc', 'status', 'location', 'create_at'])->count();
         $list   = DeviceModel::where([])
-            ->field(['device_id', 'device_name', 'desc', 'status', 'location', 'create_at'])->select()->toArray();
+            ->field(['device_id', 'device_name', 'desc', 'status', 'location', 'create_at'])
+            ->limit($offset,$page_size)->select()
+            ->toArray();
         foreach ($list as $k=>$v){
             $list[$k]['create_at'] = date('Y-m-d H:i:s',$v['create_at']);
         }
@@ -133,7 +135,7 @@ class Device extends Base
         if (!$find) {
             $this->json(-1, 'deviceid 为' . $data['device_id'] . '的数据记录不存在');
         }
-        $delete = $device->remove($data['device_id']);
+        $delete = $device->softRemove($data['device_id']);
         //信息保存到 redis
         if ($delete) {
             //RedisInstance()->del('device' . $data['device_id'], 1);

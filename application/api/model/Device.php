@@ -15,6 +15,7 @@ use function time;
 
 class Device extends \think\Model
 {
+    const DEVICE_STATUS_SOFTUNLINK = 100;
     protected $table = 'imf_device';
 
     public function add($data)
@@ -51,9 +52,20 @@ class Device extends \think\Model
         }
     }
 
+    /**
+     * @param $device_id
+     * @return int
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     */
     public function remove($device_id)
     {
         return $this->where(['id' => $device_id])->delete();
+    }
+
+    public function softRemove($device_id)
+    {
+        return $this->update(['status'=>DEVICE_STATUS_SOFTUNLINK],['id' => $device_id]);
     }
 
 }

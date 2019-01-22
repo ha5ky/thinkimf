@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <meta name="referrer" content="never">
+    <meta http-equiv="X-UA-Compatible" content="IE=11"/>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" id="viewport"
+          name="viewport">
+    <title>TV UNISSAIMF - UNISSAIMF TV电视台 - IMF研究院</title>
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
+    <link rel="icon" sizes="any" mask href="./favicon.ico">
+</head>
+<body marginwidth="0" marginheight="0" style="position:absolute;width:100%;top:0;bottom:0;backgroung:rgba(0,239,96,0.94)">
+<link rel="stylesheet" href="./Unissaplayer.min.css">
+<script src="./jquery.min.js"></script>
+<div id="player"></div>
+<script type="text/javascript" src="./hls.min.js"></script>
+<script type="text/javascript" src="Unissaplaery.min.js" charset="utf-8"></script>
+<script>
+    // 判断各种浏览器，找到正确的方法 进入全屏
+    function launchFullscreen (element) {
+        if (element.requestFullscreencreen) {
+            element.requestFullScreen()
+        } else if (element.mozRequestFullScreen) {
+            element.mozRequestFullScreen()
+        } else if (element.webkitRequestFullScreen) {
+            element.webkitRequestFullScreen()
+        } else if (element.msRequestFullScreen) {
+            element.msRequestFullScreen()
+        }
+    }
+    var dp = new UnissaPlayer({
+        element: document.getElementById('player'),
+        live: true,
+        loop: false,
+        video: {
+            url: "http://live.cgtn.com/1000/prog_index.m3u8",
+            type: 'hls'
+        },
+        logo: 'logo.png'
+    });
+    dp.play();
+</script>
+</body>
+</html>

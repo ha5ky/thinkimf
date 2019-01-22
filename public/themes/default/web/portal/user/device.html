@@ -6,6 +6,7 @@
             <table class="layui-hide" id="deviceList" lay-filter="deviceList"></table>
             <script type="text/html" id="barTool">
                 <a class="layui-btn layui-btn-xs" lay-event="view">查看</a>
+                <a class="layui-btn layui-btn-xs" lay-event="del">删除</a>
             </script>
         </div>
     </div>
@@ -44,8 +45,12 @@
         table.on('tool(deviceList)', function (obj) {
             var data = obj.data;
             if (obj.event === 'view') {
-                layer.confirm('真的查看吗？', function (index) {
-                    layer.msg("查看按钮ok");
+                location.href = '/portal/cloud/deviceDetail?device='+obj.data.device_id;
+            }
+            if (obj.event === 'del') {
+                layer.confirm('确定删除吗？', function (index) {
+                    //layer.ajax({url:'',});
+                    console.log(obj.data);
                 });
             }
         });
