@@ -10,6 +10,7 @@ namespace app\api\controller;
 
 use app\api\model\Messages;
 use app\api\model\Device;
+use app\portal\model\MessagesModel;
 use function var_dump;
 
 class Message extends AuthBase
@@ -47,30 +48,28 @@ class Message extends AuthBase
      */
     public function messageList()
     {
-        $condition['uuid'] = $this->request->get('user_id', session('userid'));
-        $device_id         = $this->request->get('device_id', false);
-        $page              = $this->request->get('page', 1);
-        $limit             = $this->request->get('limit', 10);
+        $uuid      = $this->request->get('user_id', session('userid'));
+        $device_id = $this->request->get('device_id', false);
+        $page      = $this->request->get('page', 1);
+        $limit     = $this->request->get('limit', 10);
+        if ($uuid)
+            $condition['uuid'] = $uuid;
         if ($device_id) {
             $condition['device_id'] = $device_id;
         }
-        $result          = [
-            'code'  => 0,
-            'msg'   => '',
-            'count' => '',
-            'data'  => []
-        ];
-        $offset          = ($page - 1) * $limit;
-        $messageModel    = new Messages();
-        $messageCount    = $messageModel->where($condition)
+        array_push($condition, ['status', '<>', 100]);
+
+        $offset       = ($page - 1) * $limit;
+        $messageCount = Messages::where($condition)
+            ->limit($offset, $limit)->select()
             ->count();
-        $messages        = Messages::Where($condition)
+        $messages     = Messages::Where($condition)
             ->limit($offset, $limit)
             ->select()->toArray();
-        $result['count'] = $messageCount;
-        $result['data']  =
-            $messages;
-        return $this->json($result);
+        return $this->json(1, "ok", [
+            'count' => $messageCount,
+            'rows'  => $messages
+        ]);
     }
 
     /**
@@ -93,21 +92,22 @@ class Message extends AuthBase
     }
 
     /**
-     * @desc 将信息删除
+     * @desc 移除消息，软删除
      */
-    public function markDelete()
+    public function messageRemove()
     {
-        $msgId = $this->request->get("id", 0);
+        $msgId = $this->request->get("message_id", 0);
         if ($msgId) {
             $condition = ['id' => $msgId];
         };
-        $messageModel = new Messages();
-        $result = [
-            'code' => 1,
-            'msg'  => 'ok',
-            'data' => []
-        ];
-        return $this->json($result);
+        $message         = MessagesModel::get(['id' => $msgId]);
+        $message->status = 100;
+        $f               = $message->save();
+        if ($f) {
+            $this->json(1, '删除成功');
+        } else {
+            $this->json(-1, '删除失败');
+        }
     }
 
     public function messageType()
