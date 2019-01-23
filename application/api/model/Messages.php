@@ -14,13 +14,7 @@ use function time;
 
 class Messages extends \think\Model
 {
-    protected $table = 'imf_data_message';
+    protected $table = 'imf_message';
 
-    public function getListByUid($uid)
-    {
-        $this->find([
-
-        ]);
-    }
 
 }
