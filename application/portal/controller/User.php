@@ -79,10 +79,24 @@ class User extends Base
     {
         if ($this->request->isPost()) {
         } else {
-            $this->assign('title', '我的数据');
+            $this->assign('title', '消息中心');
             /* $this->assign('description','');
              $this->assign('keywords','');*/
             return $this->fetch('user/message');
+        }
+    }
+
+    /**
+     * @desc 我的data
+     */
+    public function myData()
+    {
+        if ($this->request->isPost()) {
+        } else {
+            $this->assign('title', '我的数据');
+            /* $this->assign('description','');
+             $this->assign('keywords','');*/
+            return $this->fetch('user/data');
         }
     }
 

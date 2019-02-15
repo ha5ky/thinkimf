@@ -32,9 +32,22 @@
         ">
             <a href="/portal/user/myMessage">
                 <i class="layui-icon">&#xe663;</i>
-                我的数据
+                消息中心
             </a>
         </li>
+        <li class="layui-nav-item
+        <?php
+            if($_SERVER['REQUEST_URI'] == '/portal/user/myData'){
+                echo 'layui-this';
+            }
+        ?>
+        ">
+            <a href="/portal/user/myData">
+                <i class="layui-icon">&#xe62c;</i>
+                数据中心
+            </a>
+        </li>
+
         <li class="layui-nav-item
         <?php
             if($_SERVER['REQUEST_URI'] == '/portal/user/setting'){

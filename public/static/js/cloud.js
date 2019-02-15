@@ -45,13 +45,13 @@ $(function () {
             setInterval(function () {
                 $.get('/api/device/cloudlist',{
                 },function (d) {
-                    if(d.code == 200){
+                    if(d.code == 1){
                         // layui.use(['layer'], function () {
                         //     var layer = layui.layer;
                         //     layer.msg('获取设备列表成功!');
                         // });
                         map.clearOverlays();
-                        $.each(d.data,function ($k,$v) {
+                        $.each(d.data.list,function ($k,$v) {
                             //点渲染
                             var $infoString = '';
                             $infoString += '设备描述:'+$v.desc + '<br/>';
