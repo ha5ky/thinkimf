@@ -18,27 +18,28 @@
     <script src="/static/lib/layui/layui.js" charset="utf-8"></script>
     <script src="/static/js/App.js" charset="utf-8"></script>
 </head>
-<body>
-<div class="fly-header layui-bg-blue">
+<body style="margin-top: 61px">
+<div class="fly-header layui-bg-blue"
+     {if isset($onlyContent) && $onlyContent== true }
+        style="display: none"
+     {/if}
+>
     <div class="layui-container">
         <a class="fly-logo" href="/">
             <img src="/static/images/logo.png" alt="IMF">
         </a>
         <ul class="layui-nav fly-nav layui-hide-xs">
-            <li class="layui-nav-item"><a href="/portal/cloud/index"></a></li>
             <li class="layui-nav-item"><a href="//bbs.thinkimf.com">社区</a></li>
-            <li class="layui-nav-item"><a href="//bbs.thinkimf.com">技术文档</a></li>
             <li class="layui-nav-item"><a href="/portal/partner/index">合伙人招募</a></li>
-
             <li class="layui-nav-item">
                 <a href="/portal/cloud/index">设备地图</a>
             </li>
-            <li class="layui-nav-item">
+            <!--<li class="layui-nav-item">
                 <a href="/portal/cloud/adddevice">设备添加</a>
             </li>
             <li class="layui-nav-item">
                 <a href="/portal/cloud/mymessage">数据推送</a>
-            </li>
+            </li>-->
             <li class="layui-nav-item">
                 <a href="/portal/lib/index">IMF研究院</a>
             </li>

@@ -9,19 +9,19 @@
 
 namespace CloudServer\Controller;
 
-use const JSON_UNESCAPED_UNICODE;
-use function is_array;
-use function is_object;
-use function serialize;
 
 Class BaseController
 {
     public $result = [
-        'status' => 1,
-        'msg' => 'ok',
-        'msg_code' => '00001',
-        'data' => []
+        'code' => 1,
+        'msg'  => 'ok',
+        'data' => null
     ];
+
+    public function __construct()
+    {
+        $this->result['data'] = new \stdClass();
+    }
 
     public function json($re)
     {
@@ -32,6 +32,5 @@ Class BaseController
             exit(json_encode(serialize($re), JSON_UNESCAPED_UNICODE));
         }
         return false;
-
     }
 }

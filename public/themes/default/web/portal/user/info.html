@@ -73,7 +73,7 @@
                                     <button type="button" class="layui-btn upload-img" id="upload_img">
                                         <i class="layui-icon">&#xe67c;</i>上传头像
                                     </button>
-                                    <img  id="img_user" src=" <?= $user ? $user['img'] : 'https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg'?>">
+                                    <img  id="img_user" src="<?=trim($user['img'])?>">
                                     <span class="loading"></span>
                                 </div>
                             </div>

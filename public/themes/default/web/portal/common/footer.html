@@ -1,5 +1,13 @@
-<div class="layui-container layui-bg-red" style="height: 2px;"></div>
-<div class="layui-container">
+<div class="layui-container layui-bg-red" style="height: 2px;"
+     {if isset($onlyContent) && $onlyContent== true }
+     style="display: none"
+     {/if}
+></div>
+<div class="layui-container"
+     {if isset($onlyContent) && $onlyContent== true }
+     style="display: none"
+     {/if}
+>
     <!--<fieldset class="layui-elem-field layui-field-title">-->
         <!--<legend>全国分中心</legend>-->
         <!--<div class="layui-field-box">-->

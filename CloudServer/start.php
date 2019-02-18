@@ -18,7 +18,7 @@ $config = require_once APP_ROOT.DS.'config'.DS.'config.php';
 //生成 redis,mysql连接资源
 $dbConnection = new CloudServer\Core\db\PdoMysql($config['db']);
 
-$redisConnection = new CloudServer\Core\db\ImfRedis($config['redis']);
+//$redisConnection = new CloudServer\Core\db\ImfRedis($config['redis']);
 
 //var_dump($dbConnection->where([
 //    '_id'=>[
@@ -30,7 +30,7 @@ $redisConnection = new CloudServer\Core\db\ImfRedis($config['redis']);
 $cloud = new CloudServer\Core\InnovationCloud($config);
 
 $cloud->setDbConnection($dbConnection);
-$cloud->setRedisConnection($redisConnection);
+//$cloud->setRedisConnection($redisConnection);
 
 $cloud->run();
 

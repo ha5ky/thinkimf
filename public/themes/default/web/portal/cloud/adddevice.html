@@ -1,4 +1,5 @@
 <script type="text/javascript" src="//api.map.baidu.com/api?v=3.0&ak={$ak}"></script>
+<script type="text/javascript" src="/static/js/JsBarcode.all.min.js"></script>
 <div class="layui-container" style="margin-top:25px;">
     <fieldset class="layui-elem-field layui-field-title">
         <legend>添加设备</legend>
@@ -35,10 +36,16 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">设备设备ID</label>
+                    <label class="layui-form-label">设备ID</label>
                     <div class="layui-input-block">
                         <input type="text" name="device_id" lay-verify="required" autocomplete="off" placeholder="设备ID"
                                class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">设备ID条码</label>
+                    <div class="layui-input-block">
+                        <img id="deviceid_code128" style="width: 90%" />
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -67,14 +74,15 @@
                              echo 'value="1"';
                              }
                         ?> lay-verify="required" lay-skin="switch"
-                               lay-text=" 是|否">
+                        lay-text=" 是|否">
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label">数据上报</label>
                     <div class="layui-input-block">
-                        <input value="1" type="checkbox" name="upload_cloud" lay-verify="required" checked lay-skin="switch"
+                        <input value="1" type="checkbox" name="upload_cloud" lay-verify="required" checked
+                               lay-skin="switch"
                                lay-text="开|关">
                     </div>
                 </div>
@@ -93,7 +101,7 @@
                     <label class="layui-form-label">设备描述</label>
                     <div class="layui-input-block">
                         <input type="text" name="desc" lay-verify="required" autocomplete="off"
-                                value="一个充满无限可能的智能设备"
+                               value="一个充满无限可能的智能设备"
                                class="layui-input">
                     </div>
                 </div>
@@ -117,7 +125,9 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">版本</label>
                     <div class="layui-input-block">
-                        <input type="text" name="version" lay-verify="required" value="<?='V'.date('YmdHis').mt_rand(10000,99999)?>" autocomplete="off" placeholder="设备版本"
+                        <input type="text" name="version" lay-verify="required"
+                               value="<?='V'.date('YmdHis').mt_rand(10000,99999)?>" autocomplete="off"
+                               placeholder="设备版本"
                                class="layui-input">
                     </div>
                 </div>
@@ -139,7 +149,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">地理点</label>
                     <div class="layui-input-block">
-                        <input type="text" name="baidu_map_poi" lay-verify="required" autocomplete="off" placeholder="地理点"
+                        <input type="text" name="baidu_map_poi" lay-verify="required" autocomplete="off"
+                               placeholder="地理点"
                                class="layui-input">
                     </div>
                 </div>
@@ -172,21 +183,22 @@
         //监听提交
         form.on('submit(client)', function (data) {
 
-            if(data.field.is_fake){
-                data.field.is_fake  = 1;
-            }else{
-                data.field.is_fake  = 0;
+            if (data.field.is_fake) {
+                data.field.is_fake = 1;
+            } else {
+                data.field.is_fake = 0;
             }
-            if(data.field.upload_cloud){
-                data.field.upload_cloud  = 1;
-            }else{
-                data.field.upload_cloud  = 0;
+            if (data.field.upload_cloud) {
+                data.field.upload_cloud = 1;
+            } else {
+                data.field.upload_cloud = 0;
             }
-            if(data.field.accept_cloud){
-                data.field.accept_cloud  = 1;
-            }else{
-                data.field.accept_cloud  = 0;
+            if (data.field.accept_cloud) {
+                data.field.accept_cloud = 1;
+            } else {
+                data.field.accept_cloud = 0;
             }
+
             $.ajax({
                 url: '/api/device/adddevice',
                 type: 'post',
@@ -196,25 +208,26 @@
                     if (d.code == 1) {
                         //提示添加成功,之后跳转到设备详情页面
                         var infoIndex = layer.open({
-                            title:'恭喜你',
-                            icon:1,
-                            shade:0,
+                            title: '恭喜你',
+                            icon: 1,
+                            shade: 0,
                             content: '设备创建成功'
-                            ,btn: ['好的,去查看设备详情']
-                            ,yes: function(index, layero){
+                            , btn: ['好的，明白了,点击此处关闭']
+                            , yes: function (index, layero) {
                                 //按钮【按钮一】的回调
-                                location.href = '/portal/cloud/devicedetail?device_id='+data.field.device_id
+                                //location.href = '/portal/cloud/devicedetail?device_id='+data.field.device_id
+                                window.parent.location.reload();
                             }
                         });
-                    }else{
+                    } else {
                         //提示创建设备失败
                         var infoIndex = layer.open({
-                            title:'Whoops',
-                            icon:2,
-                            shade:0,
+                            title: 'Whoops',
+                            icon: 2,
+                            shade: 0,
                             content: d.message
-                            ,btn: ['知道了']
-                            ,yes: function(index, layero){
+                            , btn: ['知道了']
+                            , yes: function (index, layero) {
                                 location.reload()
                             }
                         });
@@ -235,6 +248,10 @@
                 $("input[name='appsecret']").attr('value', d.data.appsecret);
                 $("input[name='device_id']").attr('value', d.data.deviceid);
                 $("input[name='ip']").attr('value', d.data.ip);
+                $("#deviceid_code128").JsBarcode(d.data.deviceid,{
+                    format: "CODE128",//选择要使用的条形码类型
+                    height:100//高度
+                });
             } else {
                 layui.layer.msg(d.message);
             }
@@ -295,11 +312,7 @@
                                         $(".type3").css('display', 'none');
                                         form.render();
                                     }
-
-
                                 });
-
-
                             }
                         }, 'json');
 

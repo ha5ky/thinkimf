@@ -16,23 +16,24 @@ use function serialize;
 
 Class AuthBaseController
 {
+    public $result = [
+        'code' => 1,
+        'msg' => 'ok',
+        'data' => null
+    ];
+
     public function __construct()
     {
+        $this->result['data'] = new \stdClass();
         $this->initialize();
     }
 
     public function initialize($data = [])
     {
+
         $client = new \Swoole\Client('TCP',SWOOLE_SOCK_ASYNC);
         $client->connect();
     }
-
-    public $result = [
-        'status' => 1,
-        'msg' => 'ok',
-        'msg_code' => '00001',
-        'data' => []
-    ];
 
     public function json($re)
     {

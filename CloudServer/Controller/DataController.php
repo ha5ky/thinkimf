@@ -9,7 +9,7 @@
 
 namespace CloudServer\Controller;
 
-Class DeviceController extends BaseController
+Class DataController extends BaseController
 {
     public function index($ws,$data)
     {

@@ -91,6 +91,7 @@ class Device extends Base
             ->field(['device_id', 'device_name', 'desc', 'status', 'location', 'create_at'])->count();
         $list   = DeviceModel::where([['status','<>',100]])
             ->field(['device_id', 'device_name', 'desc', 'status', 'location', 'create_at'])
+            ->order("create_at desc")
             ->limit($offset,$page_size)->select()
             ->toArray();
         foreach ($list as $k=>$v){

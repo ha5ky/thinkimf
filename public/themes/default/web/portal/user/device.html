@@ -2,11 +2,16 @@
     <div class="layui-row">
         {include file="user/rightmenu" /}
         <div class="layui-col-lg9">
-
+            <script type="text/html" id="toolbarDemo">
+                <div class="layui-btn-container">
+                    <button class="layui-btn layui-btn-sm" lay-event="addDevice">添加设备</button>
+                </div>
+            </script>
             <table class="layui-hide" id="deviceList" lay-filter="deviceList"></table>
             <script type="text/html" id="barTool">
                 <a class="layui-btn layui-btn-xs" lay-event="view">查看</a>
                 <a class="layui-btn layui-btn-xs" lay-event="del">删除</a>
+                <a class="layui-btn layui-btn-xs" lay-event="sendMsg">发送消息</a>
             </script>
         </div>
     </div>
@@ -18,16 +23,16 @@
         table.render({
             elem: '#deviceList'
             , url: '/api/device/deviceList'
-            , toolbar: true
+            , toolbar: '#toolbarDemo'
             , title: '设备列表'
             , cols: [[
-                {field: 'device_id', title: '设备ID', width: 80, fixed: 'left'}
+                {field: 'device_id', title: '设备ID', width: 100, fixed: 'left'}
                 , {field: 'device_name', title: '设备名', width: 120}
                 , {field: 'desc', title: '简介', width: 150}
                 , {field: 'status', title: '状态', width: 80}
                 , {field: 'location', title: '设备部署地址', width: 120}
                 , {field: 'create_at', title: '创建时间', width: 120}
-                , {fixed: 'right', title: '操作', toolbar: '#barTool', width: 150}
+                , {fixed: 'right', title: '操作', toolbar: '#barTool', width: 200}
             ]]
             , page: true
             , response: {
@@ -58,13 +63,59 @@
                                 layer.msg('删除成功！');
                                 setTimeout(function () {
                                     location.reload()
-                                },800);
+                                }, 800);
                             } else {
                                 layer.msg(d.message);
                             }
                         }
                     });
                     console.log(obj.data);
+                });
+            }
+            if (obj.event == 'sendMsg') {
+                layer.open({
+                    type: 2 //此处以iframe举例
+                    ,title: '当你选择该窗体时，即会在最顶端'
+                    ,area: ['390px', '260px']
+                    ,shade: 0
+                    ,maxmin: true
+                    ,offset:'auto'
+                    ,content: '//layer.layui.com/test/settop.html'
+                    ,btn: ['继续弹出', '全部关闭'] //只是为了演示
+                    ,yes: function(){
+                        $(that).click();
+                    }
+                    ,btn2: function(){
+                        layer.closeAll();
+                    }
+
+                    ,zIndex: layer.zIndex //重点1
+                    ,success: function(layero){
+                        layer.setTop(layero); //重点2
+                    }
+                });
+            }
+        });
+
+        //头工具栏事件
+        table.on('toolbar(deviceList)', function (obj) {
+            if ('addDevice' == obj.event) {
+                layer.open({
+                    type: 2 //此处以iframe举例
+                    ,title: '添加设备'
+                    ,area: ['800px', '600px']
+                    ,shade: 0
+                    ,maxmin: true
+                    ,offset: 'auto'
+                    ,content: '/portal/cloud/adddevice'
+                    ,btn: ['关闭']
+                    ,btn2: function(){
+                      layer.closeAll()
+                    }
+                    ,zIndex: layer.zIndex //重点1
+                    ,success: function(layero){
+                        layer.setTop(layero); //重点2
+                    }
                 });
             }
         });
